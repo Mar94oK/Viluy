@@ -1,0 +1,16 @@
+.o
+.pdf
+.txt
+*.pro.user*
+*.qbs.user*
+share/translations/master_ru.qm
+*/build/*
+build/
+*~
+GeneratedFiles/*
+Win32/*
+debug/
+x64/
+
+build-*
+*.o
