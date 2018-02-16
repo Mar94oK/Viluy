@@ -10,6 +10,8 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+//Now to make the initial Interface.
+
 
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
