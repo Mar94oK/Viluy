@@ -51,8 +51,7 @@ signals:
 
 private:
 
-    QLabel *statusLabel;
-    QVBoxLayout * _mainLayout;
+
     std::vector<QLabel*> _connectedClients;
 
     QTcpServer *tcpServer;

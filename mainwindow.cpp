@@ -4,7 +4,6 @@
 ServerMainWindow::ServerMainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    statusLabel(new QLabel),
     tcpServer(Q_NULLPTR),
     networkSession(0)
 {
@@ -14,7 +13,7 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 
 
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    ui->lblServerInfo->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
@@ -34,7 +33,7 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
         networkSession = new QNetworkSession(config, this);
         connect(networkSession, &QNetworkSession::opened, this, &ServerMainWindow::sessionOpened);
 
-        statusLabel->setText(tr("Opening network session."));
+        ui->lblServerInfo->setText(tr("Opening network session."));
         networkSession->open();
     } else {
         sessionOpened();
@@ -51,50 +50,12 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
     //! [2]
         QPushButton *quitButton = new QPushButton(tr("Quit"));
         quitButton->setAutoDefault(false);
-        connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
+        connect(ui->btnExit, &QAbstractButton::clicked, this, &QWidget::close);
     //! [3]
         connect(tcpServer, &QTcpServer::newConnection, this, &ServerMainWindow::setUpNewConnection);
         connect(this, &ServerMainWindow::signal_sendFortune, this, &ServerMainWindow::sendFortune);
 
-
-    //! [3]
-        //connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
-
-        QHBoxLayout *buttonLayout = new QHBoxLayout;
-        buttonLayout->addStretch(1);
-        buttonLayout->addWidget(quitButton);
-        buttonLayout->addStretch(1);
-
-        //_mainLayout = Q_NULLPTR;
-        if (QGuiApplication::styleHints()->showIsFullScreen() || QGuiApplication::styleHints()->showIsMaximized()) {
-            QVBoxLayout *outerVerticalLayout = new QVBoxLayout(this);
-            outerVerticalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding));
-            QHBoxLayout *outerHorizontalLayout = new QHBoxLayout;
-            outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));
-            QGroupBox *groupBox = new QGroupBox(QGuiApplication::applicationDisplayName());
-            _mainLayout = new QVBoxLayout(groupBox);
-            outerHorizontalLayout->addWidget(groupBox);
-            outerHorizontalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::MinimumExpanding, QSizePolicy::Ignored));
-            outerVerticalLayout->addLayout(outerHorizontalLayout);
-            outerVerticalLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Ignored, QSizePolicy::MinimumExpanding));
-        } else {
-           // _mainLayout = new QVBoxLayout(this);
-        }
-
-        ui->mainLayout->addWidget(statusLabel);
-        ui->mainLayout->addLayout(buttonLayout);
-
         setWindowTitle(QGuiApplication::applicationDisplayName());
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -139,7 +100,7 @@ void ServerMainWindow::sessionOpened()
     // if we did not find one, use IPv4 localhost
     if (ipAddress.isEmpty())
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
-    statusLabel->setText(tr("The server is running on\n\nIP: %1\nport: %2\n\n"
+    ui->lblServerInfo->setText(tr("The server is running on\n\nIP: %1\nport: %2\n\n"
                             "Run the Fortune Client example now.")
                          .arg(ipAddress).arg(tcpServer->serverPort()));
 //! [1]
