@@ -9,9 +9,6 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//Now to make the initial Interface.
-
-
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->lblServerInfo->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
@@ -127,8 +124,7 @@ void ServerMainWindow::sendFortune(int socketDescriptor)
 
 
     clientConnection->write(block);
-    //clientConnection->disconnectFromHost();
-    //! [5]
+
 }
 
 void ServerMainWindow::setUpNewConnection()
@@ -143,13 +139,10 @@ void ServerMainWindow::setUpNewConnection()
 
     //connect the signal with the Specified slot.
     connect(clientConnection, &QIODevice::readyRead, [this, ID]{readTheClientName(ID);});
-//! [2] //! [4]
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
-//! [3]
             this, &ServerMainWindow::displayError);
-//! [4]
-//!
+
     //set-up Data Sterams;
     QDataStream* _newStream = new QDataStream();
 
@@ -197,11 +190,7 @@ void ServerMainWindow::readTheClientName(int socketDescriptor)
 
 
 
-
-
-
 }
-//! [8]
 
 
 void ServerMainWindow::displayError(QAbstractSocket::SocketError socketError)
