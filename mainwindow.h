@@ -20,6 +20,12 @@ typedef std::pair <QDataStream*, int> identifiedStreams;
 
 
 
+
+
+
+
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -58,10 +64,12 @@ private:
     QStringList fortunes;
     QNetworkSession *networkSession;
 
+    int _currentBuggedSocket = 0;
+
     std::vector<namedConnection> _establishedConnections;
     std::vector<identifiedStreams> _dataStreams;
 
-    int _currentBuggedSocket = 0;
+
 
 
 };

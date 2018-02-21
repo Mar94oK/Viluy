@@ -1,0 +1,116 @@
+#ifndef CARDSBORDERDEFINES_H
+#define CARDSBORDERDEFINES_H
+
+
+
+
+
+#define lowerBorder_Basic_doorsAmplifier 1
+#define upperBorder_Basic_doorsAmplifier 5
+#define lowerBorder_WildAxe_doorsAmplifier 96
+#define upperBorder_WildAxe_doorsAmplifier 98
+#define lowerBorder_ClericalErrors_doorsAmplifier 160
+#define upperBorder_ClericalErrors_doorsAmplifier 164
+
+#define lowerBorder_Basic_doorsCurses 6
+#define upperBorder_Basic_doorsCurses 24
+#define lowerBorder_WildAxe_doorsCurses 99
+#define upperBorder_WildAxe_doorsCurses 109
+#define lowerBorder_ClericalErrors_doorsCurses 165
+#define upperBorder_ClericalErrors_doorsCurses 172
+
+#define lowerBorder_Basic_doorsMonsters 25
+#define upperBorder_Basic_doorsMonsters 61
+#define lowerBorder_WildAxe_doorsMonsters 110
+#define upperBorder_WildAxe_doorsMonsters 136
+#define lowerBorder_ClericalErrors_doorsMonsters 173
+#define upperBorder_ClericalErrors_doorsMonsters 199
+
+#define lowerBorder_Basic_doorsProfessions 62
+#define upperBorder_Basic_doorsProfessions 73
+#define lowerBorder_WildAxe_doorsProfessions 137
+#define upperBorder_WildAxe_doorsProfessions 140
+#define lowerBorder_ClericalErrors_doorsProfessions 200
+#define upperBorder_ClericalErrors_doorsProfessions 208
+
+#define lowerBorder_Basic_doorsRaces 74
+#define upperBorder_Basic_doorsRaces 82
+#define lowerBorder_WildAxe_doorsRaces 141
+#define upperBorder_WildAxe_doorsRaces 147
+#define lowerBorder_ClericalErrors_doorsRaces 209
+#define upperBorder_ClericalErrors_doorsRaces 217
+
+#define lowerBorder_Basic_doorsSpecialMechanics 83
+#define upperBorder_Basic_doorsSpecialMechanics 95
+#define lowerBorder_WildAxe_doorsSpecialMechanics 148
+#define upperBorder_WildAxe_doorsSpecialMechanics 159
+#define lowerBorder_ClericalErrors_doorsSpecialMechanics 218
+#define upperBorder_ClericalErrors_doorsSpecialMechanics 225
+
+
+
+
+
+#define lowerBorder_Basic_treasuresArmor 1
+#define upperBorder_Basic_treasuresArmor 12
+#define lowerBorder_WildAxe_treasuresArmor 74
+#define upperBorder_WildAxe_treasuresArmor 78
+#define lowerBorder_ClericalErrors_treasuresArmor 118
+#define upperBorder_ClericalErrors_treasuresArmor 122
+
+
+#define lowerBorder_WildAxe_treasuresArmorAmplifier 79
+#define upperBorder_WildAxe_treasuresArmorAmplifier 79
+#define lowerBorder_ClericalErrors_treasuresArmorAmplifier 123
+#define upperBorder_ClericalErrors_treasuresArmorAmplifier 125
+
+#define lowerBorder_Basic_treasuresBattleAmplifier 13
+#define upperBorder_Basic_treasuresBattleAmplifier 23
+#define lowerBorder_WildAxe_treasuresBattleAmplifier 80
+#define upperBorder_WildAxe_treasuresBattleAmplifier 83
+#define lowerBorder_ClericalErrors_treasuresBattleAmplifier 126
+#define upperBorder_ClericalErrors_treasuresBattleAmplifier 131
+
+#define lowerBorder_Basic_treasuresLevelUp 24
+#define upperBorder_Basic_treasuresLevelUp 32
+#define lowerBorder_WildAxe_treasuresLevelUp 84
+#define upperBorder_WildAxe_treasuresLevelUp 90
+#define lowerBorder_ClericalErrors_treasuresLevelUp 132
+#define upperBorder_ClericalErrors_treasuresLevelUp 138
+
+#define lowerBorder_Basic_treasuresSpecialMechanics 33
+#define upperBorder_Basic_treasuresSpecialMechanics 47
+#define lowerBorder_WildAxe_treasuresSpecialMechanics 91
+#define upperBorder_WildAxe_treasuresSpecialMechanics 99
+#define lowerBorder_ClericalErrors_treasuresSpecialMechanics 139
+#define upperBorder_ClericalErrors_treasuresSpecialMechanics 151
+
+#define lowerBorder_Basic_treasuresThingsAmplifiers 48
+#define upperBorder_Basic_treasuresThingsAmplifiers 55
+#define lowerBorder_WildAxe_treasuresThingsAmplifiers 100
+#define upperBorder_WildAxe_treasuresThingsAmplifiers 107
+#define lowerBorder_ClericalErrors_treasuresThingsAmplifiers 152
+#define upperBorder_ClericalErrors_treasuresThingsAmplifiers 156
+
+#define lowerBorder_Basic_treasuresWeapon 56
+#define upperBorder_Basic_treasuresWeapon 73
+#define lowerBorder_WildAxe_treasuresWeapon 108
+#define upperBorder_WildAxe_treasuresWeapon 117
+#define lowerBorder_ClericalErrors_treasuresWeapon 157
+#define upperBorder_ClericalErrors_treasuresWeapon 163
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif // CARDSBORDERDEFINES_H

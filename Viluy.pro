@@ -25,8 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    room.cpp \
+    gamesettings.cpp \
+    card.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    room.h \
+    gamesettings.h \
+    card.h \
+    cardsborderdefines.h
 
 FORMS    += mainwindow.ui
