@@ -21,7 +21,7 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
 
 void ServerMainWindow::slot_showServerLogMessage(QString message)
 {
-    ui->lbl_ServerLog->setText(message);
+    ui->txtEdit_ServerLog->append(message);
 }
 
 void ServerMainWindow::slot_showServerErrorMessage(QString message)

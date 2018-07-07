@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     card.cpp \
     server.cpp \
     room.cpp \
-    serversettings.cpp
+    serversettings.cpp \
+    utilites.cpp
 
 HEADERS  += mainwindow.h \
     gamesettings.h \
@@ -38,6 +39,7 @@ HEADERS  += mainwindow.h \
     cardsborderdefines.h \
     server.h \
     room.h \
-    serversettings.h
+    serversettings.h \
+    utilites.h
 
 FORMS    += mainwindow.ui

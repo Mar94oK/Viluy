@@ -60,14 +60,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="lbl_ServerLog">
-      <property name="text">
-       <string>ServerLog</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
+     <widget class="QTextEdit" name="txtEdit_ServerLog"/>
     </item>
     <item>
      <widget class="QLabel" name="lbl_ServerErrorLog">

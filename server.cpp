@@ -1,6 +1,9 @@
 #include "server.h"
 #include <QDebug>
+#include <utilites.h>
 
+#define USE_VISUAL_DELAYS
+#undef USE_VISUAL_DELAYS
 #define ERROR_CODE_SERVER_DIDNT_START (-1)
 
 Server::Server(QObject *parent) : QObject(parent),
@@ -13,6 +16,7 @@ Server::Server(QObject *parent) : QObject(parent),
     QObject::connect(this, &Server::sig_serverErrorReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerErrorMessage);
     QObject::connect(this, &Server::sig_serverInfoReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerInfoMessage);
 
+
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
     slot_serverInitializaion();
@@ -22,6 +26,7 @@ Server::Server(QObject *parent) : QObject(parent),
 
 void Server::slot_serverInitializaion()
 {
+
     emit sig_serverLogReport("Entering server initialization...");
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
@@ -70,6 +75,7 @@ int Server::slot_sessionOpened()
     }
 
 //! [0] //! [1]
+
     emit sig_serverLogReport("Creating new TCP Server... ");
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
@@ -89,6 +95,7 @@ int Server::slot_sessionOpened()
         }
     }
     // if we did not find one, use IPv4 localhost
+
     emit sig_serverLogReport("If we did not find one, use IPv4 localhost... ");
     if (ipAddress.isEmpty())
     {
@@ -127,13 +134,12 @@ void Server::slot_sendFortune(int socketDescriptor)
 void Server::slot_setUpNewConnection()
 {
 
-    qDebug() << "Trying to establish connection...";
     emit sig_serverLogReport("Trying to establish connection...");
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     _establishedConnections.push_back({clientConnection, ""});
     //each socket has unique descriptor.
     //Therefore I can identify it by the usage of it's descriptor.
-    int ID = clientConnection->socketDescriptor();
+    long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
     connect(clientConnection, &QIODevice::readyRead, [this, ID]{slot_readTheClientName(ID);});
@@ -147,9 +153,8 @@ void Server::slot_setUpNewConnection()
     _newStream->setDevice(clientConnection);
     _newStream->setVersion(QDataStream::Qt_4_0);
 
+    emit sig_serverLogReport("Creating stream...");
     _dataStreams.push_back({_newStream, clientConnection->socketDescriptor()});
-
-
 
 }
 
@@ -170,6 +175,7 @@ void Server::slot_readTheClientName(int socketDescriptor)
 
      if (!in->commitTransaction())
          return;
+
 
      emit sig_serverLogReport(clientName);
      qDebug() << "Client Name: " << clientName;

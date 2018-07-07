@@ -18,8 +18,6 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    delay();
-
     Server serv(&w);
 //    QObject::connect(&serv, &Server::sig_serverLogReport, &w, &ServerMainWindow::slot_showServerLogMessage);
 //    QObject::connect(&serv, &Server::sig_serverErrorReport, &w, &ServerMainWindow::slot_showServerErrorMessage);
