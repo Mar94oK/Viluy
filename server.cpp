@@ -82,6 +82,7 @@ int Server::slot_sessionOpened()
                              "Run the Fortune Client example now.")
                           .arg(ipAddress).arg(tcpServer->serverPort()));
    //! [1]
+   return 0;
 }
 
 //! [4]
