@@ -19,13 +19,6 @@ typedef std::pair <QTcpSocket*, QString> namedConnection;
 typedef std::pair <QDataStream*, int> identifiedStreams;
 
 
-
-
-
-
-
-
-
 namespace Ui {
 class MainWindow;
 }
@@ -54,6 +47,12 @@ private slots:
 signals:
 
     void signal_sendFortune(int socketDescriptor);
+
+public slots:
+
+    void slot_showServerLogMessage(QString message);
+    void slot_showServerErrorMessage(QString message);
+    void slot_showServerInfoMessage(QString message);
 
 private:
 

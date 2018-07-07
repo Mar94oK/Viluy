@@ -1,17 +1,20 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "server.h"
+#include <QDebug>
 
-ServerMainWindow::ServerMainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    tcpServer(Q_NULLPTR),
-    networkSession(0)
+#define ERROR_CODE_SERVER_DIDNT_START (-1)
+
+Server::Server(QObject *parent) : QObject(parent)
 {
-    ui->setupUi(this);
+    qDebug() << "Starting to initialize the MunchkinServer";
+    setFortunes();
+    serverInitializaion();
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::slot_setUpNewConnection);
+    connect(this, &Server::sig_sendFortune, this, &Server::slot_sendFortune);
 
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    ui->lblServerInfo->setTextInteractionFlags(Qt::TextBrowserInteraction);
+}
 
+void Server::serverInitializaion()
+{
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
         // Get saved network configuration
@@ -28,36 +31,16 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
         }
 
         networkSession = new QNetworkSession(config, this);
-        connect(networkSession, &QNetworkSession::opened, this, &ServerMainWindow::sessionOpened);
+        connect(networkSession, &QNetworkSession::opened, this, &Server::slot_sessionOpened);
 
-        ui->lblServerInfo->setText(tr("Opening network session."));
+        qDebug() << tr("Opening network session.");
         networkSession->open();
     } else {
-        sessionOpened();
+        slot_sessionOpened();
     }
-
-    //! [2]
-        fortunes << tr("You've been leading a dog's life. Stay off the furniture.")
-                 << tr("You've got to think about tomorrow.")
-                 << tr("You will be surprised by a loud noise.")
-                 << tr("You will feel hungry again in another hour.")
-                 << tr("You might have mail.")
-                 << tr("You cannot kill time without injuring eternity.")
-                 << tr("Computers are not intelligent. They only think they are.");
-    //! [2]
-        QPushButton *quitButton = new QPushButton(tr("Quit"));
-        quitButton->setAutoDefault(false);
-        connect(ui->btnExit, &QAbstractButton::clicked, this, &QWidget::close);
-    //! [3]
-        connect(tcpServer, &QTcpServer::newConnection, this, &ServerMainWindow::setUpNewConnection);
-        connect(this, &ServerMainWindow::signal_sendFortune, this, &ServerMainWindow::sendFortune);
-
-        setWindowTitle(QGuiApplication::applicationDisplayName());
-
 }
 
-
-void ServerMainWindow::sessionOpened()
+int Server::slot_sessionOpened()
 {
     // Save the used configuration
     if (networkSession) {
@@ -77,11 +60,9 @@ void ServerMainWindow::sessionOpened()
 //! [0] //! [1]
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
-        QMessageBox::critical(this, tr("Fortune Server"),
-                              tr("Unable to start the server: %1.")
-                              .arg(tcpServer->errorString()));
-        close();
-        return;
+       emit sig_serverErrorReport(tr("Unable to start the Munchkin Server: %1.")
+                                  .arg(tcpServer->errorString()));
+       return ERROR_CODE_SERVER_DIDNT_START;
     }
 //! [0]
     QString ipAddress;
@@ -97,14 +78,14 @@ void ServerMainWindow::sessionOpened()
     // if we did not find one, use IPv4 localhost
     if (ipAddress.isEmpty())
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
-    ui->lblServerInfo->setText(tr("The server is running on\n\nIP: %1\nport: %2\n\n"
-                            "Run the Fortune Client example now.")
-                         .arg(ipAddress).arg(tcpServer->serverPort()));
-//! [1]
+    emit sig_serverInfoReport(tr("The Munchkin Server is running on\n\nIP: %1\nport: %2\n\n"
+                             "Run the Fortune Client example now.")
+                          .arg(ipAddress).arg(tcpServer->serverPort()));
+   //! [1]
 }
 
 //! [4]
-void ServerMainWindow::sendFortune(int socketDescriptor)
+void Server::slot_sendFortune(int socketDescriptor)
 {
 //! [5]
     QByteArray block;
@@ -121,13 +102,10 @@ void ServerMainWindow::sendFortune(int socketDescriptor)
             clientConnection = _establishedConnections[var].first;
 
     }
-
-
     clientConnection->write(block);
-
 }
 
-void ServerMainWindow::setUpNewConnection()
+void Server::slot_setUpNewConnection()
 {
 
     qDebug() << "Trying to establish connection...";
@@ -138,10 +116,10 @@ void ServerMainWindow::setUpNewConnection()
     int ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
-    connect(clientConnection, &QIODevice::readyRead, [this, ID]{readTheClientName(ID);});
+    connect(clientConnection, &QIODevice::readyRead, [this, ID]{slot_readTheClientName(ID);});
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
-            this, &ServerMainWindow::displayError);
+            this, &Server::slot_reportError);
 
     //set-up Data Sterams;
     QDataStream* _newStream = new QDataStream();
@@ -155,7 +133,7 @@ void ServerMainWindow::setUpNewConnection()
 
 }
 
-void ServerMainWindow::readTheClientName(int socketDescriptor)
+void Server::slot_readTheClientName(int socketDescriptor)
 {
      qDebug() << "Trying to read the info...";
      QDataStream* in = nullptr;
@@ -173,10 +151,8 @@ void ServerMainWindow::readTheClientName(int socketDescriptor)
      if (!in->commitTransaction())
          return;
 
-     QLabel* newConnectionName = new QLabel(this);
-
-     newConnectionName->setText(clientName);
-     ui->mainLayout->addWidget(newConnectionName);
+     emit sig_serverLogReport(clientName);
+     qDebug() << "Client Name: " << clientName;
 
      for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
 
@@ -186,59 +162,40 @@ void ServerMainWindow::readTheClientName(int socketDescriptor)
      }
 
      //find the connection
-     emit signal_sendFortune(socketDescriptor);
-
-
-
+     emit sig_sendFortune(socketDescriptor);
 }
 
 
-void ServerMainWindow::displayError(QAbstractSocket::SocketError socketError)
+void Server::slot_reportError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
     case QAbstractSocket::RemoteHostClosedError:
         break;
     case QAbstractSocket::HostNotFoundError:
-        QMessageBox::information(this, tr("Fortune Server"),
-                                 tr("The host was not found. Please check the "
+        emit sig_serverLogReport(tr("Munchkin Server: The host was not found. Please check the "
                                     "host name and port settings."));
         break;
     case QAbstractSocket::ConnectionRefusedError:
-        QMessageBox::information(this, tr("Fortune Server"),
-                                 tr("The connection was refused by the peer. "
+        emit sig_serverLogReport(tr("Munchkin Server: The connection was refused by the peer. "
                                     "Make sure the fortune server is running, "
                                     "and check that the host name and port "
                                     "settings are correct."));
         break;
     default:
-
-        QMessageBox::information(this, tr("Fortune Server"),
-                                 tr("The following error occurred: %1.")
-                                 .arg((static_cast<QTcpSocket*>(QObject::sender()))->errorString()));
+       emit sig_serverLogReport(tr("Munchkin Server: The following error occurred: %1.")
+                             .arg((static_cast<QTcpSocket*>(QObject::sender()))->errorString()));
     }
 
 
 }
 
-void ServerMainWindow::slot_showServerLogMessage(QString message)
+void Server::setFortunes()
 {
-    ui->lblServerInfo->setText(message);
-}
-
-void ServerMainWindow::slot_showServerErrorMessage(QString message)
-{
-    ui->lbl_ServerErrorLog->setText(message);
-}
-
-void ServerMainWindow::slot_showServerInfoMessage(QString message)
-{
-    ui->lblServerInfo->setText(message);
-}
-
-
-
-
-ServerMainWindow::~ServerMainWindow()
-{
-    delete ui;
+    fortunes << tr("You've been leading a dog's life. Stay off the furniture.")
+             << tr("You've got to think about tomorrow.")
+             << tr("You will be surprised by a loud noise.")
+             << tr("You will feel hungry again in another hour.")
+             << tr("You might have mail.")
+             << tr("You cannot kill time without injuring eternity.")
+             << tr("Computers are not intelligent. They only think they are.");
 }

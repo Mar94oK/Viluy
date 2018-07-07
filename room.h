@@ -1,18 +1,29 @@
 #ifndef ROOM_H
 #define ROOM_H
 
+#include <QObject>
+enum class RulesType {Ordinary, Realistyc};
 
-//class Settings;
-
-class Room
+class Room : public QObject
 {
-    int _numberOfPlayers;
-    //Settings _currentSettings;
-
-
-
+    Q_OBJECT
 public:
-    Room();
+    explicit Room(QObject *parent = 0);
+
+    int numberOfPlayers() const;
+    void setNumberOfPlayers(int numberOfPlayers);
+
+    RulesType rulesType() const;
+    void setRulesType(const RulesType &rulesType);
+
+private:
+
+    int _numberOfPlayers;
+    RulesType _rulesType;
+
+signals:
+
+public slots:
 };
 
 #endif // ROOM_H
