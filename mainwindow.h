@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <QNetworkSession>
 #include <QTcpServer>
+#include <QMainWindow>
+
+#include <server.h>
 
 typedef std::pair <QTcpSocket*, QString> namedConnection;
 typedef std::pair <QDataStream*, int> identifiedStreams;
@@ -34,19 +37,14 @@ public:
 private:
     Ui::MainWindow *ui;
 
+private:
+
+
 private slots:
-
-    void sessionOpened();
-    void sendFortune(int socketDescriptor);
-
-    void setUpNewConnection();
-    void readTheClientName(int socketDescriptor);
-    void displayError(QAbstractSocket::SocketError);
 
 
 signals:
 
-    void signal_sendFortune(int socketDescriptor);
 
 public slots:
 
@@ -55,21 +53,6 @@ public slots:
     void slot_showServerInfoMessage(QString message);
 
 private:
-
-
-    std::vector<QLabel*> _connectedClients;
-
-    QTcpServer *tcpServer;
-    QStringList fortunes;
-    QNetworkSession *networkSession;
-
-    int _currentBuggedSocket = 0;
-
-    std::vector<namedConnection> _establishedConnections;
-    std::vector<identifiedStreams> _dataStreams;
-
-
-
 
 };
 

@@ -3,18 +3,26 @@
 
 #define ERROR_CODE_SERVER_DIDNT_START (-1)
 
-Server::Server(QObject *parent) : QObject(parent)
+Server::Server(QObject *parent) : QObject(parent),
+    tcpServer(Q_NULLPTR),
+    networkSession(0)
 {
-    qDebug() << "Starting to initialize the MunchkinServer";
+
     setFortunes();
-    serverInitializaion();
+    QObject::connect(this, &Server::sig_serverLogReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerLogMessage);
+    QObject::connect(this, &Server::sig_serverErrorReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerErrorMessage);
+    QObject::connect(this, &Server::sig_serverInfoReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerInfoMessage);
+
+    emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
+
+    slot_serverInitializaion();
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::slot_setUpNewConnection);
     connect(this, &Server::sig_sendFortune, this, &Server::slot_sendFortune);
-
 }
 
-void Server::serverInitializaion()
+void Server::slot_serverInitializaion()
 {
+    emit sig_serverLogReport("Entering server initialization...");
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
         // Get saved network configuration
@@ -30,12 +38,16 @@ void Server::serverInitializaion()
             config = manager.defaultConfiguration();
         }
 
+        emit sig_serverLogReport("Creating new network session...");
         networkSession = new QNetworkSession(config, this);
         connect(networkSession, &QNetworkSession::opened, this, &Server::slot_sessionOpened);
 
-        qDebug() << tr("Opening network session.");
+        emit sig_serverLogReport("Opening network session.");
         networkSession->open();
-    } else {
+    }
+    else
+    {
+        emit sig_serverInfoReport("Session is already opened! ");
         slot_sessionOpened();
     }
 }
@@ -58,6 +70,7 @@ int Server::slot_sessionOpened()
     }
 
 //! [0] //! [1]
+    emit sig_serverLogReport("Creating new TCP Server... ");
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
        emit sig_serverErrorReport(tr("Unable to start the Munchkin Server: %1.")
@@ -76,8 +89,13 @@ int Server::slot_sessionOpened()
         }
     }
     // if we did not find one, use IPv4 localhost
+    emit sig_serverLogReport("If we did not find one, use IPv4 localhost... ");
     if (ipAddress.isEmpty())
+    {
+        qDebug() << "if ipAddress.isEmpty()...";
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
+    }
+    emit sig_serverLogReport("Server is running!");
     emit sig_serverInfoReport(tr("The Munchkin Server is running on\n\nIP: %1\nport: %2\n\n"
                              "Run the Fortune Client example now.")
                           .arg(ipAddress).arg(tcpServer->serverPort()));
@@ -110,6 +128,7 @@ void Server::slot_setUpNewConnection()
 {
 
     qDebug() << "Trying to establish connection...";
+    emit sig_serverLogReport("Trying to establish connection...");
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     _establishedConnections.push_back({clientConnection, ""});
     //each socket has unique descriptor.

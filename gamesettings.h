@@ -3,15 +3,10 @@
 
 #include <card.h>
 
-
-
 class GameSettings
 {
     bool _normalMode;
     int _numberOfAddons;
-
-
-
 
 public:
     GameSettings();

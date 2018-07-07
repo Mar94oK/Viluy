@@ -12,6 +12,9 @@
 
 #include <serversettings.h>
 
+//since it is necessary to report everything during server init, the Window should already be created.
+#include <mainwindow.h>
+
 typedef std::pair <QTcpSocket*, QString> namedConnection;
 typedef std::pair <QDataStream*, int> identifiedStreams;
 
@@ -25,7 +28,7 @@ class Server : public QObject
 {
     Q_OBJECT
 public:
-    explicit Server(QObject *parent = 0);
+    explicit Server( QObject *parent = 0);
 
 
 private:
@@ -40,6 +43,7 @@ private:
     std::vector<identifiedStreams> _dataStreams;
 
     ServerSettings _settings;
+
 
 signals:
 
@@ -60,7 +64,7 @@ private slots:
 private:
 
     void setFortunes();
-    void serverInitializaion();
+    void slot_serverInitializaion();
 
 };
 
