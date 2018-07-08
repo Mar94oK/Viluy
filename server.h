@@ -58,7 +58,7 @@ private slots:
     int slot_sessionOpened();
     void slot_sendFortune(int socketDescriptor);
     void slot_setUpNewConnection();
-    void slot_readTheClientName(int socketDescriptor);
+    void slot_readIncomingData(int socketDescriptor);
     void slot_reportError(QAbstractSocket::SocketError);
 
 private:

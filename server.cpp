@@ -103,8 +103,7 @@ int Server::slot_sessionOpened()
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
     }
     emit sig_serverLogReport("Server is running!");
-    emit sig_serverInfoReport(tr("The Munchkin Server is running on\n\nIP: %1\nport: %2\n\n"
-                             "Run the Fortune Client example now.")
+    emit sig_serverInfoReport(tr("The Munchkin Server is running on\n\nIP: %1\nport: %2\n\n")
                           .arg(ipAddress).arg(tcpServer->serverPort()));
    //! [1]
    return 0;
@@ -142,7 +141,7 @@ void Server::slot_setUpNewConnection()
     long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
-    connect(clientConnection, &QIODevice::readyRead, [this, ID]{slot_readTheClientName(ID);});
+    connect(clientConnection, &QIODevice::readyRead, [this, ID]{slot_readIncomingData(ID);});
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
@@ -158,7 +157,7 @@ void Server::slot_setUpNewConnection()
 
 }
 
-void Server::slot_readTheClientName(int socketDescriptor)
+void Server::slot_readIncomingData(int socketDescriptor)
 {
      qDebug() << "Trying to read the info...";
      QDataStream* in = nullptr;
