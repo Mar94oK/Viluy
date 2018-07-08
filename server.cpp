@@ -159,13 +159,12 @@ void Server::slot_setUpNewConnection()
 
 void Server::slot_readIncomingData(int socketDescriptor)
 {
-     qDebug() << "Trying to read the info...";
+     emit sig_serverLogReport("Trying to read the info...");
      QDataStream* in = nullptr;
      for (unsigned int var = 0; var < _dataStreams.size(); ++var) {
          if (_dataStreams[var].second == socketDescriptor )
              in = _dataStreams[var].first;
      }
-
 
      in->startTransaction();
      QString clientName;
@@ -174,7 +173,6 @@ void Server::slot_readIncomingData(int socketDescriptor)
 
      if (!in->commitTransaction())
          return;
-
 
      emit sig_serverLogReport(clientName);
      qDebug() << "Client Name: " << clientName;
