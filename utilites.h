@@ -14,12 +14,7 @@ public:
     static void delay_seconds(int seconds);
 };
 
-void Utilites::delay_seconds(int seconds)
-{
-    QTime dieTime= QTime::currentTime().addSecs(seconds);
-    while (QTime::currentTime() < dieTime)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-}
+
 
 
 #endif // UTILITES_H
