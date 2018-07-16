@@ -35,8 +35,6 @@ void ServerMainWindow::slot_showServerInfoMessage(QString message)
 }
 
 
-
-
 ServerMainWindow::~ServerMainWindow()
 {
     delete ui;
