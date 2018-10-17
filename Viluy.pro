@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     server.cpp \
     room.cpp \
     serversettings.cpp \
-    utilites.cpp
+    utilites.cpp \
+    addressBook.pb.cc
 
 HEADERS  += mainwindow.h \
     gamesettings.h \
@@ -40,6 +41,15 @@ HEADERS  += mainwindow.h \
     server.h \
     room.h \
     serversettings.h \
-    utilites.h
+    utilites.h \
+    addressBook.pb.h
 
 FORMS    += mainwindow.ui
+
+INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\include"
+INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\lib"
+INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows"
+#LIBS += -lprotobuf
+#LIBS += -L"D:\vpkg\vcpkg\installed\x64-windows\lib" -llibprotobuf
+#LIBS += -L
+LIBS += -L-lprotobuf
