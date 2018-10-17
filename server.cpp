@@ -60,6 +60,8 @@ Server::Server(QObject *parent) : QObject(parent),
     std::string msg;
     src_book.SerializeToString(&msg);
 
+    qDebug() << "Book string: " << QString::fromStdString(msg);
+
     tutorial::AddressBook dst_book;
     dst_book.ParseFromString(msg);
 

@@ -46,10 +46,20 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\include"
-INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\lib"
-INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows"
+#INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\include"
+#INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\lib"
+#INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows"
 #LIBS += -lprotobuf
 #LIBS += -L"D:\vpkg\vcpkg\installed\x64-windows\lib" -llibprotobuf
 #LIBS += -L
-LIBS += -L-lprotobuf
+#LIBS += -L-lprotobuf
+#INCLUDEPATH += "/usr/local/lib/"
+#LIBS += -lprotobuf
+LIBS += /usr/local/lib/libprotobuf.a
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../usr/local/lib/release/ -lprotobuf
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../usr/local/lib/debug/ -lprotobuf
+#else:unix: LIBS += -L$$PWD/../../../../usr/local/lib/ -lprotobuf
+
+#INCLUDEPATH += $$PWD/../../../../usr/local/include
+#DEPENDPATH += $$PWD/../../../../usr/local/include
