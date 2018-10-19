@@ -1,0 +1,30 @@
+ToDo List.
+
+Initialialized on October 18.10.2018
+
+Started 18.04.2018
+
+VIL-0001
+1. Develop the connection-message standard for the
+    connection initialization between client and server.
+
+Fields:
+    clientName (std::string)
+    gameRequest (bool)
+                true  == CreateGame
+                false == JoinGame
+    gameType(msg)
+                bool    AddOnWildAxe
+                bool    ClericalErrors
+                u32     rulesType
+                u32     totalPlayers
+                bool    ratingGame
+
+
+
+
+
+
+
+
+

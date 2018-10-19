@@ -1,0 +1,35 @@
+syntax = "proto3";
+package serverMessageSystem;
+
+enum RulesType
+{
+    Automatic = 0;
+    Manual = 1;
+}
+
+message GameType
+{
+    bool hasAddonWildAxe = 1;
+    bool hasAddonClericalErrors = 2;
+    RulesType rulesType = 3;
+}
+
+//Initial message from client while connecting
+//to the server at the first time.
+//No necessity to set the "gameType" field if default settings
+//are provided
+
+enum GameCreationRequest
+{
+    JoinTheGame = 0;
+    CreateTheGame = 1;
+}
+
+message ClientEnteringRequest
+{
+    uint32 messageID = 1;
+    string clientName = 2;
+    GameCreationRequest enteringRequest = 3;
+    GameType gameType = 4;
+}
+

@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     room.cpp \
     serversettings.cpp \
     utilites.cpp \
-    addressBook.pb.cc
+    addressBook.pb.cc \
+    serverMessageSystem.pb.cc
 
 HEADERS  += mainwindow.h \
     gamesettings.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwindow.h \
     room.h \
     serversettings.h \
     utilites.h \
-    addressBook.pb.h
+    addressBook.pb.h \
+    serverMessageSystem.pb.h
 
 FORMS    += mainwindow.ui
 
@@ -63,3 +65,7 @@ LIBS += /usr/local/lib/libprotobuf.a
 
 #INCLUDEPATH += $$PWD/../../../../usr/local/include
 #DEPENDPATH += $$PWD/../../../../usr/local/include
+
+DISTFILES += \
+    ToDoList \
+    serverMessageSystem.proto
