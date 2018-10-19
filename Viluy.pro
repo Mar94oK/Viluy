@@ -32,7 +32,6 @@ SOURCES += main.cpp\
     room.cpp \
     serversettings.cpp \
     utilites.cpp \
-    addressBook.pb.cc \
     serverMessageSystem.pb.cc
 
 HEADERS  += mainwindow.h \
@@ -43,7 +42,6 @@ HEADERS  += mainwindow.h \
     room.h \
     serversettings.h \
     utilites.h \
-    addressBook.pb.h \
     serverMessageSystem.pb.h
 
 FORMS    += mainwindow.ui

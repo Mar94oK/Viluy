@@ -1,7 +1,5 @@
 #ifndef SERVERSETTINGS_H
 #define SERVERSETTINGS_H
-#include "addressBook.pb.h"
-
 
 class ServerSettings
 {

@@ -1,7 +1,6 @@
 #include "server.h"
 #include <QDebug>
 #include <utilites.h>
-#include "addressBook.pb.h"
 #include "serverMessageSystem.pb.h"
 
 #define USE_VISUAL_DELAYS
