@@ -1,0 +1,36 @@
+Usefull Links:
+https://stackoverflow.com/questions/9243816/how-to-build-googles-protobuf-in-windows-using-mingw
+GoogleProtobuf:
+https://developers.google.com/protocol-buffers/docs/downloads
+
+Google Protobuf should be archive! (or clone repo!)
+
+Statically:
+1. Install MSYS2.
+But DO NOT build!!!!
+2. Use EXACTLY THE SAME compiler used for build QT application
+So got to the MSYS bash and make the next:
+
+
+1. Export compiler PATH!
+export PATH=/c/Qt/Tools/mingw530_32/bin/:$PATH
+2. check which gcc, which g++
+which.exe gcc
+which.exe g++
+2. got to the source folder:
+cd TheNewestProtobuf/
+cd protobuf-3.6.1/
+3. Configure, make, make install
+./configure --prefix=`cd /mingw; pwd -W`
+make
+make install
+4. Libs will be there:
+D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
+SRC there: (google folder - includes...)
+D:\TheNewestProtobuf\protobuf-3.6.1\src
+
+5. Add the lib to the QT project:
+else:win32: LIBS += D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
+win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
+
+

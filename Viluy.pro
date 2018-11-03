@@ -57,9 +57,13 @@ FORMS    += mainwindow.ui
 #LIBS += -L-lprotobuf
 #INCLUDEPATH += "/usr/local/lib/"
 #LIBS += -lprotobuf
+
+
 unix: LIBS += /usr/local/lib/libprotobuf.a
-else:win32: LIBS += D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
-win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
+#else:win32: LIBS += D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
+#win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
+
+
 #win32: INCLUDEPATH += "D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs"
 #win32: DEPENDPATH += "D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs"
 
@@ -92,3 +96,13 @@ DISTFILES += \
 
 #win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/protobuf.lib
 #else:win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/libprotobuf.a
+
+
+
+win32: LIBS += $$PWD/Libs/libprotobuf.a
+
+INCLUDEPATH += $$PWD/Includes
+DEPENDPATH += $$PWD/Includes
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Libs/protobuf.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/Libs/libprotobuf.a
