@@ -7,6 +7,8 @@
 QT       += core gui
 QT       += network
 
+#CONFIG += c++17
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Viluy
@@ -26,23 +28,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    gamesettings.cpp \
-    card.cpp \
-    server.cpp \
-    room.cpp \
-    serversettings.cpp \
-    utilites.cpp \
-    serverMessageSystem.pb.cc
+        gamesettings.cpp \
+        card.cpp \
+        server.cpp \
+        room.cpp \
+        serversettings.cpp \
+        utilites.cpp \
+        serverMessageSystem.pb.cc
 
 HEADERS  += mainwindow.h \
-    gamesettings.h \
-    card.h \
-    cardsborderdefines.h \
-    server.h \
-    room.h \
-    serversettings.h \
-    utilites.h \
-    serverMessageSystem.pb.h
+        gamesettings.h \
+        card.h \
+        cardsborderdefines.h \
+        server.h \
+        room.h \
+        serversettings.h \
+        utilites.h \
+        serverMessageSystem.pb.h
 
 FORMS    += mainwindow.ui
 
@@ -55,8 +57,19 @@ FORMS    += mainwindow.ui
 #LIBS += -L-lprotobuf
 #INCLUDEPATH += "/usr/local/lib/"
 #LIBS += -lprotobuf
-LIBS += /usr/local/lib/libprotobuf.a
+unix: LIBS += /usr/local/lib/libprotobuf.a
+else:win32: LIBS += D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
+win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
+#win32: INCLUDEPATH += "D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs"
+#win32: DEPENDPATH += "D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs"
 
+#win32: PRE_TARGETDEPS += "D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs\libprotoc.a"
+
+#else:win32: LIBS += libprotobuf.a
+#else:win32: LIBS += C:\Qt\5.8\mingw53_32\lib\libprotobuf.a
+#else:win32: LIBS += -lprotobuf
+#win32: INCLUDEPATH += D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src
+#win32: INCLUDEPATH += D:\Protobuf\protobuf-cpp-3.6.1\protobuf-3.6.1\src\.libs
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../usr/local/lib/release/ -lprotobuf
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../usr/local/lib/debug/ -lprotobuf
 #else:unix: LIBS += -L$$PWD/../../../../usr/local/lib/ -lprotobuf
@@ -67,3 +80,14 @@ LIBS += /usr/local/lib/libprotobuf.a
 DISTFILES += \
     ToDoList \
     serverMessageSystem.proto
+
+
+
+#win32: LIBS += -llibprotobuf
+#win32:INCLUDEPATH += "..\\...\\directoty_protobuf\\src"
+#INCLUDEPATH += "D:\\Protobuf\\protobuf-cpp-3.6.1\\protobuf-3.6.1\\src"
+#INCLUDEPATH += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs
+#DEPENDPATH += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs
+
+#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/protobuf.lib
+#else:win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/libprotobuf.a
