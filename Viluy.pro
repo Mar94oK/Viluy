@@ -79,7 +79,8 @@ win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
 
 DISTFILES += \
     ToDoList \
-    serverMessageSystem.proto
+    serverMessageSystem.proto \
+    ProtobufWin32BuildNotes.txt
 
 
 
