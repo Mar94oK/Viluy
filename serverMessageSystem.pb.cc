@@ -6,28 +6,36 @@
 #include <algorithm>
 
 #include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
+// This is a temporary google only hack
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+#include "third_party/protobuf/version.h"
+#endif
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
 
-extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GameType_serverMessageSystem_2eproto;
+namespace protobuf_serverMessageSystem_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GameType;
+}  // namespace protobuf_serverMessageSystem_2eproto
 namespace serverMessageSystem {
 class GameTypeDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<GameType> _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<GameType>
+      _instance;
 } _GameType_default_instance_;
 class ClientEnteringRequestDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ClientEnteringRequest> _instance;
+  ::google::protobuf::internal::ExplicitlyConstructed<ClientEnteringRequest>
+      _instance;
 } _ClientEnteringRequest_default_instance_;
 }  // namespace serverMessageSystem
-static void InitDefaultsGameType_serverMessageSystem_2eproto() {
+namespace protobuf_serverMessageSystem_2eproto {
+static void InitDefaultsGameType() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
@@ -38,10 +46,10 @@ static void InitDefaultsGameType_serverMessageSystem_2eproto() {
   ::serverMessageSystem::GameType::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_GameType_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGameType_serverMessageSystem_2eproto}, {}};
+::google::protobuf::internal::SCCInfo<0> scc_info_GameType =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGameType}, {}};
 
-static void InitDefaultsClientEnteringRequest_serverMessageSystem_2eproto() {
+static void InitDefaultsClientEnteringRequest() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
@@ -52,39 +60,38 @@ static void InitDefaultsClientEnteringRequest_serverMessageSystem_2eproto() {
   ::serverMessageSystem::ClientEnteringRequest::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_ClientEnteringRequest_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsClientEnteringRequest_serverMessageSystem_2eproto}, {
-      &scc_info_GameType_serverMessageSystem_2eproto.base,}};
+::google::protobuf::internal::SCCInfo<1> scc_info_ClientEnteringRequest =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsClientEnteringRequest}, {
+      &protobuf_serverMessageSystem_2eproto::scc_info_GameType.base,}};
 
-void InitDefaults_serverMessageSystem_2eproto() {
-  ::google::protobuf::internal::InitSCC(&scc_info_GameType_serverMessageSystem_2eproto.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ClientEnteringRequest_serverMessageSystem_2eproto.base);
+void InitDefaults() {
+  ::google::protobuf::internal::InitSCC(&scc_info_GameType.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ClientEnteringRequest.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[2];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_serverMessageSystem_2eproto[2];
-constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_serverMessageSystem_2eproto = nullptr;
+::google::protobuf::Metadata file_level_metadata[2];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
 
-const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::GameType, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::GameType, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::GameType, hasaddonwildaxe_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::GameType, hasaddonclericalerrors_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::GameType, rulestype_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::GameType, hasaddonwildaxe_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::GameType, hasaddonclericalerrors_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::GameType, rulestype_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, messageid_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, clientname_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, enteringrequest_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, gametype_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, messageid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, clientname_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, enteringrequest_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientEnteringRequest, gametype_),
 };
-static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::GameType)},
   { 8, -1, sizeof(::serverMessageSystem::ClientEnteringRequest)},
 };
@@ -94,43 +101,61 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientEnteringRequest_default_instance_),
 };
 
-::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_serverMessageSystem_2eproto = {
-  {}, AddDescriptors_serverMessageSystem_2eproto, "serverMessageSystem.proto", schemas,
-  file_default_instances, TableStruct_serverMessageSystem_2eproto::offsets,
-  file_level_metadata_serverMessageSystem_2eproto, 2, file_level_enum_descriptors_serverMessageSystem_2eproto, file_level_service_descriptors_serverMessageSystem_2eproto,
-};
-
-::google::protobuf::internal::DescriptorTable descriptor_table_serverMessageSystem_2eproto = {
-  false, InitDefaults_serverMessageSystem_2eproto, 
-  "\n\031serverMessageSystem.proto\022\023serverMessa"
-  "geSystem\"v\n\010GameType\022\027\n\017hasAddonWildAxe\030"
-  "\001 \001(\010\022\036\n\026hasAddonClericalErrors\030\002 \001(\010\0221\n"
-  "\trulesType\030\003 \001(\0162\036.serverMessageSystem.R"
-  "ulesType\"\262\001\n\025ClientEnteringRequest\022\021\n\tme"
-  "ssageID\030\001 \001(\r\022\022\n\nclientName\030\002 \001(\t\022A\n\017ent"
-  "eringRequest\030\003 \001(\0162(.serverMessageSystem"
-  ".GameCreationRequest\022/\n\010gameType\030\004 \001(\0132\035"
-  ".serverMessageSystem.GameType*&\n\tRulesTy"
-  "pe\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*9\n\023GameCre"
-  "ationRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateT"
-  "heGame\020\001b\006proto3"
-,
-  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 456,
-};
-
-void AddDescriptors_serverMessageSystem_2eproto() {
-  static constexpr ::google::protobuf::internal::InitFunc deps[1] =
-  {
-  };
- ::google::protobuf::internal::AddDescriptors(&descriptor_table_serverMessageSystem_2eproto, deps, 0);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  AssignDescriptors(
+      "serverMessageSystem.proto", schemas, file_default_instances, TableStruct::offsets,
+      file_level_metadata, file_level_enum_descriptors, NULL);
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_serverMessageSystem_2eproto = []() { AddDescriptors_serverMessageSystem_2eproto(); return true; }();
+void protobuf_AssignDescriptorsOnce() {
+  static ::google::protobuf::internal::once_flag once;
+  ::google::protobuf::internal::call_once(once, protobuf_AssignDescriptors);
+}
+
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
+void protobuf_RegisterTypes(const ::std::string&) {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 2);
+}
+
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+      "\n\031serverMessageSystem.proto\022\023serverMessa"
+      "geSystem\"v\n\010GameType\022\027\n\017hasAddonWildAxe\030"
+      "\001 \001(\010\022\036\n\026hasAddonClericalErrors\030\002 \001(\010\0221\n"
+      "\trulesType\030\003 \001(\0162\036.serverMessageSystem.R"
+      "ulesType\"\262\001\n\025ClientEnteringRequest\022\021\n\tme"
+      "ssageID\030\001 \001(\r\022\022\n\nclientName\030\002 \001(\t\022A\n\017ent"
+      "eringRequest\030\003 \001(\0162(.serverMessageSystem"
+      ".GameCreationRequest\022/\n\010gameType\030\004 \001(\0132\035"
+      ".serverMessageSystem.GameType*&\n\tRulesTy"
+      "pe\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*9\n\023GameCre"
+      "ationRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateT"
+      "heGame\020\001b\006proto3"
+  };
+  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+      descriptor, 456);
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+    "serverMessageSystem.proto", &protobuf_RegisterTypes);
+}
+
+void AddDescriptors() {
+  static ::google::protobuf::internal::once_flag once;
+  ::google::protobuf::internal::call_once(once, AddDescriptorsImpl);
+}
+// Force AddDescriptors() to be called at dynamic initialization time.
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
+  }
+} static_descriptor_initializer;
+}  // namespace protobuf_serverMessageSystem_2eproto
 namespace serverMessageSystem {
 const ::google::protobuf::EnumDescriptor* RulesType_descriptor() {
-  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_serverMessageSystem_2eproto);
-  return file_level_enum_descriptors_serverMessageSystem_2eproto[0];
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_serverMessageSystem_2eproto::file_level_enum_descriptors[0];
 }
 bool RulesType_IsValid(int value) {
   switch (value) {
@@ -143,8 +168,8 @@ bool RulesType_IsValid(int value) {
 }
 
 const ::google::protobuf::EnumDescriptor* GameCreationRequest_descriptor() {
-  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_serverMessageSystem_2eproto);
-  return file_level_enum_descriptors_serverMessageSystem_2eproto[1];
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_serverMessageSystem_2eproto::file_level_enum_descriptors[1];
 }
 bool GameCreationRequest_IsValid(int value) {
   switch (value) {
@@ -161,10 +186,6 @@ bool GameCreationRequest_IsValid(int value) {
 
 void GameType::InitAsDefaultInstance() {
 }
-class GameType::HasBitSetters {
- public:
-};
-
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int GameType::kHasAddonWildAxeFieldNumber;
 const int GameType::kHasAddonClericalErrorsFieldNumber;
@@ -173,6 +194,8 @@ const int GameType::kRulesTypeFieldNumber;
 
 GameType::GameType()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_serverMessageSystem_2eproto::scc_info_GameType.base);
   SharedCtor();
   // @@protoc_insertion_point(constructor:serverMessageSystem.GameType)
 }
@@ -203,8 +226,13 @@ void GameType::SharedDtor() {
 void GameType::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const ::google::protobuf::Descriptor* GameType::descriptor() {
+  ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
 const GameType& GameType::default_instance() {
-  ::google::protobuf::internal::InitSCC(&::scc_info_GameType_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_GameType.base);
   return *internal_default_instance();
 }
 
@@ -221,76 +249,9 @@ void GameType::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* GameType::_InternalParse(const char* begin, const char* end, void* object,
-                  ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<GameType*>(object);
-  ::google::protobuf::uint32 size; (void)size;
-  int depth; (void)depth;
-  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
-  auto ptr = begin;
-  while (ptr < end) {
-    ::google::protobuf::uint32 tag;
-    ptr = Varint::Parse32Inline(ptr, &tag);
-    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-    switch (tag >> 3) {
-      // bool hasAddonWildAxe = 1;
-      case 1: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
-        ::google::protobuf::uint64 val;
-        ptr = Varint::Parse64(ptr, &val);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        bool value = val;
-        msg->set_hasaddonwildaxe(value);
-        break;
-      }
-      // bool hasAddonClericalErrors = 2;
-      case 2: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
-        ::google::protobuf::uint64 val;
-        ptr = Varint::Parse64(ptr, &val);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        bool value = val;
-        msg->set_hasaddonclericalerrors(value);
-        break;
-      }
-      // .serverMessageSystem.RulesType rulesType = 3;
-      case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
-        ::google::protobuf::uint64 val;
-        ptr = Varint::Parse64(ptr, &val);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ::serverMessageSystem::RulesType value = static_cast<::serverMessageSystem::RulesType>(val);
-        msg->set_rulestype(value);
-        break;
-      }
-      default: {
-      handle_unusual: (void)&&handle_unusual;
-        if ((tag & 7) == 4 || tag == 0) {
-          bool ok = ctx->ValidEndGroup(tag);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
-          return ptr;
-        }
-        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
-          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
-        ptr = res.first;
-        if (res.second) return ptr;
-      }
-    }  // switch
-  }  // while
-  return ptr;
-len_delim_till_end: (void)&&len_delim_till_end;
-  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
-                                 {parser_till_end, object}, size);
-group_continues: (void)&&group_continues;
-  GOOGLE_DCHECK(ptr >= end);
-  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
-  return ptr;
-}
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool GameType::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:serverMessageSystem.GameType)
   for (;;) {
@@ -300,7 +261,8 @@ bool GameType::MergePartialFromCodedStream(
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // bool hasAddonWildAxe = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
@@ -313,7 +275,8 @@ bool GameType::MergePartialFromCodedStream(
 
       // bool hasAddonClericalErrors = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
@@ -326,8 +289,9 @@ bool GameType::MergePartialFromCodedStream(
 
       // .serverMessageSystem.RulesType rulesType = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
-          int value = 0;
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -357,7 +321,6 @@ failure:
   return false;
 #undef DO_
 }
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void GameType::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -381,9 +344,9 @@ void GameType::SerializeWithCachedSizes(
       3, this->rulestype(), output);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
   // @@protoc_insertion_point(serialize_end:serverMessageSystem.GameType)
 }
@@ -411,9 +374,9 @@ void GameType::SerializeWithCachedSizes(
       3, this->rulestype(), target);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.GameType)
   return target;
@@ -423,15 +386,11 @@ size_t GameType::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.GameType)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
   // bool hasAddonWildAxe = 1;
   if (this->hasaddonwildaxe() != 0) {
     total_size += 1 + 1;
@@ -457,7 +416,7 @@ void GameType::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.GameType)
   GOOGLE_DCHECK_NE(&from, this);
   const GameType* source =
-      ::google::protobuf::DynamicCastToGenerated<GameType>(
+      ::google::protobuf::internal::DynamicCastToGenerated<const GameType>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.GameType)
@@ -510,15 +469,15 @@ void GameType::Swap(GameType* other) {
 }
 void GameType::InternalSwap(GameType* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(hasaddonwildaxe_, other->hasaddonwildaxe_);
   swap(hasaddonclericalerrors_, other->hasaddonclericalerrors_);
   swap(rulestype_, other->rulestype_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
 ::google::protobuf::Metadata GameType::GetMetadata() const {
-  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
-  return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 
@@ -527,15 +486,6 @@ void GameType::InternalSwap(GameType* other) {
 void ClientEnteringRequest::InitAsDefaultInstance() {
   ::serverMessageSystem::_ClientEnteringRequest_default_instance_._instance.get_mutable()->gametype_ = const_cast< ::serverMessageSystem::GameType*>(
       ::serverMessageSystem::GameType::internal_default_instance());
-}
-class ClientEnteringRequest::HasBitSetters {
- public:
-  static const ::serverMessageSystem::GameType& gametype(const ClientEnteringRequest* msg);
-};
-
-const ::serverMessageSystem::GameType&
-ClientEnteringRequest::HasBitSetters::gametype(const ClientEnteringRequest* msg) {
-  return *msg->gametype_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ClientEnteringRequest::kMessageIDFieldNumber;
@@ -546,6 +496,8 @@ const int ClientEnteringRequest::kGameTypeFieldNumber;
 
 ClientEnteringRequest::ClientEnteringRequest()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_serverMessageSystem_2eproto::scc_info_ClientEnteringRequest.base);
   SharedCtor();
   // @@protoc_insertion_point(constructor:serverMessageSystem.ClientEnteringRequest)
 }
@@ -569,8 +521,6 @@ ClientEnteringRequest::ClientEnteringRequest(const ClientEnteringRequest& from)
 }
 
 void ClientEnteringRequest::SharedCtor() {
-  ::google::protobuf::internal::InitSCC(
-      &scc_info_ClientEnteringRequest_serverMessageSystem_2eproto.base);
   clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&gametype_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&enteringrequest_) -
@@ -590,8 +540,13 @@ void ClientEnteringRequest::SharedDtor() {
 void ClientEnteringRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const ::google::protobuf::Descriptor* ClientEnteringRequest::descriptor() {
+  ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
 const ClientEnteringRequest& ClientEnteringRequest::default_instance() {
-  ::google::protobuf::internal::InitSCC(&::scc_info_ClientEnteringRequest_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_ClientEnteringRequest.base);
   return *internal_default_instance();
 }
 
@@ -613,97 +568,9 @@ void ClientEnteringRequest::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* ClientEnteringRequest::_InternalParse(const char* begin, const char* end, void* object,
-                  ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<ClientEnteringRequest*>(object);
-  ::google::protobuf::uint32 size; (void)size;
-  int depth; (void)depth;
-  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
-  auto ptr = begin;
-  while (ptr < end) {
-    ::google::protobuf::uint32 tag;
-    ptr = Varint::Parse32Inline(ptr, &tag);
-    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-    switch (tag >> 3) {
-      // uint32 messageID = 1;
-      case 1: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
-        ::google::protobuf::uint64 val;
-        ptr = Varint::Parse64(ptr, &val);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ::google::protobuf::uint32 value = val;
-        msg->set_messageid(value);
-        break;
-      }
-      // string clientName = 2;
-      case 2: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
-        ptr = Varint::Parse32Inline(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ClientEnteringRequest.clientName");
-        parser_till_end = ::google::protobuf::internal::StringParserUTF8;
-        ::std::string* str = msg->mutable_clientname();
-        str->clear();
-        object = str;
-        if (size > end - ptr) goto len_delim_till_end;
-        auto newend = ptr + size;
-        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
-        break;
-      }
-      // .serverMessageSystem.GameCreationRequest enteringRequest = 3;
-      case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
-        ::google::protobuf::uint64 val;
-        ptr = Varint::Parse64(ptr, &val);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ::serverMessageSystem::GameCreationRequest value = static_cast<::serverMessageSystem::GameCreationRequest>(val);
-        msg->set_enteringrequest(value);
-        break;
-      }
-      // .serverMessageSystem.GameType gameType = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
-        ptr = Varint::Parse32Inline(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        parser_till_end = ::serverMessageSystem::GameType::_InternalParse;
-        object = msg->mutable_gametype();
-        if (size > end - ptr) goto len_delim_till_end;
-        auto newend = ptr + size;
-        bool ok = ctx->ParseExactRange({parser_till_end, object},
-                                       ptr, newend);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
-        ptr = newend;
-        break;
-      }
-      default: {
-      handle_unusual: (void)&&handle_unusual;
-        if ((tag & 7) == 4 || tag == 0) {
-          bool ok = ctx->ValidEndGroup(tag);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
-          return ptr;
-        }
-        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
-          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
-        ptr = res.first;
-        if (res.second) return ptr;
-      }
-    }  // switch
-  }  // while
-  return ptr;
-len_delim_till_end: (void)&&len_delim_till_end;
-  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
-                                 {parser_till_end, object}, size);
-group_continues: (void)&&group_continues;
-  GOOGLE_DCHECK(ptr >= end);
-  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
-  return ptr;
-}
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 bool ClientEnteringRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:serverMessageSystem.ClientEnteringRequest)
   for (;;) {
@@ -713,7 +580,8 @@ bool ClientEnteringRequest::MergePartialFromCodedStream(
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // uint32 messageID = 1;
       case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -726,7 +594,8 @@ bool ClientEnteringRequest::MergePartialFromCodedStream(
 
       // string clientName = 2;
       case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_clientname()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -741,8 +610,9 @@ bool ClientEnteringRequest::MergePartialFromCodedStream(
 
       // .serverMessageSystem.GameCreationRequest enteringRequest = 3;
       case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
-          int value = 0;
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
@@ -755,7 +625,8 @@ bool ClientEnteringRequest::MergePartialFromCodedStream(
 
       // .serverMessageSystem.GameType gameType = 4;
       case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_gametype()));
         } else {
@@ -783,7 +654,6 @@ failure:
   return false;
 #undef DO_
 }
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
 void ClientEnteringRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
@@ -815,12 +685,12 @@ void ClientEnteringRequest::SerializeWithCachedSizes(
   // .serverMessageSystem.GameType gameType = 4;
   if (this->has_gametype()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, HasBitSetters::gametype(this), output);
+      4, this->_internal_gametype(), output);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
   // @@protoc_insertion_point(serialize_end:serverMessageSystem.ClientEnteringRequest)
 }
@@ -858,12 +728,12 @@ void ClientEnteringRequest::SerializeWithCachedSizes(
   if (this->has_gametype()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, HasBitSetters::gametype(this), deterministic, target);
+        4, this->_internal_gametype(), deterministic, target);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ClientEnteringRequest)
   return target;
@@ -873,15 +743,11 @@ size_t ClientEnteringRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ClientEnteringRequest)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
   // string clientName = 2;
   if (this->clientname().size() > 0) {
     total_size += 1 +
@@ -918,7 +784,7 @@ void ClientEnteringRequest::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ClientEnteringRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const ClientEnteringRequest* source =
-      ::google::protobuf::DynamicCastToGenerated<ClientEnteringRequest>(
+      ::google::protobuf::internal::DynamicCastToGenerated<const ClientEnteringRequest>(
           &from);
   if (source == NULL) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ClientEnteringRequest)
@@ -975,17 +841,17 @@ void ClientEnteringRequest::Swap(ClientEnteringRequest* other) {
 }
 void ClientEnteringRequest::InternalSwap(ClientEnteringRequest* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
   clientname_.Swap(&other->clientname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(gametype_, other->gametype_);
   swap(messageid_, other->messageid_);
   swap(enteringrequest_, other->enteringrequest_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
 ::google::protobuf::Metadata ClientEnteringRequest::GetMetadata() const {
-  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
-  return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 
@@ -993,14 +859,13 @@ void ClientEnteringRequest::InternalSwap(ClientEnteringRequest* other) {
 }  // namespace serverMessageSystem
 namespace google {
 namespace protobuf {
-template<> PROTOBUF_NOINLINE ::serverMessageSystem::GameType* Arena::CreateMaybeMessage< ::serverMessageSystem::GameType >(Arena* arena) {
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::GameType* Arena::CreateMaybeMessage< ::serverMessageSystem::GameType >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::GameType >(arena);
 }
-template<> PROTOBUF_NOINLINE ::serverMessageSystem::ClientEnteringRequest* Arena::CreateMaybeMessage< ::serverMessageSystem::ClientEnteringRequest >(Arena* arena) {
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ClientEnteringRequest* Arena::CreateMaybeMessage< ::serverMessageSystem::ClientEnteringRequest >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ClientEnteringRequest >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
 
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
