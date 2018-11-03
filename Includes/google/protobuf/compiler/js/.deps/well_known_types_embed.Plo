@@ -1,0 +1,32 @@
+google/protobuf/compiler/js/well_known_types_embed.lo: \
+ google/protobuf/compiler/js/well_known_types_embed.cc \
+ google/protobuf/compiler/js/well_known_types_embed.h \
+ C:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include/stddef.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/stddef.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/crtdefs.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw_mac.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw_secapi.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/vadefs.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/sdks/_mingw_directx.h \
+ C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/sdks/_mingw_ddk.h
+
+google/protobuf/compiler/js/well_known_types_embed.h:
+
+C:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include/stddef.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/stddef.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/crtdefs.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw_mac.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/_mingw_secapi.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/vadefs.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/sdks/_mingw_directx.h:
+
+C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/sdks/_mingw_ddk.h:
