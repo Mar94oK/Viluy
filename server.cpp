@@ -175,29 +175,73 @@ void Server::slot_setUpNewConnection()
 void Server::slot_readIncomingData(int socketDescriptor)
 {
      emit sig_serverLogReport("Trying to read the info...");
-     QDataStream* in = nullptr;
-     for (unsigned int var = 0; var < _dataStreams.size(); ++var) {
-         if (_dataStreams[var].second == socketDescriptor )
-             in = _dataStreams[var].first;
+//     QDataStream* in = nullptr;
+//     for (unsigned int var = 0; var < _dataStreams.size(); ++var)
+//     {
+//         if (_dataStreams[var].second == socketDescriptor)
+//             in = _dataStreams[var].first;
+//     }
+
+//     in->startTransaction();
+     QString incomingData;
+
+     QByteArray array;
+
+//     *in >> array;
+
+     qDebug() << "NAY-0001: Before message parsing! ";
+
+     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
+     {
+         if ((_establishedConnections[var]).first->socketDescriptor() == socketDescriptor)
+             array = _establishedConnections[var].first->readAll();
      }
 
-     in->startTransaction();
-     QString clientName;
+//     if (!in->commitTransaction())
+//         return;
+     qDebug() << "NAY-0001: After message parsing! ";
 
-     *in >> clientName;
-
-     if (!in->commitTransaction())
-         return;
-
-     emit sig_serverLogReport(clientName);
-     qDebug() << "Client Name: " << clientName;
-
-     for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
-
-         if (_establishedConnections[var].first->socketDescriptor() == socketDescriptor )
-             _establishedConnections[var].second = clientName;
-
+     serverMessageSystem::ClientEnteringRequest initialRequest;
+     if(!initialRequest.ParseFromArray(array.data(), array.size()))
+     {
+        qDebug() << "NAY-0001: Error during protobuf message parsing! ";
+        qDebug() << "NAY-001: Array size: array.size()";
+        incomingData += "NAY-0001: Error during protobuf message parsing! ";
      }
+     else
+     {
+        qDebug() << "NAY-0001: Parsed successfully! ";
+        qDebug() << "NAY-001: Array size: " << array.size();
+        qDebug() << QString::fromStdString(initialRequest.clientname());
+        incomingData += QString::fromStdString(initialRequest.clientname());
+        qDebug() << initialRequest.messageid();
+        incomingData += initialRequest.messageid();
+        qDebug() << initialRequest.gametype().hasaddonclericalerrors();
+        incomingData += (initialRequest.gametype().hasaddonclericalerrors() ? "Has AddOn Clerical Errors" : "Do not have AddOn Clerical Errors");
+        qDebug() << initialRequest.gametype().hasaddonwildaxe();
+        incomingData += (initialRequest.gametype().hasaddonclericalerrors() ? "Has AddOn Wild Axe" : "Do not have AddOn Wild Axe");
+        if (initialRequest.gametype().rulestype() == ::serverMessageSystem::RulesType::Automatic)
+        {
+             qDebug() << "Rules type are Automatic!";
+             incomingData += "Rules type are Automatic!";
+        }
+
+        if (initialRequest.enteringrequest() == ::serverMessageSystem::GameCreationRequest::CreateTheGame)
+        {
+             qDebug() << "Create the Game!";
+             incomingData += "Create the Game!";
+        }
+     }
+
+     initialRequest.PrintDebugString();
+     emit sig_serverLogReport(incomingData);
+
+//     for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
+
+//         if (_establishedConnections[var].first->socketDescriptor() == socketDescriptor )
+//             _establishedConnections[var].second = incomingData;
+
+//     }
 
      //find the connection
      emit sig_sendFortune(socketDescriptor);
