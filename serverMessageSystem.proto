@@ -7,6 +7,11 @@ enum RulesType
     Manual = 1;
 }
 
+message Base
+{
+    uint32 messageID = 1;
+}
+
 message GameType
 {
     bool hasAddonWildAxe = 1;
@@ -27,7 +32,7 @@ enum GameCreationRequest
 
 message ClientEnteringRequest
 {
-    uint32 messageID = 1;
+    Base messageID = 1;
     string clientName = 2;
     GameCreationRequest enteringRequest = 3;
     GameType gameType = 4;

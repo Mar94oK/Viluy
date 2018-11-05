@@ -18,10 +18,6 @@
 
 #include <server.h>
 
-typedef std::pair <QTcpSocket*, QString> namedConnection;
-typedef std::pair <QDataStream*, int> identifiedStreams;
-
-
 namespace Ui {
 class MainWindow;
 }

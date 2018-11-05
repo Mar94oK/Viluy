@@ -9,16 +9,9 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QNetworkSession>
-
 #include <serversettings.h>
-
 //since it is necessary to report everything during server init, the Window should already be created.
 #include <mainwindow.h>
-
-typedef std::pair <QTcpSocket*, QString> namedConnection;
-typedef std::pair <QDataStream*, int> identifiedStreams;
-
-
 #include <room.h>
 
 typedef QPair<QString, QString> serverSettings;
@@ -30,7 +23,6 @@ class Server : public QObject
 public:
     explicit Server( QObject *parent = 0);
 
-
 private:
 
     QTcpServer *tcpServer;
@@ -39,11 +31,9 @@ private:
 
     std::vector<Room> _rooms;
 
-    std::vector<namedConnection> _establishedConnections;
-    std::vector<identifiedStreams> _dataStreams;
+    std::vector<QTcpSocket*> _establishedConnections;
 
     ServerSettings _settings;
-
 
 signals:
 

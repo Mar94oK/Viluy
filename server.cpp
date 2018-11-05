@@ -89,8 +89,6 @@ int Server::slot_sessionOpened()
         settings.endGroup();
     }
 
-//! [0] //! [1]
-
     emit sig_serverLogReport("Creating new TCP Server... ");
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
@@ -133,13 +131,12 @@ void Server::slot_sendFortune(int socketDescriptor)
     out.setVersion(QDataStream::Qt_4_0);
 
     out << fortunes.at(qrand() % fortunes.size());
-//! [4] //! [7]
 
     QTcpSocket *clientConnection = nullptr;
     for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
 
-        if (_establishedConnections[var].first->socketDescriptor() == socketDescriptor )
-            clientConnection = _establishedConnections[var].first;
+        if (_establishedConnections[var]->socketDescriptor() == socketDescriptor )
+            clientConnection = _establishedConnections[var];
 
     }
     clientConnection->write(block);
@@ -147,12 +144,9 @@ void Server::slot_sendFortune(int socketDescriptor)
 
 void Server::slot_setUpNewConnection()
 {
-
-    emit sig_serverLogReport("Trying to establish connection...");
+    emit sig_serverLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size()));
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-    _establishedConnections.push_back({clientConnection, ""});
-    //each socket has unique descriptor.
-    //Therefore I can identify it by the usage of it's descriptor.
+    _establishedConnections.push_back(clientConnection);
     long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
@@ -160,45 +154,20 @@ void Server::slot_setUpNewConnection()
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
-
-    //set-up Data Sterams;
-    QDataStream* _newStream = new QDataStream();
-
-    _newStream->setDevice(clientConnection);
-    _newStream->setVersion(QDataStream::Qt_4_0);
-
-    emit sig_serverLogReport("Creating stream...");
-    _dataStreams.push_back({_newStream, clientConnection->socketDescriptor()});
-
 }
 
 void Server::slot_readIncomingData(int socketDescriptor)
 {
      emit sig_serverLogReport("Trying to read the info...");
-//     QDataStream* in = nullptr;
-//     for (unsigned int var = 0; var < _dataStreams.size(); ++var)
-//     {
-//         if (_dataStreams[var].second == socketDescriptor)
-//             in = _dataStreams[var].first;
-//     }
-
-//     in->startTransaction();
      QString incomingData;
-
      QByteArray array;
-
-//     *in >> array;
-
      qDebug() << "NAY-0001: Before message parsing! ";
-
      for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
      {
-         if ((_establishedConnections[var]).first->socketDescriptor() == socketDescriptor)
-             array = _establishedConnections[var].first->readAll();
+         if (_establishedConnections[var]->socketDescriptor() == socketDescriptor)
+             array = _establishedConnections[var]->readAll();
      }
 
-//     if (!in->commitTransaction())
-//         return;
      qDebug() << "NAY-0001: After message parsing! ";
 
      serverMessageSystem::ClientEnteringRequest initialRequest;
@@ -232,19 +201,7 @@ void Server::slot_readIncomingData(int socketDescriptor)
              incomingData += "Create the Game!";
         }
      }
-
-     initialRequest.PrintDebugString();
      emit sig_serverLogReport(incomingData);
-
-//     for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
-
-//         if (_establishedConnections[var].first->socketDescriptor() == socketDescriptor )
-//             _establishedConnections[var].second = incomingData;
-
-//     }
-
-     //find the connection
-     emit sig_sendFortune(socketDescriptor);
 }
 
 
