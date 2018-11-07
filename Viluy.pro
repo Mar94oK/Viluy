@@ -97,12 +97,10 @@ DISTFILES += \
 #win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/protobuf.lib
 #else:win32-g++: PRE_TARGETDEPS += $$PWD/../../Protobuf/protobuf-cpp-3.6.1/protobuf-3.6.1/src/.libs/libprotobuf.a
 
-
-
 win32: LIBS += $$PWD/Libs/libprotobuf.a
 
-INCLUDEPATH += $$PWD/Includes
-DEPENDPATH += $$PWD/Includes
+win32: INCLUDEPATH += $$PWD/Includes
+win32: DEPENDPATH += $$PWD/Includes
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/Libs/protobuf.lib
 else:win32-g++: PRE_TARGETDEPS += $$PWD/Libs/libprotobuf.a
