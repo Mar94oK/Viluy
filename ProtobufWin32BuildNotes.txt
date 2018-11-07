@@ -33,4 +33,9 @@ D:\TheNewestProtobuf\protobuf-3.6.1\src
 else:win32: LIBS += D:\TheNewestProtobuf\protobuf-3.6.1\src\.libs\libprotobuf.a
 win32: INCLUDEPATH += "D:\TheNewestProtobuf\protobuf-3.6.1\src"
 
+How To rebuild on Windows in MSYS2
+8) Make this before building protobuf on Windows
+export PATH=/c/Qt/Tools/mingw530_32/bin/:$PATH
 
+/d/Munchkin/Nayda/Libs/protoc.exe --cpp_out=. serverMessageSystem.proto
+/d/Munchkin/Viluy/Libs/protoc.exe --cpp_out=. serverMessageSystem.proto

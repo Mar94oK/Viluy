@@ -71,8 +71,8 @@ signals:
 
 private slots:
 
-    int slot_sessionOpened();
-    void slot_setUpNewConnection();
+    int SlotSessionOpened();
+    void SlotSetUpNewConnection();
     void SlotReadIncomingData(int socketDescriptor);
     void slot_reportError(QAbstractSocket::SocketError);
     void SlotConnectionSendOutgoingData(int socketDescriptor);

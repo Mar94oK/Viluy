@@ -21,7 +21,7 @@ Server::Server(QObject *parent) : QObject(parent),
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
     slot_serverInitializaion();
-    connect(tcpServer, &QTcpServer::newConnection, this, &Server::slot_setUpNewConnection);
+    connect(tcpServer, &QTcpServer::newConnection, this, &Server::SlotSetUpNewConnection);
 
     _settings.setServerName("TheBestMunchkinServerEver");
 }
@@ -47,7 +47,7 @@ void Server::slot_serverInitializaion()
 
         emit SignalServerLogReport("Creating new network session...");
         networkSession = new QNetworkSession(config, this);
-        connect(networkSession, &QNetworkSession::opened, this, &Server::slot_sessionOpened);
+        connect(networkSession, &QNetworkSession::opened, this, &Server::SlotSessionOpened);
 
         emit SignalServerLogReport("Opening network session.");
         networkSession->open();
@@ -55,7 +55,7 @@ void Server::slot_serverInitializaion()
     else
     {
         emit sig_serverInfoReport("Session is already opened! ");
-        slot_sessionOpened();
+        SlotSessionOpened();
     }
 }
 
@@ -143,15 +143,18 @@ Connection *Server::DefineConnection(int socketDescriptor)
 {
     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
     {
-        qDebug() << "NAY-001: Defining Connection";
+
         if (_establishedConnections[var]->socket()->socketDescriptor() == socketDescriptor )
-           return _establishedConnections[var];
+        {
+            //qDebug() << "NAY-001: Defining Connection";
+            return _establishedConnections[var];
+        }
     }
     qDebug() << "NAY-001: Error while connection searching!";
     return nullptr;
 }
 
-int Server::slot_sessionOpened()
+int Server::SlotSessionOpened()
 {
     // Save the used configuration
     if (networkSession) {
@@ -201,7 +204,7 @@ int Server::slot_sessionOpened()
    return 0;
 }
 
-void Server::slot_setUpNewConnection()
+void Server::SlotSetUpNewConnection()
 {
     emit SignalServerLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size()));
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
@@ -213,6 +216,10 @@ void Server::slot_setUpNewConnection()
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
+    if (clientConnection != nullptr)
+        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " established!");
+    else
+        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " ERROR!");
 }
 
 void Server::SlotReadIncomingData(int socketDescriptor)
@@ -331,6 +338,7 @@ void Server::ProcessServerInputQueryRequest(const QByteArray &data, int socketDe
     {
         Connection* currentConnection = DefineConnection(socketDescriptor);
         currentConnection->setOutgoingDataBuffer(FormServerInputQueryReply());
+        emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(socketDescriptor));
         emit SignalConnectionSendOutgoingData(socketDescriptor);
     }
 }
