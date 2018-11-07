@@ -102,53 +102,53 @@ message ServerQueryReply
     string serverName = 5;                          //Server Name may be used to show some stats...
 }
 
-////#3 Room Creation Request
-//message ClientRoomCreationRequest
-//{
-//    CommonHeader header = 1;                        //allways included
-//    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
-//    string clientName = 3;
-//    GameSettings gameSettings = 4;
-//}
+//#3 Room Creation Request
+message ClientRoomCreationRequest
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    string clientName = 3;
+    GameSettings gameSettings = 4;
+}
 
-////#4 Room Creation Reply
-//message ClientRoomCreationReply
-//{
-//    CommonHeader header = 1;                        //allways included
-//    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
-//    bool connectionAllowed = 3;                     //check
-//    uint32 slotID = 4;                              //to identify the slot's number
-//    uint32 freeSlotsLeft = 5;                       //how many slots left
-//    RoomCreationErrors roomCreationErrors = 6;      //to identify the Error
-//}
+//#4 Room Creation Reply
+message ClientRoomCreationReply
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    bool connectionAllowed = 3;                     //check
+    uint32 slotID = 4;                              //to identify the slot's number
+    uint32 freeSlotsLeft = 5;                       //how many slots left
+    RoomCreationErrors roomCreationErrors = 6;      //to identify the Error
+}
 
-////#5 Connection to Room Request
-//message ClientConnectionToRoomRequest
-//{
-//    CommonHeader header = 1;                        //allways included
-//    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
-//    string clientName = 3;                          //identify Client (may be not necessary, up to decide later)
-//    bool connectToAnyRoom = 4;                      //now allways to set this
-//    bool agreeToWait = 5;                           //now allways set this. Later to provide user an opportunity to wait
-//                                                    //in menu mode.
-////    GameSettings gameSettings = 6;                //later to apply such a filter by settings
-//}
+//#5 Connection to Room Request
+message ClientConnectionToRoomRequest
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    string clientName = 3;                          //identify Client (may be not necessary, up to decide later)
+    bool connectToAnyRoom = 4;                      //now allways to set this
+    bool agreeToWait = 5;                           //now allways set this. Later to provide user an opportunity to wait
+                                                    //in menu mode.
+//    GameSettings gameSettings = 6;                //later to apply such a filter by settings
+}
 
-////#6
-//message ClientConnectionToRoomReply
-//{
-//    CommonHeader header = 1;                        //allways included
-//    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
-//    bool noRoomsAvailable = 3;                      //if no Rooms Available, set thi field
-//    uint32 freeSlotsLeft = 4;                       //how many free Slots are left
-//    repeated uint32 roomID = 5;                     //how many Rooms IDs are provided
-//    uint32 queryOrder = 6;                          //place in order
-//}
+//#6
+message ClientConnectionToRoomReply
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    bool noRoomsAvailable = 3;                      //if no Rooms Available, set thi field
+    uint32 freeSlotsLeft = 4;                       //how many free Slots are left
+    repeated uint32 roomID = 5;                     //how many Rooms IDs are provided
+    uint32 queryOrder = 6;                          //place in order
+}
 
-////#7
-//message ServerQueryOrderNotification
-//{
-//    CommonHeader header = 1;                        //allways included
-//    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
-//    uint32 queryOrder = 3;                          //place in order
-//}
+//#7
+message ServerQueryOrderNotification
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    uint32 queryOrder = 3;                          //place in order
+}

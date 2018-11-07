@@ -120,7 +120,7 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
 }
 
 
-const QByteArray &Server::FormServerInputQueryReply()
+ QByteArray Server::FormServerInputQueryReply()
 {
     serverMessageSystem::ServerQueryReply message;
     serverMessageSystem::CommonHeader *header = message.mutable_header();

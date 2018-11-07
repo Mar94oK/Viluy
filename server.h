@@ -85,7 +85,7 @@ private:
 
     void ProcessServerInputQueryRequest(const QByteArray& data, int socketDescriptor);
 
-    const QByteArray &FormServerInputQueryReply();
+    QByteArray FormServerInputQueryReply();
 
     Connection* DefineConnection(int socketDescriptor);
 

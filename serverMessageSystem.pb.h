@@ -3,7 +3,7 @@
 
 #ifndef PROTOBUF_INCLUDED_serverMessageSystem_2eproto
 #define PROTOBUF_INCLUDED_serverMessageSystem_2eproto
-#undef PROTOBUF_DEPRECATED
+
 #include <limits>
 #include <string>
 
