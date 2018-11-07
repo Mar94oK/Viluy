@@ -13,8 +13,37 @@
 //since it is necessary to report everything during server init, the Window should already be created.
 #include <mainwindow.h>
 #include <room.h>
+#include "serverMessageSystem.pb.h"
 
 typedef QPair<QString, QString> serverSettings;
+
+
+class Connection
+{
+
+public:
+
+    explicit Connection (QTcpSocket* connection, QString connectionName) :
+        _socket(connection), _connectionName(connectionName)
+    { }
+
+private:
+
+    QTcpSocket* _socket;
+    QByteArray  _OutgoingDataBuffer;
+    QByteArray  _IncomingDataBuffer;
+    QString     _connectionName; //init with socketDescriptor, continue with ClientName
+
+public:
+
+    QByteArray OutgoingDataBuffer() const;
+    void setOutgoingDataBuffer(const QByteArray &OutgoingDataBuffer);
+    QByteArray IncomingDataBuffer() const;
+    void setIncomingDataBuffer(const QByteArray &IncomingDataBuffer);
+    QTcpSocket *socket() const;
+    void setSocket(QTcpSocket *socket);
+
+};
 
 
 class Server : public QObject
@@ -30,31 +59,35 @@ private:
     QNetworkSession *networkSession;
 
     std::vector<Room> _rooms;
-
-    std::vector<QTcpSocket*> _establishedConnections;
-
+    std::vector<Connection*> _establishedConnections;
     ServerSettings _settings;
 
 signals:
 
-    void sig_sendFortune(int socketDescriptor);
     void sig_serverErrorReport(QString);
-    void sig_serverLogReport(QString);
+    void SignalServerLogReport(QString);
     void sig_serverInfoReport(QString);
-
+    void SignalConnectionSendOutgoingData(int socketDescriptor);
 
 private slots:
 
     int slot_sessionOpened();
-    void slot_sendFortune(int socketDescriptor);
     void slot_setUpNewConnection();
-    void slot_readIncomingData(int socketDescriptor);
+    void SlotReadIncomingData(int socketDescriptor);
     void slot_reportError(QAbstractSocket::SocketError);
+    void SlotConnectionSendOutgoingData(int socketDescriptor);
 
 private:
 
     void setFortunes();
     void slot_serverInitializaion();
+    void MessagesParser(const QByteArray& data, int socketDescriptor);
+
+    void ProcessServerInputQueryRequest(const QByteArray& data, int socketDescriptor);
+
+    const QByteArray &FormServerInputQueryReply();
+
+    Connection* DefineConnection(int socketDescriptor);
 
 };
 

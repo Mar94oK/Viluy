@@ -1,7 +1,7 @@
 #include "server.h"
 #include <QDebug>
 #include <utilites.h>
-#include "serverMessageSystem.pb.h"
+
 
 #define USE_VISUAL_DELAYS
 #undef USE_VISUAL_DELAYS
@@ -13,36 +13,23 @@ Server::Server(QObject *parent) : QObject(parent),
 {
 
     setFortunes();
-    QObject::connect(this, &Server::sig_serverLogReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerLogMessage);
+    QObject::connect(this, &Server::SignalServerLogReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerLogMessage);
     QObject::connect(this, &Server::sig_serverErrorReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerErrorMessage);
     QObject::connect(this, &Server::sig_serverInfoReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerInfoMessage);
-
+    QObject::connect(this, &Server::SignalConnectionSendOutgoingData, this, &Server::SlotConnectionSendOutgoingData);
 
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
     slot_serverInitializaion();
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::slot_setUpNewConnection);
-    connect(this, &Server::sig_sendFortune, this, &Server::slot_sendFortune);
 
-    serverMessageSystem::ClientEnteringRequest initialRequest;
-    serverMessageSystem::GameType* gameType(initialRequest.mutable_gametype());
-    gameType->set_hasaddonclericalerrors(true);
-    gameType->set_hasaddonwildaxe(true);
-    gameType->set_rulestype(::serverMessageSystem::RulesType::Automatic);
-
-    initialRequest.set_messageid(1);
-    initialRequest.set_clientname("EmpERRoR");
-    //initialRequest.set_allocated_gametype(gameTypeSelected.);
-    initialRequest.set_enteringrequest(::serverMessageSystem::GameCreationRequest::CreateTheGame);
-
-    initialRequest.PrintDebugString();
-
+    _settings.setServerName("TheBestMunchkinServerEver");
 }
 
 void Server::slot_serverInitializaion()
 {
 
-    emit sig_serverLogReport("Entering server initialization...");
+    emit SignalServerLogReport("Entering server initialization...");
     QNetworkConfigurationManager manager;
     if (manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired) {
         // Get saved network configuration
@@ -58,11 +45,11 @@ void Server::slot_serverInitializaion()
             config = manager.defaultConfiguration();
         }
 
-        emit sig_serverLogReport("Creating new network session...");
+        emit SignalServerLogReport("Creating new network session...");
         networkSession = new QNetworkSession(config, this);
         connect(networkSession, &QNetworkSession::opened, this, &Server::slot_sessionOpened);
 
-        emit sig_serverLogReport("Opening network session.");
+        emit SignalServerLogReport("Opening network session.");
         networkSession->open();
     }
     else
@@ -70,6 +57,98 @@ void Server::slot_serverInitializaion()
         emit sig_serverInfoReport("Session is already opened! ");
         slot_sessionOpened();
     }
+}
+
+void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
+{
+    qDebug() << "NAY-0001: Parsing Message for socketDescriptor: " << socketDescriptor;
+
+    serverMessageSystem::CommonHeader header;
+    if(!header.ParseFromArray(data.data(), data.size()))
+    {
+       qDebug() << "NAY-0001: Error during protobuf message parsing! ";
+       qDebug() << "NAY-001: Array size: array.size()";
+       emit SignalServerLogReport("NAY-0001: Error during protobuf message parsing! ");
+    }
+    else
+    {
+       qDebug() << "NAY-0001: Header Parsed successfully! ";
+       qDebug() << "NAY-001: Array size: " << data.size();
+
+       switch (header.subsystem())
+       {
+            case serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM:
+            {
+                switch (header.commandid()) {
+
+                    case serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REQUEST:
+                {
+                    ProcessServerInputQueryRequest(data, socketDescriptor);
+                }
+               break;
+           case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REQUEST:
+               break;
+           case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REQUEST:
+               break;
+
+           default:
+                emit SignalServerLogReport("NAY-0001: Unsupported Command in CONNECTION_SUBSYSTEM with CmdID: " + QString::number(header.commandid()));
+               break;
+           }
+        }
+           break;
+       case serverMessageSystem::SubSystemID::GAME_ACTIONS_SUBSYSTEM:
+           emit SignalServerLogReport("NAY-0001: Message SubSystem"
+                                      " GAME_ACTIONS_SUBSYSTEM "
+                                      " Not supported yet.");
+           break;
+
+       case serverMessageSystem::SubSystemID::GAME_NOTIFICATION_SUBSYSTEM:
+           emit SignalServerLogReport("NAY-0001: Message SubSystem"
+                                      " GAME_NOTIFICATION_SUBSYSTEM "
+                                      " Not supported yet.");
+           break;
+
+
+       default:
+           emit SignalServerLogReport("NAY-0001: Message SubSystem"
+                                      " GAME_NOTIFICATION_SUBSYSTEM "
+                                      " Not supported yet.");
+           break;
+       }
+    }
+}
+
+
+const QByteArray &Server::FormServerInputQueryReply()
+{
+    serverMessageSystem::ServerQueryReply message;
+    serverMessageSystem::CommonHeader *header = message.mutable_header();
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REPLY);
+    message.set_servername(_settings.serverName().toUtf8().constData());
+    message.set_roomcreationallowed(_settings.roomCreationAllowed());
+    message.set_connectiontoroomallowed(_settings.connectionToRoomAllowed());
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+
+    qDebug() << "NAY-001: Serialized FormServerInputQueryReply is ready.";
+
+    return block;
+}
+
+Connection *Server::DefineConnection(int socketDescriptor)
+{
+    for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
+    {
+        qDebug() << "NAY-001: Defining Connection";
+        if (_establishedConnections[var]->socket()->socketDescriptor() == socketDescriptor )
+           return _establishedConnections[var];
+    }
+    qDebug() << "NAY-001: Error while connection searching!";
+    return nullptr;
 }
 
 int Server::slot_sessionOpened()
@@ -89,7 +168,7 @@ int Server::slot_sessionOpened()
         settings.endGroup();
     }
 
-    emit sig_serverLogReport("Creating new TCP Server... ");
+    emit SignalServerLogReport("Creating new TCP Server... ");
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen()) {
        emit sig_serverErrorReport(tr("Unable to start the Munchkin Server: %1.")
@@ -109,101 +188,43 @@ int Server::slot_sessionOpened()
     }
     // if we did not find one, use IPv4 localhost
 
-    emit sig_serverLogReport("If we did not find one, use IPv4 localhost... ");
+    emit SignalServerLogReport("If we did not find one, use IPv4 localhost... ");
     if (ipAddress.isEmpty())
     {
         qDebug() << "if ipAddress.isEmpty()...";
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
     }
-    emit sig_serverLogReport("Server is running!");
+    emit SignalServerLogReport("Server is running!");
     emit sig_serverInfoReport(tr("The Munchkin Server is running on\n\nIP: %1\nport: %2\n\n")
                           .arg(ipAddress).arg(tcpServer->serverPort()));
    //! [1]
    return 0;
 }
 
-//! [4]
-void Server::slot_sendFortune(int socketDescriptor)
-{
-//! [5]
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_0);
-
-    out << fortunes.at(qrand() % fortunes.size());
-
-    QTcpSocket *clientConnection = nullptr;
-    for (unsigned int var = 0; var < _establishedConnections.size(); ++var) {
-
-        if (_establishedConnections[var]->socketDescriptor() == socketDescriptor )
-            clientConnection = _establishedConnections[var];
-
-    }
-    clientConnection->write(block);
-}
-
 void Server::slot_setUpNewConnection()
 {
-    emit sig_serverLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size()));
+    emit SignalServerLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size()));
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-    _establishedConnections.push_back(clientConnection);
+    _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
     long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
-    connect(clientConnection, &QIODevice::readyRead, [this, ID]{slot_readIncomingData(ID);});
+    connect(clientConnection, &QIODevice::readyRead, [this, ID]{SlotReadIncomingData(ID);});
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
 }
 
-void Server::slot_readIncomingData(int socketDescriptor)
+void Server::SlotReadIncomingData(int socketDescriptor)
 {
-     emit sig_serverLogReport("Trying to read the info...");
-     QString incomingData;
+     emit SignalServerLogReport("Trying to read the info...");
      QByteArray array;
      qDebug() << "NAY-0001: Before message parsing! ";
-     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
-     {
-         if (_establishedConnections[var]->socketDescriptor() == socketDescriptor)
-             array = _establishedConnections[var]->readAll();
-     }
+     Connection* currentConnection = DefineConnection(socketDescriptor);
+     array = currentConnection->socket()->readAll();
 
-     qDebug() << "NAY-0001: After message parsing! ";
-
-     serverMessageSystem::ClientEnteringRequest initialRequest;
-     if(!initialRequest.ParseFromArray(array.data(), array.size()))
-     {
-        qDebug() << "NAY-0001: Error during protobuf message parsing! ";
-        qDebug() << "NAY-001: Array size: array.size()";
-        incomingData += "NAY-0001: Error during protobuf message parsing! ";
-     }
-     else
-     {
-        qDebug() << "NAY-0001: Parsed successfully! ";
-        qDebug() << "NAY-001: Array size: " << array.size();
-        qDebug() << QString::fromStdString(initialRequest.clientname());
-        incomingData += QString::fromStdString(initialRequest.clientname());
-        qDebug() << initialRequest.messageid();
-        incomingData += initialRequest.messageid();
-        qDebug() << initialRequest.gametype().hasaddonclericalerrors();
-        incomingData += (initialRequest.gametype().hasaddonclericalerrors() ? "Has AddOn Clerical Errors" : "Do not have AddOn Clerical Errors");
-        qDebug() << initialRequest.gametype().hasaddonwildaxe();
-        incomingData += (initialRequest.gametype().hasaddonclericalerrors() ? "Has AddOn Wild Axe" : "Do not have AddOn Wild Axe");
-        if (initialRequest.gametype().rulestype() == ::serverMessageSystem::RulesType::Automatic)
-        {
-             qDebug() << "Rules type are Automatic!";
-             incomingData += "Rules type are Automatic!";
-        }
-
-        if (initialRequest.enteringrequest() == ::serverMessageSystem::GameCreationRequest::CreateTheGame)
-        {
-             qDebug() << "Create the Game!";
-             incomingData += "Create the Game!";
-        }
-     }
-     emit sig_serverLogReport(incomingData);
+     MessagesParser(array, socketDescriptor);
 }
-
 
 void Server::slot_reportError(QAbstractSocket::SocketError socketError)
 {
@@ -211,21 +232,45 @@ void Server::slot_reportError(QAbstractSocket::SocketError socketError)
     case QAbstractSocket::RemoteHostClosedError:
         break;
     case QAbstractSocket::HostNotFoundError:
-        emit sig_serverLogReport(tr("Munchkin Server: The host was not found. Please check the "
+        emit SignalServerLogReport(tr("Munchkin Server: The host was not found. Please check the "
                                     "host name and port settings."));
         break;
     case QAbstractSocket::ConnectionRefusedError:
-        emit sig_serverLogReport(tr("Munchkin Server: The connection was refused by the peer. "
+        emit SignalServerLogReport(tr("Munchkin Server: The connection was refused by the peer. "
                                     "Make sure the fortune server is running, "
                                     "and check that the host name and port "
                                     "settings are correct."));
         break;
     default:
-       emit sig_serverLogReport(tr("Munchkin Server: The following error occurred: %1.")
+       emit SignalServerLogReport(tr("Munchkin Server: The following error occurred: %1.")
                              .arg((static_cast<QTcpSocket*>(QObject::sender()))->errorString()));
     }
+}
 
+void Server::SlotConnectionSendOutgoingData(int socketDescriptor)
+{
+    Connection* connection = DefineConnection(socketDescriptor);
 
+    if (connection->socket()->isOpen())
+    {
+        if (connection->socket()->ConnectedState == QTcpSocket::ConnectedState)
+        {
+             connection->socket()->write(connection->OutgoingDataBuffer());
+             return;
+        }
+        else
+        {
+            qDebug() << "Error during data send. Socket is not closed, but in NOTConnected state! ";
+//        NAY-001: MARK_EXPECTED_ERROR
+            return;
+        }
+    }
+    else
+    {
+        qDebug() << "Error during data send. Socket is closed! ";
+//        NAY-001: MARK_EXPECTED_ERROR
+        return;
+    }
 }
 
 void Server::setFortunes()
@@ -237,4 +282,55 @@ void Server::setFortunes()
              << tr("You might have mail.")
              << tr("You cannot kill time without injuring eternity.")
              << tr("Computers are not intelligent. They only think they are.");
+}
+
+QByteArray Connection::IncomingDataBuffer() const
+{
+    return _IncomingDataBuffer;
+}
+
+void Connection::setIncomingDataBuffer(const QByteArray &IncomingDataBuffer)
+{
+    _IncomingDataBuffer = IncomingDataBuffer;
+}
+
+QTcpSocket *Connection::socket() const
+{
+    return _socket;
+}
+
+void Connection::setSocket(QTcpSocket *connection)
+{
+    _socket = connection;
+}
+
+QByteArray Connection::OutgoingDataBuffer() const
+{
+    return _OutgoingDataBuffer;
+}
+
+void Connection::setOutgoingDataBuffer(const QByteArray &OutgoingDataBuffer)
+{
+    _OutgoingDataBuffer = OutgoingDataBuffer;
+}
+
+void Server::ProcessServerInputQueryRequest(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ServerInputQuery message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessServerInputQueryRequest() ");
+        return;
+    }
+
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: ClientName: " + QString::fromStdString(message.clientname()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: OS Type: " + QString::fromStdString(message.ostype()));
+
+    if (_settings.immediateReplyToQuery())
+    {
+        Connection* currentConnection = DefineConnection(socketDescriptor);
+        currentConnection->setOutgoingDataBuffer(FormServerInputQueryReply());
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
+    }
 }
