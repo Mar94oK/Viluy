@@ -20,13 +20,13 @@ Server::Server(QObject *parent) : QObject(parent),
 
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
-    slot_serverInitializaion();
+    SlotServerInitializaion();
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::SlotSetUpNewConnection);
 
     _settings.setServerName("TheBestMunchkinServerEver");
 }
 
-void Server::slot_serverInitializaion()
+void Server::SlotServerInitializaion()
 {
 
     emit SignalServerLogReport("Entering server initialization...");
@@ -208,9 +208,10 @@ int Server::SlotSessionOpened()
 
 void Server::SlotSetUpNewConnection()
 {
-    emit SignalServerLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size()));
+    emit SignalServerLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size() + 1));
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
-    _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
+    if (clientConnection != nullptr)
+        _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
     long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
@@ -221,7 +222,7 @@ void Server::SlotSetUpNewConnection()
     if (clientConnection != nullptr)
         emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " established!");
     else
-        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " ERROR!");
+        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size() + 1)  + " ERROR!");
 }
 
 void Server::SlotReadIncomingData(int socketDescriptor)
