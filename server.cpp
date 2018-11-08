@@ -126,12 +126,14 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
     serverMessageSystem::CommonHeader *header = message.mutable_header();
     header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
     header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REPLY);
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REPLY);
     message.set_servername(_settings.serverName().toUtf8().constData());
     message.set_roomcreationallowed(_settings.roomCreationAllowed());
     message.set_connectiontoroomallowed(_settings.connectionToRoomAllowed());
 
     QByteArray block;
     block.resize(message.ByteSize());
+    message.PrintDebugString();
     message.SerializeToArray(block.data(), block.size());
 
     qDebug() << "NAY-001: Serialized FormServerInputQueryReply is ready.";
