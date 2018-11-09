@@ -81,19 +81,23 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
             {
                 switch (header.commandid()) {
 
-                    case serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REQUEST:
+                case serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REQUEST:
                 {
                     ProcessServerInputQueryRequest(data, socketDescriptor);
                 }
-               break;
-           case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REQUEST:
-               break;
-           case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REQUEST:
-               break;
+                break;
+                case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REQUEST:
+                {
+                    qDebug() << "Processing CLIENT_ROOM_CREATION_REQUEST.";
+                    ProcessClientRoomCreationRequest(data, socketDescriptor);
+                }
+                break;
+                case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REQUEST:
+                break;
 
-           default:
-                emit SignalServerLogReport("NAY-0001: Unsupported Command in CONNECTION_SUBSYSTEM with CmdID: " + QString::number(header.commandid()));
-               break;
+                default:
+                    emit SignalServerLogReport("NAY-0001: Unsupported Command in CONNECTION_SUBSYSTEM with CmdID: " + QString::number(header.commandid()));
+                break;
            }
         }
            break;
@@ -344,4 +348,25 @@ void Server::ProcessServerInputQueryRequest(const QByteArray &data, int socketDe
         emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(socketDescriptor));
         emit SignalConnectionSendOutgoingData(socketDescriptor);
     }
+}
+
+void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ClientRoomCreationRequest message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessClientRoomCreationRequest() ");
+        return;
+    }
+
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: ClientName: " + QString::fromStdString(message.clientname()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: GameType: HasAddon WildAxe: " + QString::number(message.gamesettings().gametype().hasaddonwildaxe()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: GameType: HasAddon ClericalErrors: " + QString::number(message.gamesettings().gametype().hasaddonclericalerrors()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: GameType: Rules Type: " + QString::number(static_cast<uint32_t>(message.gamesettings().gametype().rulestype())));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Diplomacy Time: " + QString::number(message.gamesettings().timesettings().diplomacytime()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time To Move: " + QString::number(message.gamesettings().timesettings().totaltimetomove()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time To Think: " + QString::number(message.gamesettings().timesettings().timetothink()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time For Opponents Decision: " + QString::number(message.gamesettings().timesettings().timeforopponentsdecision()));
+
 }

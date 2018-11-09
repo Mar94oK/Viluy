@@ -84,6 +84,7 @@ private:
     void MessagesParser(const QByteArray& data, int socketDescriptor);
 
     void ProcessServerInputQueryRequest(const QByteArray& data, int socketDescriptor);
+    void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
 
     QByteArray FormServerInputQueryReply();
 
