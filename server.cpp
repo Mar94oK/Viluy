@@ -298,35 +298,7 @@ void Server::setFortunes()
              << tr("Computers are not intelligent. They only think they are.");
 }
 
-QByteArray Connection::IncomingDataBuffer() const
-{
-    return _IncomingDataBuffer;
-}
 
-void Connection::setIncomingDataBuffer(const QByteArray &IncomingDataBuffer)
-{
-    _IncomingDataBuffer = IncomingDataBuffer;
-}
-
-QTcpSocket *Connection::socket() const
-{
-    return _socket;
-}
-
-void Connection::setSocket(QTcpSocket *connection)
-{
-    _socket = connection;
-}
-
-QByteArray Connection::OutgoingDataBuffer() const
-{
-    return _OutgoingDataBuffer;
-}
-
-void Connection::setOutgoingDataBuffer(const QByteArray &OutgoingDataBuffer)
-{
-    _OutgoingDataBuffer = OutgoingDataBuffer;
-}
 
 void Server::ProcessServerInputQueryRequest(const QByteArray &data, int socketDescriptor)
 {

@@ -15,35 +15,9 @@
 #include <room.h>
 #include "serverMessageSystem.pb.h"
 
+#include "connection.h"
 typedef QPair<QString, QString> serverSettings;
 
-
-class Connection
-{
-
-public:
-
-    explicit Connection (QTcpSocket* connection, QString connectionName) :
-        _socket(connection), _connectionName(connectionName)
-    { }
-
-private:
-
-    QTcpSocket* _socket;
-    QByteArray  _OutgoingDataBuffer;
-    QByteArray  _IncomingDataBuffer;
-    QString     _connectionName; //init with socketDescriptor, continue with ClientName
-
-public:
-
-    QByteArray OutgoingDataBuffer() const;
-    void setOutgoingDataBuffer(const QByteArray &OutgoingDataBuffer);
-    QByteArray IncomingDataBuffer() const;
-    void setIncomingDataBuffer(const QByteArray &IncomingDataBuffer);
-    QTcpSocket *socket() const;
-    void setSocket(QTcpSocket *socket);
-
-};
 
 
 class Server : public QObject
@@ -89,6 +63,8 @@ private:
     QByteArray FormServerInputQueryReply();
 
     Connection* DefineConnection(int socketDescriptor);
+
+    //RoomCreation Related
 
 };
 

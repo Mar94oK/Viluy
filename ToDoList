@@ -21,7 +21,14 @@ Fields:
                 bool    ratingGame
 
 
+10.11.2018
 
+Common files between Nayda and Viluy:
+serverMesssageSystem.pc.cc
+serverMesssageSystem.pb.h
+
+gamesettings.h
+gamesettings.cpp
 
 
 

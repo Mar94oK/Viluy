@@ -1,10 +1,5 @@
 #include "room.h"
 
-Room::Room(QObject *parent) : QObject(parent)
-{
-
-}
-
 int Room::numberOfPlayers() const
 {
     return _numberOfPlayers;
@@ -15,12 +10,23 @@ void Room::setNumberOfPlayers(int numberOfPlayers)
     _numberOfPlayers = numberOfPlayers;
 }
 
-RulesType Room::rulesType() const
+std::vector<Player> Room::players() const
 {
-    return _rulesType;
+    return _players;
 }
 
-void Room::setRulesType(const RulesType &rulesType)
+void Room::addPlayer(const Player &player)
 {
-    _rulesType = rulesType;
+    _players.push_back(player);
+}
+
+
+QString Player::name() const
+{
+    return _name;
+}
+
+void Player::setName(const QString &name)
+{
+    _name = name;
 }

@@ -34,7 +34,8 @@ SOURCES += main.cpp\
         room.cpp \
         serversettings.cpp \
         utilites.cpp \
-        serverMessageSystem.pb.cc
+        serverMessageSystem.pb.cc \
+    connection.cpp
 
 HEADERS  += mainwindow.h \
         gamesettings.h \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
         room.h \
         serversettings.h \
         utilites.h \
-        serverMessageSystem.pb.h
+        serverMessageSystem.pb.h \
+    connection.h
 
 FORMS    += mainwindow.ui
 
