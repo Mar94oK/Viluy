@@ -14,6 +14,8 @@
 #include <mainwindow.h>
 #include <room.h>
 #include "serverMessageSystem.pb.h"
+#include "messagesdefinitions.h"
+
 
 #include "connection.h"
 typedef QPair<QString, QString> serverSettings;
@@ -32,7 +34,7 @@ private:
     QStringList fortunes;
     QNetworkSession *networkSession;
 
-    std::vector<Room> _rooms;
+    std::vector<Room* > _rooms;
     std::vector<Connection*> _establishedConnections;
     ServerSettings _settings;
 
@@ -61,10 +63,13 @@ private:
     void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
 
     QByteArray FormServerInputQueryReply();
+    QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
 
     Connection* DefineConnection(int socketDescriptor);
 
     //RoomCreation Related
+
+    void RoomCreation();
 
 };
 

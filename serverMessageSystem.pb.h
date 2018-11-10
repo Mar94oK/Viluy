@@ -655,12 +655,26 @@ class GameSettings : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::serverMessageSystem::TimeSettings* mutable_timesettings();
   void set_allocated_timesettings(::serverMessageSystem::TimeSettings* timesettings);
 
+  // uint32 maximumNumberOfPlayers = 3;
+  void clear_maximumnumberofplayers();
+  static const int kMaximumNumberOfPlayersFieldNumber = 3;
+  ::google::protobuf::uint32 maximumnumberofplayers() const;
+  void set_maximumnumberofplayers(::google::protobuf::uint32 value);
+
+  // bool settingsCorrectionAllowed = 4;
+  void clear_settingscorrectionallowed();
+  static const int kSettingsCorrectionAllowedFieldNumber = 4;
+  bool settingscorrectionallowed() const;
+  void set_settingscorrectionallowed(bool value);
+
   // @@protoc_insertion_point(class_scope:serverMessageSystem.GameSettings)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::serverMessageSystem::GameType* gametype_;
   ::serverMessageSystem::TimeSettings* timesettings_;
+  ::google::protobuf::uint32 maximumnumberofplayers_;
+  bool settingscorrectionallowed_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
 };
@@ -2040,6 +2054,34 @@ inline void GameSettings::set_allocated_timesettings(::serverMessageSystem::Time
   }
   timesettings_ = timesettings;
   // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.GameSettings.timeSettings)
+}
+
+// uint32 maximumNumberOfPlayers = 3;
+inline void GameSettings::clear_maximumnumberofplayers() {
+  maximumnumberofplayers_ = 0u;
+}
+inline ::google::protobuf::uint32 GameSettings::maximumnumberofplayers() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.GameSettings.maximumNumberOfPlayers)
+  return maximumnumberofplayers_;
+}
+inline void GameSettings::set_maximumnumberofplayers(::google::protobuf::uint32 value) {
+  
+  maximumnumberofplayers_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.GameSettings.maximumNumberOfPlayers)
+}
+
+// bool settingsCorrectionAllowed = 4;
+inline void GameSettings::clear_settingscorrectionallowed() {
+  settingscorrectionallowed_ = false;
+}
+inline bool GameSettings::settingscorrectionallowed() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.GameSettings.settingsCorrectionAllowed)
+  return settingscorrectionallowed_;
+}
+inline void GameSettings::set_settingscorrectionallowed(bool value) {
+  
+  settingscorrectionallowed_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.GameSettings.settingsCorrectionAllowed)
 }
 
 // -------------------------------------------------------------------

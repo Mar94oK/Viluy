@@ -91,6 +91,16 @@ void GameSettings::setTimeToThink(unsigned int timeToThink)
     _timeToThink = timeToThink;
 }
 
+bool GameSettings::settingsCorrectionAllowed() const
+{
+    return _settingsCorrectionAllowed;
+}
+
+void GameSettings::setSettingsCorrectionAllowed(bool settingCorrectionAllowed)
+{
+    _settingsCorrectionAllowed = settingCorrectionAllowed;
+}
+
 GameSettings::GameSettings()
 {
     _maximumNumberOfPlayers = 6;
@@ -100,6 +110,7 @@ GameSettings::GameSettings()
     _diplomacyTime = 30;
     _hasAddonClericalErrors = true;
     _hasAddonWildAxe = true;
+    _settingsCorrectionAllowed = true;
     qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
     QString::number(qrand() % ((99999 + 1) - 1) + 1);
     _clientName = "EmpERRoR" + QString::number(qrand() % ((99999 + 1) - 1) + 1);

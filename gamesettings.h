@@ -18,17 +18,18 @@ private:
     bool         _hasAddonWildAxe;
     QString      _clientName;
     RulesType    _rulesType;
+    bool         _settingsCorrectionAllowed;
 
 public:
     GameSettings();
     GameSettings(unsigned int maxNumberOfPlayers, unsigned int totaltimeToMove,
                  unsigned int timeToThink, unsigned int timeForOpponentsDecision,
                  unsigned int diplomacyTime, bool AddonClericalErrors, bool hasAddonWildAxe,
-                 const QString& clientName, RulesType rulesType) :
+                 const QString& clientName, RulesType rulesType, bool correctionAllowed = true) :
         _maximumNumberOfPlayers(maxNumberOfPlayers), _totalTimeToMove(totaltimeToMove),
         _timeToThink(timeToThink), _timeForOpponentsDecision(timeForOpponentsDecision),
         _diplomacyTime(diplomacyTime), _hasAddonClericalErrors(AddonClericalErrors),
-        _hasAddonWildAxe(hasAddonWildAxe), _clientName(clientName), _rulesType(rulesType)
+        _hasAddonWildAxe(hasAddonWildAxe), _clientName(clientName), _rulesType(rulesType), _settingsCorrectionAllowed(correctionAllowed)
     {}
     GameSettings(const GameSettings& settings);
 
@@ -52,6 +53,8 @@ public:
     RulesType rulesType() const;
     void setRulesType(const RulesType &rulesType);
     void setTimeToThink(unsigned int timeToThink);
+    bool settingsCorrectionAllowed() const;
+    void setSettingsCorrectionAllowed(bool settingCorrectionAllowed);
 };
 
 #endif // GAMESETTINGS_H

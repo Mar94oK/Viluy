@@ -64,6 +64,8 @@ message GameSettings
 {
     GameType gameType = 1;
     TimeSettings timeSettings = 2;
+    uint32  maximumNumberOfPlayers = 3;
+    bool    settingsCorrectionAllowed = 4; //to set if you want to let other users to change setting during the preparation to the game
 }
 
 //Initial Request Type

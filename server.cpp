@@ -145,6 +145,66 @@ QByteArray Server::FormServerInputQueryReply()
     return block;
 }
 
+QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber)
+{
+    if (created)
+    {
+        serverMessageSystem::ClientRoomCreationReply message;
+        serverMessageSystem::CommonHeader *header = message.mutable_header();
+        header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        message.set_connectionallowed(created);
+        message.set_slotid(slotId);
+        message.set_freeslotsleft(freeSlotsLeft);
+
+        QByteArray block;
+        block.resize(message.ByteSize());
+        message.PrintDebugString();
+        message.SerializeToArray(block.data(), block.size());
+
+        qDebug() << "NAY-001: Serialized FromClientRoomCreationReply is ready.";
+
+        return block;
+    }
+    else
+    {
+        serverMessageSystem::ClientRoomCreationReply message;
+        serverMessageSystem::CommonHeader *header = message.mutable_header();
+        header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        message.set_connectionallowed(created);
+        message.set_freeslotsleft(freeSlotsLeft);
+        serverMessageSystem::RoomCreationErrors *errors = message.mutable_roomcreationerrors();
+
+        switch (ErrorNumber)
+        {
+        case RoomCreationErrors::INCORRECT_SETTINGS:
+            errors->set_incorrectsettings(true);
+            break;
+        case RoomCreationErrors::NO_FREE_SLOTS_AVAILABLE:
+            errors->set_nofreeslotsavailable(true);
+            break;
+
+        case RoomCreationErrors::RULES_ARE_NOT_SUPPORTED:
+            errors->set_rulesarenotsupported(true);
+            break;
+        default:
+            break;
+        }
+
+        QByteArray block;
+        block.resize(message.ByteSize());
+        message.PrintDebugString();
+        message.SerializeToArray(block.data(), block.size());
+
+        qDebug() << "NAY-001: Serialized FromClientRoomCreationReply is ready. WITH ERRORS!";
+        return block;
+    }
+
+}
+
 Connection *Server::DefineConnection(int socketDescriptor)
 {
     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
@@ -340,5 +400,47 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
     emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time To Move: " + QString::number(message.gamesettings().timesettings().totaltimetomove()));
     emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time To Think: " + QString::number(message.gamesettings().timesettings().timetothink()));
     emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Time Settings: Time For Opponents Decision: " + QString::number(message.gamesettings().timesettings().timeforopponentsdecision()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Setting changes During preparation Allowance: " + QString::number(message.gamesettings().settingscorrectionallowed()));
+    emit SignalServerLogReport("NAY-001: ServerInputQuery: Game Settings: Maximum number of players: " + QString::number(message.gamesettings().maximumnumberofplayers()));
+
+    if (_rooms.size() < _settings.maxNumberOfRooms())
+    {
+        qDebug() << "NAY-001: Create new room!";
+        GameSettings givenSettings(message.gamesettings().maximumnumberofplayers(),
+                                   message.gamesettings().timesettings().totaltimetomove(),
+                                   message.gamesettings().timesettings().timetothink(),
+                                   message.gamesettings().timesettings().timeforopponentsdecision(),
+                                   message.gamesettings().timesettings().diplomacytime(),
+                                   message.gamesettings().gametype().hasaddonclericalerrors(),
+                                   message.gamesettings().gametype().hasaddonwildaxe(),
+                                   QString::fromStdString(message.clientname()),
+                                   static_cast<RulesType>(message.gamesettings().gametype().rulestype()),
+                                   message.gamesettings().settingscorrectionallowed());
+//        explicit Room(uint32_t id, QString name, uint32_t numberOfPLayers, GameSettings settings, Player firstPlayer, Connection* firstConnection) :
+//        _id(id), _name(name), _numberOfPlayers(numberOfPLayers), _gameSettings(settings)
+        Room* newRoom = new Room(_rooms.size() + 1,
+                                 "NewRoom",
+                                 1,
+                                 givenSettings,
+                                 Player(QString::fromStdString(message.clientname())),
+                                 DefineConnection(socketDescriptor)
+                                 );
+
+        _rooms.push_back(newRoom);
+
+        Connection* currentConnection = DefineConnection(socketDescriptor);
+        currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(true, _rooms.size(), _settings.maxNumberOfRooms() - _rooms.size(), RoomCreationErrors::NO_ERRORS));
+        emit SignalServerLogReport("NAY-001: ClientRoomCreationReply to socket #" + QString::number(socketDescriptor));
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
+    }
+    else //NO FREE SPACE AVAILABLE
+    {
+        Connection* currentConnection = DefineConnection(socketDescriptor);
+        currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(false, 0, 0, RoomCreationErrors::NO_FREE_SLOTS_AVAILABLE));
+        emit SignalServerLogReport("NAY-001: ClientRoomCreationReply WITH ERRORS to socket #" + QString::number(socketDescriptor));
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
+        ;
+    }
+
 
 }

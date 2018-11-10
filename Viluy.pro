@@ -7,7 +7,9 @@
 QT       += core gui
 QT       += network
 
-#CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
+CONFIG += c++1z
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -46,7 +48,8 @@ HEADERS  += mainwindow.h \
         serversettings.h \
         utilites.h \
         serverMessageSystem.pb.h \
-    connection.h
+    connection.h \
+    messagesdefinitions.h
 
 FORMS    += mainwindow.ui
 
