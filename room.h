@@ -7,6 +7,8 @@
 #include <QString>
 #include "connection.h"
 
+#define MASTER_CONNECTION_ID 0
+
 class Player
 {
   QString _name;
@@ -45,6 +47,16 @@ public:
 
     std::vector<Player> players() const;
     void addPlayer(const Player &player);
+
+    std::vector<Connection *> connections() const;
+    bool RemoveConnection(int socketDescriptor);
+    int ReassignedRoomMaster();
+    bool RoomIsNotEmpty() { return _connections.size(); }
+
+    uint32_t id() const;
+    void setId(const uint32_t &id);
+
+    unsigned int PlayersLeft() { return _connections.size(); }
 
 private:
 

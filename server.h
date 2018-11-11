@@ -52,6 +52,7 @@ private slots:
     void SlotReadIncomingData(int socketDescriptor);
     void slot_reportError(QAbstractSocket::SocketError);
     void SlotConnectionSendOutgoingData(int socketDescriptor);
+    void SlotClientConnectionIsClosing(long long ID);
 
 private:
 
@@ -67,9 +68,13 @@ private:
 
     Connection* DefineConnection(int socketDescriptor);
 
-    //RoomCreation Related
+    bool RemoveConnectionFromRoom(int socketDescriptor);
+    bool RemoveConenctionFromServerCeonncetionsPull(int socketDescriptor);
+
+    //RoomCreation and Maintaning Related
 
     void RoomCreation();
+    bool RoomDeleting(uint32_t roomId);
 
 };
 

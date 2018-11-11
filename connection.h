@@ -4,7 +4,7 @@
 #include <QString>
 
 #define ROOM_ID_NOT_ASSIGNED 0
-
+#define CLOSED_SOCKET_DESCRIPTOR (-1)
 
 class Connection
 {

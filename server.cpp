@@ -7,6 +7,7 @@
 #undef USE_VISUAL_DELAYS
 #define ERROR_CODE_SERVER_DIDNT_START (-1)
 
+
 Server::Server(QObject *parent) : QObject(parent),
     tcpServer(Q_NULLPTR),
     networkSession(0)
@@ -152,8 +153,8 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
         serverMessageSystem::ClientRoomCreationReply message;
         serverMessageSystem::CommonHeader *header = message.mutable_header();
         header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
-        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
-        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REPLY);
+        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REPLY);
         message.set_connectionallowed(created);
         message.set_slotid(slotId);
         message.set_freeslotsleft(freeSlotsLeft);
@@ -172,8 +173,8 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
         serverMessageSystem::ClientRoomCreationReply message;
         serverMessageSystem::CommonHeader *header = message.mutable_header();
         header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
-        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
-        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+        header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REPLY);
+        message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_ROOM_CREATION_REPLY);
         message.set_connectionallowed(created);
         message.set_freeslotsleft(freeSlotsLeft);
         serverMessageSystem::RoomCreationErrors *errors = message.mutable_roomcreationerrors();
@@ -191,6 +192,9 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
             errors->set_rulesarenotsupported(true);
             break;
         default:
+            errors->set_incorrectsettings(false);
+            errors->set_nofreeslotsavailable(false);
+            errors->set_rulesarenotsupported(false);
             break;
         }
 
@@ -207,9 +211,10 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
 
 Connection *Server::DefineConnection(int socketDescriptor)
 {
+    qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
     {
-
+        qDebug() << "NAY-001: _establishedConnections[var]->socket()->socketDescriptor(): " << _establishedConnections[var]->socket()->socketDescriptor();
         if (_establishedConnections[var]->socket()->socketDescriptor() == socketDescriptor )
         {
             //qDebug() << "NAY-001: Defining Connection";
@@ -218,6 +223,64 @@ Connection *Server::DefineConnection(int socketDescriptor)
     }
     qDebug() << "NAY-001: Error while connection searching!";
     return nullptr;
+}
+
+bool Server::RemoveConnectionFromRoom(int socketDescriptor)
+{
+    foreach (Room* room, _rooms)
+    {
+        if (room->RemoveConnection(socketDescriptor))
+        {
+            emit SignalServerLogReport("Connection with socket descriptor: " + QString::number(socketDescriptor)
+                                       + " has been successfully deleted from room with id: " + QString::number(room->id()));
+            if (room->RoomIsNotEmpty())
+            {
+                 emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(room->id())
+                                            + " to Socket with id: " + QString::number(room->ReassignedRoomMaster()));
+                 emit SignalServerLogReport("There are : " + QString::number(room->PlayersLeft())
+                                            + " players left in room with id:  " + QString::number(room->id()));
+                 return true;
+            }
+            else
+            {
+                emit SignalServerLogReport("Room with ID : " + QString::number(room->id())
+                                           + "is Empty. To be deleted.");
+                 uint32_t id = room->id();
+                if (RoomDeleting(room->id()))
+                {
+                    emit SignalServerLogReport("Room with ID : " + QString::number(id)
+                                               + " has been deleted successfully!");
+                    return true;
+                }
+                else
+                {
+                    emit SignalServerLogReport("Error occured while deleting room with id:  : " + QString::number(id));
+                    return false;
+                }
+            }
+        }
+        emit SignalServerLogReport("RemoveConnectionFromRoom() room having socket with SokcetDescriptor: " + QString::number(socketDescriptor)
+                                   + " not found!");
+        return false;
+    }
+}
+
+bool Server::RoomDeleting(uint32_t roomId)
+{
+    qDebug() << "NAY-001: Entering room deleting...";
+    for (unsigned int var = 0; var < _rooms.size(); ++var)
+    {
+        if (_rooms[var]->id() == roomId)
+        {
+            //deleting instance
+            delete _rooms[var];
+            //erase nullpointer from the array.
+            _rooms.erase(_rooms.begin() + var);
+            return true;
+        }
+    }
+    qDebug() << "NAY-001:: Error! RoomDeleting() Room with such ID not found.";
+    return false;
 }
 
 int Server::SlotSessionOpened()
@@ -280,6 +343,9 @@ void Server::SlotSetUpNewConnection()
 
     //connect the signal with the Specified slot.
     connect(clientConnection, &QIODevice::readyRead, [this, ID]{SlotReadIncomingData(ID);});
+    //connect(clientConnection, &QTcpSocket::aboutToClose, [this, ID] {SlotClientConnectionIsClosing(ID);});
+    connect(clientConnection, &QAbstractSocket::disconnected, [this, ID] {SlotClientConnectionIsClosing(ID);});
+
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
@@ -345,6 +411,61 @@ void Server::SlotConnectionSendOutgoingData(int socketDescriptor)
 //        NAY-001: MARK_EXPECTED_ERROR
         return;
     }
+}
+
+void Server::SlotClientConnectionIsClosing(long long ID)
+{
+    qDebug() << "NAY-001: Server found socket which is about to close! with ID: " << ID;
+    Connection* connection = DefineConnection(CLOSED_SOCKET_DESCRIPTOR);
+    if (connection == nullptr)
+        return;
+    //check socket state:
+    switch (connection->socket()->state())
+    {
+    case QAbstractSocket::SocketState::ClosingState:
+        qDebug() << "Socket is in the Closing State";
+        break;
+    case QAbstractSocket::SocketState::ConnectedState:
+        qDebug() << "Socket is in the Connected State!";
+        break;
+    case QAbstractSocket::SocketState::UnconnectedState:
+        qDebug() << "Socket is in the UnconnectedState State!";
+        break;
+    case QAbstractSocket::SocketState::HostLookupState:
+        qDebug() << "Socket is in the HostLookupState State!";
+        break;
+    case QAbstractSocket::SocketState::BoundState:
+        qDebug() << "Socket is in the BoundState State!";
+        break;
+    case QAbstractSocket::SocketState::ListeningState:
+        qDebug() << "Socket is in the ListeningState State!";
+        break;
+    case QAbstractSocket::SocketState::ConnectingState:
+        qDebug() << "Socket is in the ConnectingState State!";
+        break;
+    }
+
+    if (connection->socket()->state() != QAbstractSocket::SocketState::ConnectedState)
+    {
+        qDebug() << "NAY-001: Processing exclusion of unconnected socket.";
+        if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))
+        {
+            for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
+            {
+                if (_establishedConnections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
+                {
+                    delete _establishedConnections[var];
+                    _establishedConnections.erase(_establishedConnections.begin() + var);
+                    emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
+                                               + " has been successfully deleted! ");
+                    return;
+                }
+            }
+        }
+        emit SignalServerLogReport("NAY-001: Error while Removing Connection with scoketId: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
+                                   + " from Room.");
+    }
+
 }
 
 void Server::setFortunes()
