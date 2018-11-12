@@ -17,7 +17,10 @@ Server::Server(QObject *parent) : QObject(parent),
     QObject::connect(this, &Server::SignalServerLogReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerLogMessage);
     QObject::connect(this, &Server::sig_serverErrorReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerErrorMessage);
     QObject::connect(this, &Server::sig_serverInfoReport, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::slot_showServerInfoMessage);
+    QObject::connect(this, &Server::SignalUpdateRoomsQuantity, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotReportNewRoomsQuantity);
     QObject::connect(this, &Server::SignalConnectionSendOutgoingData, this, &Server::SlotConnectionSendOutgoingData);
+    QObject::connect(qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::DebugSignalOpponentEnteringRoomReport, this, &Server::DebugSlotSendReportsOpponentIsEnteringRoom);
+
 
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
@@ -209,6 +212,26 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
 
 }
 
+QByteArray Server::FromServerReportsOpponentIsEnteringRoom(const QString &opponentName, uint32_t roomId)
+{
+    serverMessageSystem::ServerReportsOpponentIsEnteringRoom message;
+    serverMessageSystem::CommonHeader *header = message.mutable_header();
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM);
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM);
+    message.set_opponentname(opponentName.toUtf8().constData());
+    message.set_roomid(roomId);
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.PrintDebugString();
+    message.SerializeToArray(block.data(), block.size());
+
+    qDebug() << "NAY-001: Serialized FromServerReportsOpponentIsEnteringRoom is ready.";
+
+    return block;
+}
+
 Connection *Server::DefineConnection(int socketDescriptor)
 {
     qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
@@ -276,12 +299,25 @@ bool Server::RoomDeleting(uint32_t roomId)
             delete _rooms[var];
             //erase nullpointer from the array.
             _rooms.erase(_rooms.begin() + var);
+            emit SignalUpdateRoomsQuantity(_rooms.size());
             return true;
         }
     }
     qDebug() << "NAY-001:: Error! RoomDeleting() Room with such ID not found.";
     return false;
 }
+
+Room *Server::DefineRoom(uint32_t roomId)
+{
+    for (unsigned int var = 0; var < _rooms.size(); ++var)
+    {
+        if (_rooms[var]->id() == roomId)
+            return _rooms[var];
+    }
+    qDebug() << "NAY-001: Room with ID: " << roomId << " not found!";
+    return nullptr;
+}
+
 
 int Server::SlotSessionOpened()
 {
@@ -468,6 +504,27 @@ void Server::SlotClientConnectionIsClosing(long long ID)
 
 }
 
+void Server::DebugSlotSendReportsOpponentIsEnteringRoom(uint32_t roomId)
+{
+    qDebug() << "NAY-001: Sending DEBUG Client Entering Report for room wit ID: " << roomId;
+    Room* room = DefineRoom(roomId);
+
+    if (room == nullptr)
+    {
+        emit SignalServerLogReport("NAY-001: Cannot send ReportsOpponentIsEnteringRoom to the room with id: " + QString::number(roomId)
+                                   + " Room not found!");
+        return;
+    }
+
+    QString opponentName = "TheVeryFirstOpponent";
+
+    (room->connections())[MASTER_CONNECTION_ID]->setOutgoingDataBuffer(FromServerReportsOpponentIsEnteringRoom(opponentName, roomId));
+    unsigned int socketDescriptor = (room->connections())[MASTER_CONNECTION_ID]->socket()->socketDescriptor();
+    emit SignalConnectionSendOutgoingData(socketDescriptor);
+    emit SignalServerLogReport("NAY-001: DebugSlotSendReportsOpponentIsEnteringRoom to socket #" + QString::number(socketDescriptor));
+
+}
+
 void Server::setFortunes()
 {
     fortunes << tr("You've been leading a dog's life. Stay off the furniture.")
@@ -548,6 +605,7 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
                                  );
 
         _rooms.push_back(newRoom);
+        emit SignalUpdateRoomsQuantity(_rooms.size());
 
         Connection* currentConnection = DefineConnection(socketDescriptor);
         currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(true, _rooms.size(), _settings.maxNumberOfRooms() - _rooms.size(), RoomCreationErrors::NO_ERRORS));

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>636</width>
-    <height>566</height>
+    <width>490</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <layout class="QVBoxLayout" name="mainLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="lbl_TotalRooms">
         <property name="text">
          <string>Rooms</string>
         </property>
@@ -90,6 +90,17 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QGridLayout" name="debugControlsLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="btnEnterOpponent">
+        <property name="text">
+         <string>EnterOpponent : RoomID == 1</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -97,8 +108,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>636</width>
-     <height>20</height>
+     <width>490</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

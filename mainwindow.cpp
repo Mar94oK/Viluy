@@ -17,6 +17,10 @@ ServerMainWindow::ServerMainWindow(QWidget *parent) :
     connect(ui->btnExit, &QAbstractButton::clicked, this, &QWidget::close);
 
     setWindowTitle(QGuiApplication::applicationDisplayName());
+
+    ui->lbl_TotalRooms->setText("Комнат не создано.");
+
+    SetUpSignalSlotsConnections();
 }
 
 void ServerMainWindow::slot_showServerLogMessage(QString message)
@@ -34,8 +38,21 @@ void ServerMainWindow::slot_showServerInfoMessage(QString message)
     ui->lblServerInfo->setText(message);
 }
 
+void ServerMainWindow::SlotReportNewRoomsQuantity(unsigned int quantity)
+{
+    if (quantity)
+        ui->lbl_TotalRooms->setText(_roomsQuantityBaseText + QString::number(quantity));
+    else
+        ui->lbl_TotalRooms->setText("Комнат не создано.");
+}
+
 
 ServerMainWindow::~ServerMainWindow()
 {
     delete ui;
+}
+
+void ServerMainWindow::SetUpSignalSlotsConnections()
+{
+    QObject::connect(ui->btnEnterOpponent, &QPushButton::clicked, this, &ServerMainWindow::DebugSlotSendOpponentEnteringRoomReport);
 }

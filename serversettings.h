@@ -22,7 +22,7 @@ public:
         _immediateReplyToQuery(immediateReplyToQuery)
     { }
 
-    int maxNumberOfRooms() const;
+    unsigned int maxNumberOfRooms() const;
     void setMaxNumberOfRooms(int maxNumberOfRooms);
 
     static const unsigned int defaultMaximumNumberOfRooms = 10;

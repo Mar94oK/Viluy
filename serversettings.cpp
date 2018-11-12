@@ -50,7 +50,7 @@ void ServerSettings::setImmediateReplyToQuery(bool immediateReplyToQuery)
     _immediateReplyToQuery = immediateReplyToQuery;
 }
 
-int ServerSettings::maxNumberOfRooms() const
+unsigned int ServerSettings::maxNumberOfRooms() const
 {
     return _maxNumberOfRooms;
 }

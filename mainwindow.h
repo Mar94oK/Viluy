@@ -35,20 +35,27 @@ private:
 
 private:
 
+    void SetUpSignalSlotsConnections();
+
 
 private slots:
 
 
 signals:
 
+    void DebugSignalOpponentEnteringRoomReport(unsigned int roomId);
 
 public slots:
 
     void slot_showServerLogMessage(QString message);
     void slot_showServerErrorMessage(QString message);
     void slot_showServerInfoMessage(QString message);
+    void SlotReportNewRoomsQuantity(unsigned int quantity);
+    void DebugSlotSendOpponentEnteringRoomReport() { emit DebugSignalOpponentEnteringRoomReport(1); }
 
-private:
+private:        
+
+    QString _roomsQuantityBaseText = "Создано комнат на сервере: ";
 
 };
 
