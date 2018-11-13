@@ -229,6 +229,7 @@ QByteArray Server::FromServerReportsOpponentIsEnteringRoom(const QString &oppone
 
     qDebug() << "NAY-001: Serialized FromServerReportsOpponentIsEnteringRoom is ready.";
 
+
     return block;
 }
 
