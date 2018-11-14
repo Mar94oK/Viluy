@@ -67,11 +67,12 @@ private:
 
     void ProcessServerInputQueryRequest(const QByteArray& data, int socketDescriptor);
     void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
+    void ProcessChartMessage(const QByteArray &data, int socketDescriptor);
 
     QByteArray FormServerInputQueryReply();
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
     QByteArray FromServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
-
+    QByteArray FormChartMessage(const QString& message, const QString& sender, uint32_t roomID);
 
     Connection* DefineConnection(int socketDescriptor);
 

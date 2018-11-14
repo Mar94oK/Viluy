@@ -50,6 +50,9 @@ struct TableStruct_serverMessageSystem_2eproto {
 };
 void AddDescriptors_serverMessageSystem_2eproto();
 namespace serverMessageSystem {
+class ChartMessage;
+class ChartMessageDefaultTypeInternal;
+extern ChartMessageDefaultTypeInternal _ChartMessage_default_instance_;
 class ClientConnectionToRoomReply;
 class ClientConnectionToRoomReplyDefaultTypeInternal;
 extern ClientConnectionToRoomReplyDefaultTypeInternal _ClientConnectionToRoomReply_default_instance_;
@@ -62,12 +65,12 @@ extern ClientRoomCreationReplyDefaultTypeInternal _ClientRoomCreationReply_defau
 class ClientRoomCreationRequest;
 class ClientRoomCreationRequestDefaultTypeInternal;
 extern ClientRoomCreationRequestDefaultTypeInternal _ClientRoomCreationRequest_default_instance_;
-class ClientSendRoomCreationLobbyChartMessage;
-class ClientSendRoomCreationLobbyChartMessageDefaultTypeInternal;
-extern ClientSendRoomCreationLobbyChartMessageDefaultTypeInternal _ClientSendRoomCreationLobbyChartMessage_default_instance_;
 class CommonHeader;
 class CommonHeaderDefaultTypeInternal;
 extern CommonHeaderDefaultTypeInternal _CommonHeader_default_instance_;
+class DefaultMessage;
+class DefaultMessageDefaultTypeInternal;
+extern DefaultMessageDefaultTypeInternal _DefaultMessage_default_instance_;
 class GameSettings;
 class GameSettingsDefaultTypeInternal;
 extern GameSettingsDefaultTypeInternal _GameSettings_default_instance_;
@@ -89,21 +92,19 @@ extern ServerQueryReplyDefaultTypeInternal _ServerQueryReply_default_instance_;
 class ServerReportsOpponentIsEnteringRoom;
 class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal;
 extern ServerReportsOpponentIsEnteringRoomDefaultTypeInternal _ServerReportsOpponentIsEnteringRoom_default_instance_;
-class ServerSendRoomCreationLobbyChartMessage;
-class ServerSendRoomCreationLobbyChartMessageDefaultTypeInternal;
-extern ServerSendRoomCreationLobbyChartMessageDefaultTypeInternal _ServerSendRoomCreationLobbyChartMessage_default_instance_;
 class TimeSettings;
 class TimeSettingsDefaultTypeInternal;
 extern TimeSettingsDefaultTypeInternal _TimeSettings_default_instance_;
 }  // namespace serverMessageSystem
 namespace google {
 namespace protobuf {
+template<> ::serverMessageSystem::ChartMessage* Arena::CreateMaybeMessage<::serverMessageSystem::ChartMessage>(Arena*);
 template<> ::serverMessageSystem::ClientConnectionToRoomReply* Arena::CreateMaybeMessage<::serverMessageSystem::ClientConnectionToRoomReply>(Arena*);
 template<> ::serverMessageSystem::ClientConnectionToRoomRequest* Arena::CreateMaybeMessage<::serverMessageSystem::ClientConnectionToRoomRequest>(Arena*);
 template<> ::serverMessageSystem::ClientRoomCreationReply* Arena::CreateMaybeMessage<::serverMessageSystem::ClientRoomCreationReply>(Arena*);
 template<> ::serverMessageSystem::ClientRoomCreationRequest* Arena::CreateMaybeMessage<::serverMessageSystem::ClientRoomCreationRequest>(Arena*);
-template<> ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage* Arena::CreateMaybeMessage<::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage>(Arena*);
 template<> ::serverMessageSystem::CommonHeader* Arena::CreateMaybeMessage<::serverMessageSystem::CommonHeader>(Arena*);
+template<> ::serverMessageSystem::DefaultMessage* Arena::CreateMaybeMessage<::serverMessageSystem::DefaultMessage>(Arena*);
 template<> ::serverMessageSystem::GameSettings* Arena::CreateMaybeMessage<::serverMessageSystem::GameSettings>(Arena*);
 template<> ::serverMessageSystem::GameType* Arena::CreateMaybeMessage<::serverMessageSystem::GameType>(Arena*);
 template<> ::serverMessageSystem::RoomCreationErrors* Arena::CreateMaybeMessage<::serverMessageSystem::RoomCreationErrors>(Arena*);
@@ -111,7 +112,6 @@ template<> ::serverMessageSystem::ServerInputQuery* Arena::CreateMaybeMessage<::
 template<> ::serverMessageSystem::ServerQueryOrderNotification* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryOrderNotification>(Arena*);
 template<> ::serverMessageSystem::ServerQueryReply* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryReply>(Arena*);
 template<> ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsOpponentIsEnteringRoom>(Arena*);
-template<> ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage* Arena::CreateMaybeMessage<::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage>(Arena*);
 template<> ::serverMessageSystem::TimeSettings* Arena::CreateMaybeMessage<::serverMessageSystem::TimeSettings>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -142,12 +142,13 @@ enum SubSystemID {
   CONNECTION_SUBSYSTEM = 0,
   GAME_ACTIONS_SUBSYSTEM = 1,
   GAME_NOTIFICATION_SUBSYSTEM = 2,
+  CHART_SUBSYSTEM = 3,
   SubSystemID_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::min(),
   SubSystemID_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::max()
 };
 bool SubSystemID_IsValid(int value);
 const SubSystemID SubSystemID_MIN = CONNECTION_SUBSYSTEM;
-const SubSystemID SubSystemID_MAX = GAME_NOTIFICATION_SUBSYSTEM;
+const SubSystemID SubSystemID_MAX = CHART_SUBSYSTEM;
 const int SubSystemID_ARRAYSIZE = SubSystemID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* SubSystemID_descriptor();
@@ -168,14 +169,12 @@ enum ConnectionSubSysCommandsID {
   CLIENT_CONNECTION_TO_ROOM_REQUEST = 4,
   CLIENT_CONNECTION_TO_ROOM_REPLY = 5,
   SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6,
-  SERVER_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE = 7,
-  CLIENT_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE = 8,
   ConnectionSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::min(),
   ConnectionSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::max()
 };
 bool ConnectionSubSysCommandsID_IsValid(int value);
 const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MIN = SERVER_INPUT_QUERY_REQUEST;
-const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = CLIENT_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE;
+const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM;
 const int ConnectionSubSysCommandsID_ARRAYSIZE = ConnectionSubSysCommandsID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ConnectionSubSysCommandsID_descriptor();
@@ -187,6 +186,27 @@ inline bool ConnectionSubSysCommandsID_Parse(
     const ::std::string& name, ConnectionSubSysCommandsID* value) {
   return ::google::protobuf::internal::ParseNamedEnum<ConnectionSubSysCommandsID>(
     ConnectionSubSysCommandsID_descriptor(), name, value);
+}
+enum ChartSubSysCommandsID {
+  CHART_MESSAGE = 0,
+  CHART_NOTIFICATION = 1,
+  ChartSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::min(),
+  ChartSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::max()
+};
+bool ChartSubSysCommandsID_IsValid(int value);
+const ChartSubSysCommandsID ChartSubSysCommandsID_MIN = CHART_MESSAGE;
+const ChartSubSysCommandsID ChartSubSysCommandsID_MAX = CHART_NOTIFICATION;
+const int ChartSubSysCommandsID_ARRAYSIZE = ChartSubSysCommandsID_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ChartSubSysCommandsID_descriptor();
+inline const ::std::string& ChartSubSysCommandsID_Name(ChartSubSysCommandsID value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ChartSubSysCommandsID_descriptor(), value);
+}
+inline bool ChartSubSysCommandsID_Parse(
+    const ::std::string& name, ChartSubSysCommandsID* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ChartSubSysCommandsID>(
+    ChartSubSysCommandsID_descriptor(), name, value);
 }
 enum GameCreationRequest {
   JoinTheGame = 0,
@@ -2025,24 +2045,24 @@ class ServerReportsOpponentIsEnteringRoom : public ::google::protobuf::Message /
 };
 // -------------------------------------------------------------------
 
-class ServerSendRoomCreationLobbyChartMessage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage) */ {
+class ChartMessage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ChartMessage) */ {
  public:
-  ServerSendRoomCreationLobbyChartMessage();
-  virtual ~ServerSendRoomCreationLobbyChartMessage();
+  ChartMessage();
+  virtual ~ChartMessage();
 
-  ServerSendRoomCreationLobbyChartMessage(const ServerSendRoomCreationLobbyChartMessage& from);
+  ChartMessage(const ChartMessage& from);
 
-  inline ServerSendRoomCreationLobbyChartMessage& operator=(const ServerSendRoomCreationLobbyChartMessage& from) {
+  inline ChartMessage& operator=(const ChartMessage& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ServerSendRoomCreationLobbyChartMessage(ServerSendRoomCreationLobbyChartMessage&& from) noexcept
-    : ServerSendRoomCreationLobbyChartMessage() {
+  ChartMessage(ChartMessage&& from) noexcept
+    : ChartMessage() {
     *this = ::std::move(from);
   }
 
-  inline ServerSendRoomCreationLobbyChartMessage& operator=(ServerSendRoomCreationLobbyChartMessage&& from) noexcept {
+  inline ChartMessage& operator=(ChartMessage&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2054,34 +2074,34 @@ class ServerSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const ServerSendRoomCreationLobbyChartMessage& default_instance();
+  static const ChartMessage& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ServerSendRoomCreationLobbyChartMessage* internal_default_instance() {
-    return reinterpret_cast<const ServerSendRoomCreationLobbyChartMessage*>(
-               &_ServerSendRoomCreationLobbyChartMessage_default_instance_);
+  static inline const ChartMessage* internal_default_instance() {
+    return reinterpret_cast<const ChartMessage*>(
+               &_ChartMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     13;
 
-  void Swap(ServerSendRoomCreationLobbyChartMessage* other);
-  friend void swap(ServerSendRoomCreationLobbyChartMessage& a, ServerSendRoomCreationLobbyChartMessage& b) {
+  void Swap(ChartMessage* other);
+  friend void swap(ChartMessage& a, ChartMessage& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ServerSendRoomCreationLobbyChartMessage* New() const final {
-    return CreateMaybeMessage<ServerSendRoomCreationLobbyChartMessage>(NULL);
+  inline ChartMessage* New() const final {
+    return CreateMaybeMessage<ChartMessage>(NULL);
   }
 
-  ServerSendRoomCreationLobbyChartMessage* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<ServerSendRoomCreationLobbyChartMessage>(arena);
+  ChartMessage* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ChartMessage>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const ServerSendRoomCreationLobbyChartMessage& from);
-  void MergeFrom(const ServerSendRoomCreationLobbyChartMessage& from);
+  void CopyFrom(const ChartMessage& from);
+  void MergeFrom(const ChartMessage& from);
   void Clear() final;
   bool IsInitialized() const final;
 
@@ -2103,7 +2123,7 @@ class ServerSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ServerSendRoomCreationLobbyChartMessage* other);
+  void InternalSwap(ChartMessage* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -2119,19 +2139,19 @@ class ServerSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
 
   // accessors -------------------------------------------------------
 
-  // string opponentName = 3;
-  void clear_opponentname();
-  static const int kOpponentNameFieldNumber = 3;
-  const ::std::string& opponentname() const;
-  void set_opponentname(const ::std::string& value);
+  // string senderName = 3;
+  void clear_sendername();
+  static const int kSenderNameFieldNumber = 3;
+  const ::std::string& sendername() const;
+  void set_sendername(const ::std::string& value);
   #if LANG_CXX11
-  void set_opponentname(::std::string&& value);
+  void set_sendername(::std::string&& value);
   #endif
-  void set_opponentname(const char* value);
-  void set_opponentname(const char* value, size_t size);
-  ::std::string* mutable_opponentname();
-  ::std::string* release_opponentname();
-  void set_allocated_opponentname(::std::string* opponentname);
+  void set_sendername(const char* value);
+  void set_sendername(const char* value, size_t size);
+  ::std::string* mutable_sendername();
+  ::std::string* release_sendername();
+  void set_allocated_sendername(::std::string* sendername);
 
   // string chartMessage = 4;
   void clear_chartmessage();
@@ -2156,44 +2176,51 @@ class ServerSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   ::serverMessageSystem::CommonHeader* mutable_header();
   void set_allocated_header(::serverMessageSystem::CommonHeader* header);
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  void clear_connectioncmdid();
-  static const int kConnectionCmdIDFieldNumber = 2;
-  ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
-  void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  void clear_chartcmdid();
+  static const int kChartCmdIDFieldNumber = 2;
+  ::serverMessageSystem::ChartSubSysCommandsID chartcmdid() const;
+  void set_chartcmdid(::serverMessageSystem::ChartSubSysCommandsID value);
 
-  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // uint32 roomID = 5;
+  void clear_roomid();
+  static const int kRoomIDFieldNumber = 5;
+  ::google::protobuf::uint32 roomid() const;
+  void set_roomid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.ChartMessage)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr opponentname_;
+  ::google::protobuf::internal::ArenaStringPtr sendername_;
   ::google::protobuf::internal::ArenaStringPtr chartmessage_;
   ::serverMessageSystem::CommonHeader* header_;
-  int connectioncmdid_;
+  int chartcmdid_;
+  ::google::protobuf::uint32 roomid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_serverMessageSystem_2eproto;
 };
 // -------------------------------------------------------------------
 
-class ClientSendRoomCreationLobbyChartMessage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage) */ {
+class DefaultMessage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.DefaultMessage) */ {
  public:
-  ClientSendRoomCreationLobbyChartMessage();
-  virtual ~ClientSendRoomCreationLobbyChartMessage();
+  DefaultMessage();
+  virtual ~DefaultMessage();
 
-  ClientSendRoomCreationLobbyChartMessage(const ClientSendRoomCreationLobbyChartMessage& from);
+  DefaultMessage(const DefaultMessage& from);
 
-  inline ClientSendRoomCreationLobbyChartMessage& operator=(const ClientSendRoomCreationLobbyChartMessage& from) {
+  inline DefaultMessage& operator=(const DefaultMessage& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ClientSendRoomCreationLobbyChartMessage(ClientSendRoomCreationLobbyChartMessage&& from) noexcept
-    : ClientSendRoomCreationLobbyChartMessage() {
+  DefaultMessage(DefaultMessage&& from) noexcept
+    : DefaultMessage() {
     *this = ::std::move(from);
   }
 
-  inline ClientSendRoomCreationLobbyChartMessage& operator=(ClientSendRoomCreationLobbyChartMessage&& from) noexcept {
+  inline DefaultMessage& operator=(DefaultMessage&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2205,34 +2232,34 @@ class ClientSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const ClientSendRoomCreationLobbyChartMessage& default_instance();
+  static const DefaultMessage& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ClientSendRoomCreationLobbyChartMessage* internal_default_instance() {
-    return reinterpret_cast<const ClientSendRoomCreationLobbyChartMessage*>(
-               &_ClientSendRoomCreationLobbyChartMessage_default_instance_);
+  static inline const DefaultMessage* internal_default_instance() {
+    return reinterpret_cast<const DefaultMessage*>(
+               &_DefaultMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     14;
 
-  void Swap(ClientSendRoomCreationLobbyChartMessage* other);
-  friend void swap(ClientSendRoomCreationLobbyChartMessage& a, ClientSendRoomCreationLobbyChartMessage& b) {
+  void Swap(DefaultMessage* other);
+  friend void swap(DefaultMessage& a, DefaultMessage& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ClientSendRoomCreationLobbyChartMessage* New() const final {
-    return CreateMaybeMessage<ClientSendRoomCreationLobbyChartMessage>(NULL);
+  inline DefaultMessage* New() const final {
+    return CreateMaybeMessage<DefaultMessage>(NULL);
   }
 
-  ClientSendRoomCreationLobbyChartMessage* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<ClientSendRoomCreationLobbyChartMessage>(arena);
+  DefaultMessage* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<DefaultMessage>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const ClientSendRoomCreationLobbyChartMessage& from);
-  void MergeFrom(const ClientSendRoomCreationLobbyChartMessage& from);
+  void CopyFrom(const DefaultMessage& from);
+  void MergeFrom(const DefaultMessage& from);
   void Clear() final;
   bool IsInitialized() const final;
 
@@ -2254,7 +2281,7 @@ class ClientSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ClientSendRoomCreationLobbyChartMessage* other);
+  void InternalSwap(DefaultMessage* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -2270,34 +2297,6 @@ class ClientSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
 
   // accessors -------------------------------------------------------
 
-  // string clientName = 3;
-  void clear_clientname();
-  static const int kClientNameFieldNumber = 3;
-  const ::std::string& clientname() const;
-  void set_clientname(const ::std::string& value);
-  #if LANG_CXX11
-  void set_clientname(::std::string&& value);
-  #endif
-  void set_clientname(const char* value);
-  void set_clientname(const char* value, size_t size);
-  ::std::string* mutable_clientname();
-  ::std::string* release_clientname();
-  void set_allocated_clientname(::std::string* clientname);
-
-  // string chartMessage = 4;
-  void clear_chartmessage();
-  static const int kChartMessageFieldNumber = 4;
-  const ::std::string& chartmessage() const;
-  void set_chartmessage(const ::std::string& value);
-  #if LANG_CXX11
-  void set_chartmessage(::std::string&& value);
-  #endif
-  void set_chartmessage(const char* value);
-  void set_chartmessage(const char* value, size_t size);
-  ::std::string* mutable_chartmessage();
-  ::std::string* release_chartmessage();
-  void set_allocated_chartmessage(::std::string* chartmessage);
-
   // .serverMessageSystem.CommonHeader header = 1;
   bool has_header() const;
   void clear_header();
@@ -2307,21 +2306,19 @@ class ClientSendRoomCreationLobbyChartMessage : public ::google::protobuf::Messa
   ::serverMessageSystem::CommonHeader* mutable_header();
   void set_allocated_header(::serverMessageSystem::CommonHeader* header);
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  void clear_connectioncmdid();
-  static const int kConnectionCmdIDFieldNumber = 2;
-  ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
-  void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  void clear_chartcmdid();
+  static const int kChartCmdIDFieldNumber = 2;
+  ::serverMessageSystem::ChartSubSysCommandsID chartcmdid() const;
+  void set_chartcmdid(::serverMessageSystem::ChartSubSysCommandsID value);
 
-  // @@protoc_insertion_point(class_scope:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.DefaultMessage)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr clientname_;
-  ::google::protobuf::internal::ArenaStringPtr chartmessage_;
   ::serverMessageSystem::CommonHeader* header_;
-  int connectioncmdid_;
+  int chartcmdid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_serverMessageSystem_2eproto;
 };
@@ -3822,41 +3819,41 @@ inline void ServerReportsOpponentIsEnteringRoom::set_roomid(::google::protobuf::
 
 // -------------------------------------------------------------------
 
-// ServerSendRoomCreationLobbyChartMessage
+// ChartMessage
 
 // .serverMessageSystem.CommonHeader header = 1;
-inline bool ServerSendRoomCreationLobbyChartMessage::has_header() const {
+inline bool ChartMessage::has_header() const {
   return this != internal_default_instance() && header_ != NULL;
 }
-inline void ServerSendRoomCreationLobbyChartMessage::clear_header() {
+inline void ChartMessage::clear_header() {
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
 }
-inline const ::serverMessageSystem::CommonHeader& ServerSendRoomCreationLobbyChartMessage::header() const {
+inline const ::serverMessageSystem::CommonHeader& ChartMessage::header() const {
   const ::serverMessageSystem::CommonHeader* p = header_;
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ChartMessage.header)
   return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
       &::serverMessageSystem::_CommonHeader_default_instance_);
 }
-inline ::serverMessageSystem::CommonHeader* ServerSendRoomCreationLobbyChartMessage::release_header() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.header)
+inline ::serverMessageSystem::CommonHeader* ChartMessage::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ChartMessage.header)
   
   ::serverMessageSystem::CommonHeader* temp = header_;
   header_ = NULL;
   return temp;
 }
-inline ::serverMessageSystem::CommonHeader* ServerSendRoomCreationLobbyChartMessage::mutable_header() {
+inline ::serverMessageSystem::CommonHeader* ChartMessage::mutable_header() {
   
   if (header_ == NULL) {
     auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
     header_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ChartMessage.header)
   return header_;
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+inline void ChartMessage::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
     delete header_;
@@ -3872,166 +3869,180 @@ inline void ServerSendRoomCreationLobbyChartMessage::set_allocated_header(::serv
     
   }
   header_ = header;
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ChartMessage.header)
 }
 
-// .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-inline void ServerSendRoomCreationLobbyChartMessage::clear_connectioncmdid() {
-  connectioncmdid_ = 0;
+// .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+inline void ChartMessage::clear_chartcmdid() {
+  chartcmdid_ = 0;
 }
-inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerSendRoomCreationLobbyChartMessage::connectioncmdid() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.connectionCmdID)
-  return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
+inline ::serverMessageSystem::ChartSubSysCommandsID ChartMessage::chartcmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ChartMessage.chartCmdID)
+  return static_cast< ::serverMessageSystem::ChartSubSysCommandsID >(chartcmdid_);
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+inline void ChartMessage::set_chartcmdid(::serverMessageSystem::ChartSubSysCommandsID value) {
   
-  connectioncmdid_ = value;
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.connectionCmdID)
+  chartcmdid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ChartMessage.chartCmdID)
 }
 
-// string opponentName = 3;
-inline void ServerSendRoomCreationLobbyChartMessage::clear_opponentname() {
-  opponentname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string senderName = 3;
+inline void ChartMessage::clear_sendername() {
+  sendername_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ServerSendRoomCreationLobbyChartMessage::opponentname() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
-  return opponentname_.GetNoArena();
+inline const ::std::string& ChartMessage::sendername() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ChartMessage.senderName)
+  return sendername_.GetNoArena();
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_opponentname(const ::std::string& value) {
+inline void ChartMessage::set_sendername(const ::std::string& value) {
   
-  opponentname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+  sendername_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ChartMessage.senderName)
 }
 #if LANG_CXX11
-inline void ServerSendRoomCreationLobbyChartMessage::set_opponentname(::std::string&& value) {
+inline void ChartMessage::set_sendername(::std::string&& value) {
   
-  opponentname_.SetNoArena(
+  sendername_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ChartMessage.senderName)
 }
 #endif
-inline void ServerSendRoomCreationLobbyChartMessage::set_opponentname(const char* value) {
+inline void ChartMessage::set_sendername(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  opponentname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+  sendername_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ChartMessage.senderName)
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_opponentname(const char* value, size_t size) {
+inline void ChartMessage::set_sendername(const char* value, size_t size) {
   
-  opponentname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  sendername_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ChartMessage.senderName)
 }
-inline ::std::string* ServerSendRoomCreationLobbyChartMessage::mutable_opponentname() {
+inline ::std::string* ChartMessage::mutable_sendername() {
   
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
-  return opponentname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ChartMessage.senderName)
+  return sendername_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ServerSendRoomCreationLobbyChartMessage::release_opponentname() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+inline ::std::string* ChartMessage::release_sendername() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ChartMessage.senderName)
   
-  return opponentname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return sendername_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_allocated_opponentname(::std::string* opponentname) {
-  if (opponentname != NULL) {
+inline void ChartMessage::set_allocated_sendername(::std::string* sendername) {
+  if (sendername != NULL) {
     
   } else {
     
   }
-  opponentname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), opponentname);
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName)
+  sendername_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sendername);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ChartMessage.senderName)
 }
 
 // string chartMessage = 4;
-inline void ServerSendRoomCreationLobbyChartMessage::clear_chartmessage() {
+inline void ChartMessage::clear_chartmessage() {
   chartmessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ServerSendRoomCreationLobbyChartMessage::chartmessage() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+inline const ::std::string& ChartMessage::chartmessage() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ChartMessage.chartMessage)
   return chartmessage_.GetNoArena();
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_chartmessage(const ::std::string& value) {
+inline void ChartMessage::set_chartmessage(const ::std::string& value) {
   
   chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ChartMessage.chartMessage)
 }
 #if LANG_CXX11
-inline void ServerSendRoomCreationLobbyChartMessage::set_chartmessage(::std::string&& value) {
+inline void ChartMessage::set_chartmessage(::std::string&& value) {
   
   chartmessage_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ChartMessage.chartMessage)
 }
 #endif
-inline void ServerSendRoomCreationLobbyChartMessage::set_chartmessage(const char* value) {
+inline void ChartMessage::set_chartmessage(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ChartMessage.chartMessage)
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_chartmessage(const char* value, size_t size) {
+inline void ChartMessage::set_chartmessage(const char* value, size_t size) {
   
   chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ChartMessage.chartMessage)
 }
-inline ::std::string* ServerSendRoomCreationLobbyChartMessage::mutable_chartmessage() {
+inline ::std::string* ChartMessage::mutable_chartmessage() {
   
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ChartMessage.chartMessage)
   return chartmessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ServerSendRoomCreationLobbyChartMessage::release_chartmessage() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+inline ::std::string* ChartMessage::release_chartmessage() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ChartMessage.chartMessage)
   
   return chartmessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServerSendRoomCreationLobbyChartMessage::set_allocated_chartmessage(::std::string* chartmessage) {
+inline void ChartMessage::set_allocated_chartmessage(::std::string* chartmessage) {
   if (chartmessage != NULL) {
     
   } else {
     
   }
   chartmessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chartmessage);
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage)
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ChartMessage.chartMessage)
+}
+
+// uint32 roomID = 5;
+inline void ChartMessage::clear_roomid() {
+  roomid_ = 0u;
+}
+inline ::google::protobuf::uint32 ChartMessage::roomid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ChartMessage.roomID)
+  return roomid_;
+}
+inline void ChartMessage::set_roomid(::google::protobuf::uint32 value) {
+  
+  roomid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ChartMessage.roomID)
 }
 
 // -------------------------------------------------------------------
 
-// ClientSendRoomCreationLobbyChartMessage
+// DefaultMessage
 
 // .serverMessageSystem.CommonHeader header = 1;
-inline bool ClientSendRoomCreationLobbyChartMessage::has_header() const {
+inline bool DefaultMessage::has_header() const {
   return this != internal_default_instance() && header_ != NULL;
 }
-inline void ClientSendRoomCreationLobbyChartMessage::clear_header() {
+inline void DefaultMessage::clear_header() {
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
 }
-inline const ::serverMessageSystem::CommonHeader& ClientSendRoomCreationLobbyChartMessage::header() const {
+inline const ::serverMessageSystem::CommonHeader& DefaultMessage::header() const {
   const ::serverMessageSystem::CommonHeader* p = header_;
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_get:serverMessageSystem.DefaultMessage.header)
   return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
       &::serverMessageSystem::_CommonHeader_default_instance_);
 }
-inline ::serverMessageSystem::CommonHeader* ClientSendRoomCreationLobbyChartMessage::release_header() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.header)
+inline ::serverMessageSystem::CommonHeader* DefaultMessage::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.DefaultMessage.header)
   
   ::serverMessageSystem::CommonHeader* temp = header_;
   header_ = NULL;
   return temp;
 }
-inline ::serverMessageSystem::CommonHeader* ClientSendRoomCreationLobbyChartMessage::mutable_header() {
+inline ::serverMessageSystem::CommonHeader* DefaultMessage::mutable_header() {
   
   if (header_ == NULL) {
     auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
     header_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.DefaultMessage.header)
   return header_;
 }
-inline void ClientSendRoomCreationLobbyChartMessage::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+inline void DefaultMessage::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
     delete header_;
@@ -4047,127 +4058,21 @@ inline void ClientSendRoomCreationLobbyChartMessage::set_allocated_header(::serv
     
   }
   header_ = header;
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.header)
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.DefaultMessage.header)
 }
 
-// .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-inline void ClientSendRoomCreationLobbyChartMessage::clear_connectioncmdid() {
-  connectioncmdid_ = 0;
+// .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+inline void DefaultMessage::clear_chartcmdid() {
+  chartcmdid_ = 0;
 }
-inline ::serverMessageSystem::ConnectionSubSysCommandsID ClientSendRoomCreationLobbyChartMessage::connectioncmdid() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.connectionCmdID)
-  return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
+inline ::serverMessageSystem::ChartSubSysCommandsID DefaultMessage::chartcmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.DefaultMessage.chartCmdID)
+  return static_cast< ::serverMessageSystem::ChartSubSysCommandsID >(chartcmdid_);
 }
-inline void ClientSendRoomCreationLobbyChartMessage::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+inline void DefaultMessage::set_chartcmdid(::serverMessageSystem::ChartSubSysCommandsID value) {
   
-  connectioncmdid_ = value;
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.connectionCmdID)
-}
-
-// string clientName = 3;
-inline void ClientSendRoomCreationLobbyChartMessage::clear_clientname() {
-  clientname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& ClientSendRoomCreationLobbyChartMessage::clientname() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-  return clientname_.GetNoArena();
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_clientname(const ::std::string& value) {
-  
-  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-}
-#if LANG_CXX11
-inline void ClientSendRoomCreationLobbyChartMessage::set_clientname(::std::string&& value) {
-  
-  clientname_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-}
-#endif
-inline void ClientSendRoomCreationLobbyChartMessage::set_clientname(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_clientname(const char* value, size_t size) {
-  
-  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-}
-inline ::std::string* ClientSendRoomCreationLobbyChartMessage::mutable_clientname() {
-  
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-  return clientname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ClientSendRoomCreationLobbyChartMessage::release_clientname() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-  
-  return clientname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_allocated_clientname(::std::string* clientname) {
-  if (clientname != NULL) {
-    
-  } else {
-    
-  }
-  clientname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientname);
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName)
-}
-
-// string chartMessage = 4;
-inline void ClientSendRoomCreationLobbyChartMessage::clear_chartmessage() {
-  chartmessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& ClientSendRoomCreationLobbyChartMessage::chartmessage() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-  return chartmessage_.GetNoArena();
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_chartmessage(const ::std::string& value) {
-  
-  chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-}
-#if LANG_CXX11
-inline void ClientSendRoomCreationLobbyChartMessage::set_chartmessage(::std::string&& value) {
-  
-  chartmessage_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-}
-#endif
-inline void ClientSendRoomCreationLobbyChartMessage::set_chartmessage(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  
-  chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_chartmessage(const char* value, size_t size) {
-  
-  chartmessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-}
-inline ::std::string* ClientSendRoomCreationLobbyChartMessage::mutable_chartmessage() {
-  
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-  return chartmessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ClientSendRoomCreationLobbyChartMessage::release_chartmessage() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
-  
-  return chartmessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ClientSendRoomCreationLobbyChartMessage::set_allocated_chartmessage(::std::string* chartmessage) {
-  if (chartmessage != NULL) {
-    
-  } else {
-    
-  }
-  chartmessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chartmessage);
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage)
+  chartcmdid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.DefaultMessage.chartCmdID)
 }
 
 #ifdef __GNUC__
@@ -4223,6 +4128,11 @@ template <> struct is_proto_enum< ::serverMessageSystem::ConnectionSubSysCommand
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::serverMessageSystem::ConnectionSubSysCommandsID>() {
   return ::serverMessageSystem::ConnectionSubSysCommandsID_descriptor();
+}
+template <> struct is_proto_enum< ::serverMessageSystem::ChartSubSysCommandsID> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::serverMessageSystem::ChartSubSysCommandsID>() {
+  return ::serverMessageSystem::ChartSubSysCommandsID_descriptor();
 }
 template <> struct is_proto_enum< ::serverMessageSystem::GameCreationRequest> : ::std::true_type {};
 template <>

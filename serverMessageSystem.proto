@@ -19,6 +19,7 @@ enum SubSystemID
     CONNECTION_SUBSYSTEM = 0;
     GAME_ACTIONS_SUBSYSTEM = 1;
     GAME_NOTIFICATION_SUBSYSTEM = 2;
+    CHART_SUBSYSTEM = 3;
 }
 
 // Connection Subsystem Commands
@@ -31,9 +32,16 @@ enum ConnectionSubSysCommandsID
     CLIENT_CONNECTION_TO_ROOM_REQUEST = 4;
     CLIENT_CONNECTION_TO_ROOM_REPLY = 5;
     SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6;
-    SERVER_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE = 7;
-    CLIENT_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE = 8;
 }
+
+enum ChartSubSysCommandsID
+{
+    CHART_MESSAGE = 0;
+    CHART_NOTIFICATION = 1;  //GameServer will notify All about it.
+                             //De-facto: The same structure as the message.
+                             //For Future use only.
+}
+
 //Message to be included to each and every message for it to be detected trhu
 //all the others.
 //Contains SubSystem ID which is unique through all the SubSystems
@@ -169,19 +177,20 @@ message ServerReportsOpponentIsEnteringRoom
 
 
 //#9
-message ServerSendRoomCreationLobbyChartMessage
+message ChartMessage
 {
     CommonHeader header = 1;
-    ConnectionSubSysCommandsID connectionCmdID = 2;
-    string opponentName = 3;
+    ChartSubSysCommandsID chartCmdID = 2;
+    string senderName = 3;                  //opponent's or client's name de-facto
     string chartMessage = 4;
+    uint32 roomID = 5;
 }
 
-//#10
-message ClientSendRoomCreationLobbyChartMessage
+//#10 - Historically
+message DefaultMessage //Used for message-type distinguish cast.
 {
     CommonHeader header = 1;
-    ConnectionSubSysCommandsID connectionCmdID = 2;
-    string clientName = 3;
-    string chartMessage = 4;
+    ChartSubSysCommandsID chartCmdID = 2;
 }
+
+

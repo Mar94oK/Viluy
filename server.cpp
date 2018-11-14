@@ -67,8 +67,10 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
 {
     qDebug() << "NAY-0001: Parsing Message for socketDescriptor: " << socketDescriptor;
 
-    serverMessageSystem::CommonHeader header;
-    if(!header.ParseFromArray(data.data(), data.size()))
+    serverMessageSystem::DefaultMessage defaultMessage;
+
+
+    if(!defaultMessage.ParseFromArray(data.data(), data.size()))
     {
        qDebug() << "NAY-0001: Error during protobuf message parsing! ";
        qDebug() << "NAY-001: Array size: array.size()";
@@ -78,12 +80,15 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
     {
        qDebug() << "NAY-0001: Header Parsed successfully! ";
        qDebug() << "NAY-001: Array size: " << data.size();
-
-       switch (header.subsystem())
+       qDebug() << "Subsystem: " << QString::number(defaultMessage.header().subsystem());
+       //defaultMessage.PrintDebugString();
+       //uint32_t subSys = header.GetDescriptor()->FindFieldByNumber(2)->number();
+       //qDebug() << "Subsystem defined by Descriptor: " << subSys;
+       switch (defaultMessage.header().subsystem())
        {
             case serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM:
             {
-                switch (header.commandid()) {
+                switch (defaultMessage.header().commandid()) {
 
                 case serverMessageSystem::ConnectionSubSysCommandsID::SERVER_INPUT_QUERY_REQUEST:
                 {
@@ -100,7 +105,7 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
                 break;
 
                 default:
-                    emit SignalServerLogReport("NAY-0001: Unsupported Command in CONNECTION_SUBSYSTEM with CmdID: " + QString::number(header.commandid()));
+                    emit SignalServerLogReport("NAY-0001: Unsupported Command in CONNECTION_SUBSYSTEM with CmdID: " + QString::number(defaultMessage.header().commandid()));
                 break;
            }
         }
@@ -117,6 +122,20 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
                                       " Not supported yet.");
            break;
 
+       case serverMessageSystem::SubSystemID::CHART_SUBSYSTEM:
+           switch (defaultMessage.header().commandid())
+           {
+           case serverMessageSystem::ChartSubSysCommandsID::CHART_MESSAGE:
+               ProcessChartMessage(data, socketDescriptor);
+               break;
+           case serverMessageSystem::ChartSubSysCommandsID::CHART_NOTIFICATION:
+               qDebug() << ("NAY-0001: Unsupported Command in CHART_SUBSYSTEM with CmdID: " + QString::number(defaultMessage.header().commandid()));
+               break;
+           default:
+               qDebug() << ("NAY-0001: Unsupported Command in CHART_SUBSYSTEM with CmdID: " + QString::number(defaultMessage.header().commandid()));
+               break;
+           }
+           break;
 
        default:
            emit SignalServerLogReport("NAY-0001: Message SubSystem"
@@ -230,6 +249,27 @@ QByteArray Server::FromServerReportsOpponentIsEnteringRoom(const QString &oppone
     qDebug() << "NAY-001: Serialized FromServerReportsOpponentIsEnteringRoom is ready.";
 
 
+    return block;
+}
+
+QByteArray Server::FormChartMessage(const QString &textMessage, const QString &sender, uint32_t roomID)
+{
+    serverMessageSystem::ChartMessage message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CHART_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ChartSubSysCommandsID::CHART_MESSAGE));
+    message.set_chartcmdid(serverMessageSystem::ChartSubSysCommandsID::CHART_MESSAGE);
+    message.set_sendername(sender.toUtf8().constData());
+    message.set_chartmessage(textMessage.toUtf8().constData());
+
+    //NAY-001: WHERE TO SAVE THIS DATA?
+    //De-facto, now it is needed only by the server.
+    message.set_roomid(roomID);
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: Serialized FormChartMessage is ready.";
     return block;
 }
 
@@ -597,6 +637,8 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
                                    message.gamesettings().settingscorrectionallowed());
 //        explicit Room(uint32_t id, QString name, uint32_t numberOfPLayers, GameSettings settings, Player firstPlayer, Connection* firstConnection) :
 //        _id(id), _name(name), _numberOfPlayers(numberOfPLayers), _gameSettings(settings)
+
+        //ROOM_ID_DEFINITION
         Room* newRoom = new Room(_rooms.size() + 1,
                                  "NewRoom",
                                  1,
@@ -619,8 +661,49 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
         currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(false, 0, 0, RoomCreationErrors::NO_FREE_SLOTS_AVAILABLE));
         emit SignalServerLogReport("NAY-001: ClientRoomCreationReply WITH ERRORS to socket #" + QString::number(socketDescriptor));
         emit SignalConnectionSendOutgoingData(socketDescriptor);
-        ;
+
     }
+
+
+}
+
+void Server::ProcessChartMessage(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ChartMessage message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessServerInputQueryRequest() ");
+        return;
+    }
+
+    uint32_t roomID = message.roomid();
+
+    emit SignalServerLogReport("NAY-001: Processing Chart Message From Socket Descriptor: " + QString::number(socketDescriptor));
+    emit SignalServerLogReport("NAY-001: ChartMessage: ChartMessage: " + QString::fromStdString(message.chartmessage()));
+    emit SignalServerLogReport("NAY-001: ChartMessage: ChartMessage: " + QString::fromStdString(message.sendername()));
+    emit SignalServerLogReport("NAY-001: ChartMessage: ID: " + QString::number(roomID));
+
+    //First of all, check the room for existance.
+    if (_rooms.size() + 1 < roomID)
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessChartMessage() Room not found!!!");
+        return;
+    }
+    //If there's.. Send the message to all the clients we have in the room.
+    else
+    {
+        foreach (Connection* connection, _rooms[roomID-1]->connections())
+        {
+            connection->setOutgoingDataBuffer(FormChartMessage(QString::fromStdString(message.chartmessage()),
+                                                               QString::fromStdString(message.sendername()),
+                                                               roomID)
+                                              );
+            emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(socketDescriptor);
+        }
+    }
+
 
 
 }

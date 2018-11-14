@@ -74,14 +74,14 @@ class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ServerReportsOpponentIsEnteringRoom> _instance;
 } _ServerReportsOpponentIsEnteringRoom_default_instance_;
-class ServerSendRoomCreationLobbyChartMessageDefaultTypeInternal {
+class ChartMessageDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ServerSendRoomCreationLobbyChartMessage> _instance;
-} _ServerSendRoomCreationLobbyChartMessage_default_instance_;
-class ClientSendRoomCreationLobbyChartMessageDefaultTypeInternal {
+  ::google::protobuf::internal::ExplicitlyConstructed<ChartMessage> _instance;
+} _ChartMessage_default_instance_;
+class DefaultMessageDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ClientSendRoomCreationLobbyChartMessage> _instance;
-} _ClientSendRoomCreationLobbyChartMessage_default_instance_;
+  ::google::protobuf::internal::ExplicitlyConstructed<DefaultMessage> _instance;
+} _DefaultMessage_default_instance_;
 }  // namespace serverMessageSystem
 static void InitDefaultsCommonHeader_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -277,34 +277,34 @@ static void InitDefaultsServerReportsOpponentIsEnteringRoom_serverMessageSystem_
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerReportsOpponentIsEnteringRoom_serverMessageSystem_2eproto}, {
       &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
 
-static void InitDefaultsServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto() {
+static void InitDefaultsChartMessage_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::serverMessageSystem::_ServerSendRoomCreationLobbyChartMessage_default_instance_;
-    new (ptr) ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage();
+    void* ptr = &::serverMessageSystem::_ChartMessage_default_instance_;
+    new (ptr) ::serverMessageSystem::ChartMessage();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage::InitAsDefaultInstance();
+  ::serverMessageSystem::ChartMessage::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_ServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto}, {
+::google::protobuf::internal::SCCInfo<1> scc_info_ChartMessage_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsChartMessage_serverMessageSystem_2eproto}, {
       &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
 
-static void InitDefaultsClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto() {
+static void InitDefaultsDefaultMessage_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::serverMessageSystem::_ClientSendRoomCreationLobbyChartMessage_default_instance_;
-    new (ptr) ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage();
+    void* ptr = &::serverMessageSystem::_DefaultMessage_default_instance_;
+    new (ptr) ::serverMessageSystem::DefaultMessage();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage::InitAsDefaultInstance();
+  ::serverMessageSystem::DefaultMessage::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_ClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto}, {
+::google::protobuf::internal::SCCInfo<1> scc_info_DefaultMessage_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsDefaultMessage_serverMessageSystem_2eproto}, {
       &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
 
 void InitDefaults_serverMessageSystem_2eproto() {
@@ -321,12 +321,12 @@ void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_ClientConnectionToRoomReply_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerQueryOrderNotification_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsOpponentIsEnteringRoom_serverMessageSystem_2eproto.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ChartMessage_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_DefaultMessage_serverMessageSystem_2eproto.base);
 }
 
 ::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[15];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_serverMessageSystem_2eproto[4];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_serverMessageSystem_2eproto[5];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_serverMessageSystem_2eproto = nullptr;
 
 const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -449,23 +449,22 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom, opponentname_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom, roomid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage, header_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage, connectioncmdid_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage, opponentname_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage, chartmessage_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, header_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, chartcmdid_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, sendername_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, chartmessage_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ChartMessage, roomid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage, header_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage, connectioncmdid_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage, clientname_),
-  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage, chartmessage_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, header_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, chartcmdid_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -481,8 +480,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 90, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomReply)},
   { 101, -1, sizeof(::serverMessageSystem::ServerQueryOrderNotification)},
   { 109, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
-  { 118, -1, sizeof(::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage)},
-  { 127, -1, sizeof(::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage)},
+  { 118, -1, sizeof(::serverMessageSystem::ChartMessage)},
+  { 128, -1, sizeof(::serverMessageSystem::DefaultMessage)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -499,8 +498,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientConnectionToRoomReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerQueryOrderNotification_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsOpponentIsEnteringRoom_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerSendRoomCreationLobbyChartMessage_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientSendRoomCreationLobbyChartMessage_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ChartMessage_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_DefaultMessage_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_serverMessageSystem_2eproto = {
@@ -572,34 +571,31 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   "geSystem.CommonHeader\022H\n\017connectionCmdID"
   "\030\002 \001(\0162/.serverMessageSystem.ConnectionS"
   "ubSysCommandsID\022\024\n\014opponentName\030\003 \001(\t\022\016\n"
-  "\006roomID\030\004 \001(\r\"\322\001\n\'ServerSendRoomCreation"
-  "LobbyChartMessage\0221\n\006header\030\001 \001(\0132!.serv"
-  "erMessageSystem.CommonHeader\022H\n\017connecti"
-  "onCmdID\030\002 \001(\0162/.serverMessageSystem.Conn"
-  "ectionSubSysCommandsID\022\024\n\014opponentName\030\003"
-  " \001(\t\022\024\n\014chartMessage\030\004 \001(\t\"\320\001\n\'ClientSen"
-  "dRoomCreationLobbyChartMessage\0221\n\006header"
+  "\006roomID\030\004 \001(\r\"\273\001\n\014ChartMessage\0221\n\006header"
   "\030\001 \001(\0132!.serverMessageSystem.CommonHeade"
-  "r\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMessa"
-  "geSystem.ConnectionSubSysCommandsID\022\022\n\nc"
-  "lientName\030\003 \001(\t\022\024\n\014chartMessage\030\004 \001(\t*&\n"
-  "\tRulesType\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*d\n"
-  "\013SubSystemID\022\030\n\024CONNECTION_SUBSYSTEM\020\000\022\032"
-  "\n\026GAME_ACTIONS_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIF"
-  "ICATION_SUBSYSTEM\020\002*\374\002\n\032ConnectionSubSys"
-  "CommandsID\022\036\n\032SERVER_INPUT_QUERY_REQUEST"
-  "\020\000\022\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIE"
-  "NT_ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROO"
-  "M_CREATION_REPLY\020\003\022%\n!CLIENT_CONNECTION_"
-  "TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_T"
-  "O_ROOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONEN"
-  "T_IS_ENTERING_ROOM\020\006\0221\n-SERVER_SEND_ROOM"
-  "_CREATION_LOBBY_CHART_MESSAGE\020\007\0221\n-CLIEN"
-  "T_SEND_ROOM_CREATION_LOBBY_CHART_MESSAGE"
-  "\020\010*9\n\023GameCreationRequest\022\017\n\013JoinTheGame"
-  "\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
+  "r\022>\n\nchartCmdID\030\002 \001(\0162*.serverMessageSys"
+  "tem.ChartSubSysCommandsID\022\022\n\nsenderName\030"
+  "\003 \001(\t\022\024\n\014chartMessage\030\004 \001(\t\022\016\n\006roomID\030\005 "
+  "\001(\r\"\203\001\n\016DefaultMessage\0221\n\006header\030\001 \001(\0132!"
+  ".serverMessageSystem.CommonHeader\022>\n\ncha"
+  "rtCmdID\030\002 \001(\0162*.serverMessageSystem.Char"
+  "tSubSysCommandsID*&\n\tRulesType\022\r\n\tAutoma"
+  "tic\020\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030\n\024CONN"
+  "ECTION_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSY"
+  "STEM\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022"
+  "\023\n\017CHART_SUBSYSTEM\020\003*\226\002\n\032ConnectionSubSy"
+  "sCommandsID\022\036\n\032SERVER_INPUT_QUERY_REQUES"
+  "T\020\000\022\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLI"
+  "ENT_ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_RO"
+  "OM_CREATION_REPLY\020\003\022%\n!CLIENT_CONNECTION"
+  "_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_"
+  "TO_ROOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONE"
+  "NT_IS_ENTERING_ROOM\020\006*B\n\025ChartSubSysComm"
+  "andsID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART_NOTIF"
+  "ICATION\020\001*9\n\023GameCreationRequest\022\017\n\013Join"
+  "TheGame\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
 ,
-  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 3469,
+  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 3356,
 };
 
 void AddDescriptors_serverMessageSystem_2eproto() {
@@ -635,6 +631,7 @@ bool SubSystemID_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -654,8 +651,20 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
     case 4:
     case 5:
     case 6:
-    case 7:
-    case 8:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* ChartSubSysCommandsID_descriptor() {
+  ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_serverMessageSystem_2eproto);
+  return file_level_enum_descriptors_serverMessageSystem_2eproto[3];
+}
+bool ChartSubSysCommandsID_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
       return true;
     default:
       return false;
@@ -664,7 +673,7 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
 
 const ::google::protobuf::EnumDescriptor* GameCreationRequest_descriptor() {
   ::google::protobuf::internal::AssignDescriptors(&assign_descriptors_table_serverMessageSystem_2eproto);
-  return file_level_enum_descriptors_serverMessageSystem_2eproto[3];
+  return file_level_enum_descriptors_serverMessageSystem_2eproto[4];
 }
 bool GameCreationRequest_IsValid(int value) {
   switch (value) {
@@ -6568,38 +6577,39 @@ void ServerReportsOpponentIsEnteringRoom::InternalSwap(ServerReportsOpponentIsEn
 
 // ===================================================================
 
-void ServerSendRoomCreationLobbyChartMessage::InitAsDefaultInstance() {
-  ::serverMessageSystem::_ServerSendRoomCreationLobbyChartMessage_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+void ChartMessage::InitAsDefaultInstance() {
+  ::serverMessageSystem::_ChartMessage_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
       ::serverMessageSystem::CommonHeader::internal_default_instance());
 }
-class ServerSendRoomCreationLobbyChartMessage::HasBitSetters {
+class ChartMessage::HasBitSetters {
  public:
-  static const ::serverMessageSystem::CommonHeader& header(const ServerSendRoomCreationLobbyChartMessage* msg);
+  static const ::serverMessageSystem::CommonHeader& header(const ChartMessage* msg);
 };
 
 const ::serverMessageSystem::CommonHeader&
-ServerSendRoomCreationLobbyChartMessage::HasBitSetters::header(const ServerSendRoomCreationLobbyChartMessage* msg) {
+ChartMessage::HasBitSetters::header(const ChartMessage* msg) {
   return *msg->header_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ServerSendRoomCreationLobbyChartMessage::kHeaderFieldNumber;
-const int ServerSendRoomCreationLobbyChartMessage::kConnectionCmdIDFieldNumber;
-const int ServerSendRoomCreationLobbyChartMessage::kOpponentNameFieldNumber;
-const int ServerSendRoomCreationLobbyChartMessage::kChartMessageFieldNumber;
+const int ChartMessage::kHeaderFieldNumber;
+const int ChartMessage::kChartCmdIDFieldNumber;
+const int ChartMessage::kSenderNameFieldNumber;
+const int ChartMessage::kChartMessageFieldNumber;
+const int ChartMessage::kRoomIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ServerSendRoomCreationLobbyChartMessage::ServerSendRoomCreationLobbyChartMessage()
+ChartMessage::ChartMessage()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(constructor:serverMessageSystem.ChartMessage)
 }
-ServerSendRoomCreationLobbyChartMessage::ServerSendRoomCreationLobbyChartMessage(const ServerSendRoomCreationLobbyChartMessage& from)
+ChartMessage::ChartMessage(const ChartMessage& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  opponentname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.opponentname().size() > 0) {
-    opponentname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.opponentname_);
+  sendername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.sendername().size() > 0) {
+    sendername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sendername_);
   }
   chartmessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.chartmessage().size() > 0) {
@@ -6610,60 +6620,64 @@ ServerSendRoomCreationLobbyChartMessage::ServerSendRoomCreationLobbyChartMessage
   } else {
     header_ = NULL;
   }
-  connectioncmdid_ = from.connectioncmdid_;
-  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  ::memcpy(&chartcmdid_, &from.chartcmdid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&roomid_) -
+    reinterpret_cast<char*>(&chartcmdid_)) + sizeof(roomid_));
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ChartMessage)
 }
 
-void ServerSendRoomCreationLobbyChartMessage::SharedCtor() {
+void ChartMessage::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
-      &scc_info_ServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
-  opponentname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      &scc_info_ChartMessage_serverMessageSystem_2eproto.base);
+  sendername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chartmessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&connectioncmdid_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(connectioncmdid_));
+      reinterpret_cast<char*>(&roomid_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(roomid_));
 }
 
-ServerSendRoomCreationLobbyChartMessage::~ServerSendRoomCreationLobbyChartMessage() {
-  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+ChartMessage::~ChartMessage() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.ChartMessage)
   SharedDtor();
 }
 
-void ServerSendRoomCreationLobbyChartMessage::SharedDtor() {
-  opponentname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+void ChartMessage::SharedDtor() {
+  sendername_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chartmessage_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete header_;
 }
 
-void ServerSendRoomCreationLobbyChartMessage::SetCachedSize(int size) const {
+void ChartMessage::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ServerSendRoomCreationLobbyChartMessage& ServerSendRoomCreationLobbyChartMessage::default_instance() {
-  ::google::protobuf::internal::InitSCC(&::scc_info_ServerSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
+const ChartMessage& ChartMessage::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_ChartMessage_serverMessageSystem_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void ServerSendRoomCreationLobbyChartMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+void ChartMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ChartMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  opponentname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sendername_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chartmessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
-  connectioncmdid_ = 0;
+  ::memset(&chartcmdid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&roomid_) -
+      reinterpret_cast<char*>(&chartcmdid_)) + sizeof(roomid_));
   _internal_metadata_.Clear();
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* ServerSendRoomCreationLobbyChartMessage::_InternalParse(const char* begin, const char* end, void* object,
+const char* ChartMessage::_InternalParse(const char* begin, const char* end, void* object,
                   ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<ServerSendRoomCreationLobbyChartMessage*>(object);
+  auto msg = static_cast<ChartMessage*>(object);
   ::google::protobuf::uint32 size; (void)size;
   int depth; (void)depth;
   ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
@@ -6688,24 +6702,24 @@ const char* ServerSendRoomCreationLobbyChartMessage::_InternalParse(const char* 
         ptr = newend;
         break;
       }
-      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
         ::google::protobuf::uint64 val;
         ptr = Varint::Parse64(ptr, &val);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ::serverMessageSystem::ConnectionSubSysCommandsID value = static_cast<::serverMessageSystem::ConnectionSubSysCommandsID>(val);
-        msg->set_connectioncmdid(value);
+        ::serverMessageSystem::ChartSubSysCommandsID value = static_cast<::serverMessageSystem::ChartSubSysCommandsID>(val);
+        msg->set_chartcmdid(value);
         break;
       }
-      // string opponentName = 3;
+      // string senderName = 3;
       case 3: {
         if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
         ptr = Varint::Parse32Inline(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName");
+        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ChartMessage.senderName");
         parser_till_end = ::google::protobuf::internal::StringParserUTF8;
-        ::std::string* str = msg->mutable_opponentname();
+        ::std::string* str = msg->mutable_sendername();
         str->clear();
         object = str;
         if (size > end - ptr) goto len_delim_till_end;
@@ -6719,7 +6733,7 @@ const char* ServerSendRoomCreationLobbyChartMessage::_InternalParse(const char* 
         if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
         ptr = Varint::Parse32Inline(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage");
+        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ChartMessage.chartMessage");
         parser_till_end = ::google::protobuf::internal::StringParserUTF8;
         ::std::string* str = msg->mutable_chartmessage();
         str->clear();
@@ -6728,6 +6742,16 @@ const char* ServerSendRoomCreationLobbyChartMessage::_InternalParse(const char* 
         auto newend = ptr + size;
         if (size) ptr = parser_till_end(ptr, newend, object, ctx);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+        break;
+      }
+      // uint32 roomID = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 40) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::google::protobuf::uint32 value = val;
+        msg->set_roomid(value);
         break;
       }
       default: {
@@ -6754,11 +6778,11 @@ group_continues: (void)&&group_continues;
   return ptr;
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool ServerSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
+bool ChartMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.ChartMessage)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -6775,29 +6799,29 @@ bool ServerSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
         break;
       }
 
-      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
           int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_connectioncmdid(static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(value));
+          set_chartcmdid(static_cast< ::serverMessageSystem::ChartSubSysCommandsID >(value));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // string opponentName = 3;
+      // string senderName = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_opponentname()));
+                input, this->mutable_sendername()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->opponentname().data(), static_cast<int>(this->opponentname().length()),
+            this->sendername().data(), static_cast<int>(this->sendername().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName"));
+            "serverMessageSystem.ChartMessage.senderName"));
         } else {
           goto handle_unusual;
         }
@@ -6812,7 +6836,20 @@ bool ServerSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage"));
+            "serverMessageSystem.ChartMessage.chartMessage"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 roomID = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (40 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &roomid_)));
         } else {
           goto handle_unusual;
         }
@@ -6831,18 +6868,18 @@ bool ServerSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.ChartMessage)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ChartMessage)
   return false;
 #undef DO_
 }
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
-void ServerSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
+void ChartMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ChartMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -6852,20 +6889,20 @@ void ServerSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
       1, HasBitSetters::header(this), output);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->connectioncmdid(), output);
+      2, this->chartcmdid(), output);
   }
 
-  // string opponentName = 3;
-  if (this->opponentname().size() > 0) {
+  // string senderName = 3;
+  if (this->sendername().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->opponentname().data(), static_cast<int>(this->opponentname().length()),
+      this->sendername().data(), static_cast<int>(this->sendername().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName");
+      "serverMessageSystem.ChartMessage.senderName");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->opponentname(), output);
+      3, this->sendername(), output);
   }
 
   // string chartMessage = 4;
@@ -6873,22 +6910,27 @@ void ServerSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage");
+      "serverMessageSystem.ChartMessage.chartMessage");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->chartmessage(), output);
+  }
+
+  // uint32 roomID = 5;
+  if (this->roomid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->roomid(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ChartMessage)
 }
 
-::google::protobuf::uint8* ServerSendRoomCreationLobbyChartMessage::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ChartMessage::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ChartMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -6899,21 +6941,21 @@ void ServerSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
         1, HasBitSetters::header(this), deterministic, target);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->connectioncmdid(), target);
+      2, this->chartcmdid(), target);
   }
 
-  // string opponentName = 3;
-  if (this->opponentname().size() > 0) {
+  // string senderName = 3;
+  if (this->sendername().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->opponentname().data(), static_cast<int>(this->opponentname().length()),
+      this->sendername().data(), static_cast<int>(this->sendername().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.opponentName");
+      "serverMessageSystem.ChartMessage.senderName");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->opponentname(), target);
+        3, this->sendername(), target);
   }
 
   // string chartMessage = 4;
@@ -6921,22 +6963,27 @@ void ServerSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ServerSendRoomCreationLobbyChartMessage.chartMessage");
+      "serverMessageSystem.ChartMessage.chartMessage");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->chartmessage(), target);
+  }
+
+  // uint32 roomID = 5;
+  if (this->roomid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->roomid(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ChartMessage)
   return target;
 }
 
-size_t ServerSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+size_t ChartMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ChartMessage)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -6948,11 +6995,11 @@ size_t ServerSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string opponentName = 3;
-  if (this->opponentname().size() > 0) {
+  // string senderName = 3;
+  if (this->sendername().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->opponentname());
+        this->sendername());
   }
 
   // string chartMessage = 4;
@@ -6969,10 +7016,17 @@ size_t ServerSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
         *header_);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->connectioncmdid());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->chartcmdid());
+  }
+
+  // uint32 roomID = 5;
+  if (this->roomid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->roomid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -6980,31 +7034,31 @@ size_t ServerSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
   return total_size;
 }
 
-void ServerSendRoomCreationLobbyChartMessage::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+void ChartMessage::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ChartMessage)
   GOOGLE_DCHECK_NE(&from, this);
-  const ServerSendRoomCreationLobbyChartMessage* source =
-      ::google::protobuf::DynamicCastToGenerated<ServerSendRoomCreationLobbyChartMessage>(
+  const ChartMessage* source =
+      ::google::protobuf::DynamicCastToGenerated<ChartMessage>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ChartMessage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ChartMessage)
     MergeFrom(*source);
   }
 }
 
-void ServerSendRoomCreationLobbyChartMessage::MergeFrom(const ServerSendRoomCreationLobbyChartMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+void ChartMessage::MergeFrom(const ChartMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ChartMessage)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.opponentname().size() > 0) {
+  if (from.sendername().size() > 0) {
 
-    opponentname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.opponentname_);
+    sendername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sendername_);
   }
   if (from.chartmessage().size() > 0) {
 
@@ -7013,45 +7067,49 @@ void ServerSendRoomCreationLobbyChartMessage::MergeFrom(const ServerSendRoomCrea
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
   }
-  if (from.connectioncmdid() != 0) {
-    set_connectioncmdid(from.connectioncmdid());
+  if (from.chartcmdid() != 0) {
+    set_chartcmdid(from.chartcmdid());
+  }
+  if (from.roomid() != 0) {
+    set_roomid(from.roomid());
   }
 }
 
-void ServerSendRoomCreationLobbyChartMessage::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+void ChartMessage::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ChartMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ServerSendRoomCreationLobbyChartMessage::CopyFrom(const ServerSendRoomCreationLobbyChartMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerSendRoomCreationLobbyChartMessage)
+void ChartMessage::CopyFrom(const ChartMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ChartMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ServerSendRoomCreationLobbyChartMessage::IsInitialized() const {
+bool ChartMessage::IsInitialized() const {
   return true;
 }
 
-void ServerSendRoomCreationLobbyChartMessage::Swap(ServerSendRoomCreationLobbyChartMessage* other) {
+void ChartMessage::Swap(ChartMessage* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ServerSendRoomCreationLobbyChartMessage::InternalSwap(ServerSendRoomCreationLobbyChartMessage* other) {
+void ChartMessage::InternalSwap(ChartMessage* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  opponentname_.Swap(&other->opponentname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  sendername_.Swap(&other->sendername_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   chartmessage_.Swap(&other->chartmessage_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(header_, other->header_);
-  swap(connectioncmdid_, other->connectioncmdid_);
+  swap(chartcmdid_, other->chartcmdid_);
+  swap(roomid_, other->roomid_);
 }
 
-::google::protobuf::Metadata ServerSendRoomCreationLobbyChartMessage::GetMetadata() const {
+::google::protobuf::Metadata ChartMessage::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
   return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
 }
@@ -7059,102 +7117,86 @@ void ServerSendRoomCreationLobbyChartMessage::InternalSwap(ServerSendRoomCreatio
 
 // ===================================================================
 
-void ClientSendRoomCreationLobbyChartMessage::InitAsDefaultInstance() {
-  ::serverMessageSystem::_ClientSendRoomCreationLobbyChartMessage_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+void DefaultMessage::InitAsDefaultInstance() {
+  ::serverMessageSystem::_DefaultMessage_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
       ::serverMessageSystem::CommonHeader::internal_default_instance());
 }
-class ClientSendRoomCreationLobbyChartMessage::HasBitSetters {
+class DefaultMessage::HasBitSetters {
  public:
-  static const ::serverMessageSystem::CommonHeader& header(const ClientSendRoomCreationLobbyChartMessage* msg);
+  static const ::serverMessageSystem::CommonHeader& header(const DefaultMessage* msg);
 };
 
 const ::serverMessageSystem::CommonHeader&
-ClientSendRoomCreationLobbyChartMessage::HasBitSetters::header(const ClientSendRoomCreationLobbyChartMessage* msg) {
+DefaultMessage::HasBitSetters::header(const DefaultMessage* msg) {
   return *msg->header_;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ClientSendRoomCreationLobbyChartMessage::kHeaderFieldNumber;
-const int ClientSendRoomCreationLobbyChartMessage::kConnectionCmdIDFieldNumber;
-const int ClientSendRoomCreationLobbyChartMessage::kClientNameFieldNumber;
-const int ClientSendRoomCreationLobbyChartMessage::kChartMessageFieldNumber;
+const int DefaultMessage::kHeaderFieldNumber;
+const int DefaultMessage::kChartCmdIDFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ClientSendRoomCreationLobbyChartMessage::ClientSendRoomCreationLobbyChartMessage()
+DefaultMessage::DefaultMessage()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(constructor:serverMessageSystem.DefaultMessage)
 }
-ClientSendRoomCreationLobbyChartMessage::ClientSendRoomCreationLobbyChartMessage(const ClientSendRoomCreationLobbyChartMessage& from)
+DefaultMessage::DefaultMessage(const DefaultMessage& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.clientname().size() > 0) {
-    clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
-  }
-  chartmessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.chartmessage().size() > 0) {
-    chartmessage_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.chartmessage_);
-  }
   if (from.has_header()) {
     header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
   } else {
     header_ = NULL;
   }
-  connectioncmdid_ = from.connectioncmdid_;
-  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  chartcmdid_ = from.chartcmdid_;
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.DefaultMessage)
 }
 
-void ClientSendRoomCreationLobbyChartMessage::SharedCtor() {
+void DefaultMessage::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
-      &scc_info_ClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
-  clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  chartmessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      &scc_info_DefaultMessage_serverMessageSystem_2eproto.base);
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&connectioncmdid_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(connectioncmdid_));
+      reinterpret_cast<char*>(&chartcmdid_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(chartcmdid_));
 }
 
-ClientSendRoomCreationLobbyChartMessage::~ClientSendRoomCreationLobbyChartMessage() {
-  // @@protoc_insertion_point(destructor:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+DefaultMessage::~DefaultMessage() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.DefaultMessage)
   SharedDtor();
 }
 
-void ClientSendRoomCreationLobbyChartMessage::SharedDtor() {
-  clientname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  chartmessage_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+void DefaultMessage::SharedDtor() {
   if (this != internal_default_instance()) delete header_;
 }
 
-void ClientSendRoomCreationLobbyChartMessage::SetCachedSize(int size) const {
+void DefaultMessage::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ClientSendRoomCreationLobbyChartMessage& ClientSendRoomCreationLobbyChartMessage::default_instance() {
-  ::google::protobuf::internal::InitSCC(&::scc_info_ClientSendRoomCreationLobbyChartMessage_serverMessageSystem_2eproto.base);
+const DefaultMessage& DefaultMessage::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_DefaultMessage_serverMessageSystem_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void ClientSendRoomCreationLobbyChartMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+void DefaultMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.DefaultMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  clientname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  chartmessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
-  connectioncmdid_ = 0;
+  chartcmdid_ = 0;
   _internal_metadata_.Clear();
 }
 
 #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-const char* ClientSendRoomCreationLobbyChartMessage::_InternalParse(const char* begin, const char* end, void* object,
+const char* DefaultMessage::_InternalParse(const char* begin, const char* end, void* object,
                   ::google::protobuf::internal::ParseContext* ctx) {
-  auto msg = static_cast<ClientSendRoomCreationLobbyChartMessage*>(object);
+  auto msg = static_cast<DefaultMessage*>(object);
   ::google::protobuf::uint32 size; (void)size;
   int depth; (void)depth;
   ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
@@ -7179,46 +7221,14 @@ const char* ClientSendRoomCreationLobbyChartMessage::_InternalParse(const char* 
         ptr = newend;
         break;
       }
-      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
       case 2: {
         if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
         ::google::protobuf::uint64 val;
         ptr = Varint::Parse64(ptr, &val);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ::serverMessageSystem::ConnectionSubSysCommandsID value = static_cast<::serverMessageSystem::ConnectionSubSysCommandsID>(val);
-        msg->set_connectioncmdid(value);
-        break;
-      }
-      // string clientName = 3;
-      case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
-        ptr = Varint::Parse32Inline(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName");
-        parser_till_end = ::google::protobuf::internal::StringParserUTF8;
-        ::std::string* str = msg->mutable_clientname();
-        str->clear();
-        object = str;
-        if (size > end - ptr) goto len_delim_till_end;
-        auto newend = ptr + size;
-        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
-        break;
-      }
-      // string chartMessage = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
-        ptr = Varint::Parse32Inline(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage");
-        parser_till_end = ::google::protobuf::internal::StringParserUTF8;
-        ::std::string* str = msg->mutable_chartmessage();
-        str->clear();
-        object = str;
-        if (size > end - ptr) goto len_delim_till_end;
-        auto newend = ptr + size;
-        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+        ::serverMessageSystem::ChartSubSysCommandsID value = static_cast<::serverMessageSystem::ChartSubSysCommandsID>(val);
+        msg->set_chartcmdid(value);
         break;
       }
       default: {
@@ -7245,11 +7255,11 @@ group_continues: (void)&&group_continues;
   return ptr;
 }
 #else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool ClientSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
+bool DefaultMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.DefaultMessage)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -7266,44 +7276,14 @@ bool ClientSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
         break;
       }
 
-      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
           int value = 0;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_connectioncmdid(static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(value));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string clientName = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_clientname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->clientname().data(), static_cast<int>(this->clientname().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string chartMessage = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_chartmessage()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage"));
+          set_chartcmdid(static_cast< ::serverMessageSystem::ChartSubSysCommandsID >(value));
         } else {
           goto handle_unusual;
         }
@@ -7322,18 +7302,18 @@ bool ClientSendRoomCreationLobbyChartMessage::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.DefaultMessage)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.DefaultMessage)
   return false;
 #undef DO_
 }
 #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 
-void ClientSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
+void DefaultMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.DefaultMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7343,43 +7323,23 @@ void ClientSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
       1, HasBitSetters::header(this), output);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->connectioncmdid(), output);
-  }
-
-  // string clientName = 3;
-  if (this->clientname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->clientname().data(), static_cast<int>(this->clientname().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->clientname(), output);
-  }
-
-  // string chartMessage = 4;
-  if (this->chartmessage().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->chartmessage(), output);
+      2, this->chartcmdid(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.DefaultMessage)
 }
 
-::google::protobuf::uint8* ClientSendRoomCreationLobbyChartMessage::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* DefaultMessage::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.DefaultMessage)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7390,44 +7350,22 @@ void ClientSendRoomCreationLobbyChartMessage::SerializeWithCachedSizes(
         1, HasBitSetters::header(this), deterministic, target);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->connectioncmdid(), target);
-  }
-
-  // string clientName = 3;
-  if (this->clientname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->clientname().data(), static_cast<int>(this->clientname().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.clientName");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->clientname(), target);
-  }
-
-  // string chartMessage = 4;
-  if (this->chartmessage().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->chartmessage().data(), static_cast<int>(this->chartmessage().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "serverMessageSystem.ClientSendRoomCreationLobbyChartMessage.chartMessage");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->chartmessage(), target);
+      2, this->chartcmdid(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.DefaultMessage)
   return target;
 }
 
-size_t ClientSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+size_t DefaultMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.DefaultMessage)
   size_t total_size = 0;
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -7439,20 +7377,6 @@ size_t ClientSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string clientName = 3;
-  if (this->clientname().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->clientname());
-  }
-
-  // string chartMessage = 4;
-  if (this->chartmessage().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->chartmessage());
-  }
-
   // .serverMessageSystem.CommonHeader header = 1;
   if (this->has_header()) {
     total_size += 1 +
@@ -7460,10 +7384,10 @@ size_t ClientSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
         *header_);
   }
 
-  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
-  if (this->connectioncmdid() != 0) {
+  // .serverMessageSystem.ChartSubSysCommandsID chartCmdID = 2;
+  if (this->chartcmdid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->connectioncmdid());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->chartcmdid());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -7471,78 +7395,66 @@ size_t ClientSendRoomCreationLobbyChartMessage::ByteSizeLong() const {
   return total_size;
 }
 
-void ClientSendRoomCreationLobbyChartMessage::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+void DefaultMessage::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.DefaultMessage)
   GOOGLE_DCHECK_NE(&from, this);
-  const ClientSendRoomCreationLobbyChartMessage* source =
-      ::google::protobuf::DynamicCastToGenerated<ClientSendRoomCreationLobbyChartMessage>(
+  const DefaultMessage* source =
+      ::google::protobuf::DynamicCastToGenerated<DefaultMessage>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.DefaultMessage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.DefaultMessage)
     MergeFrom(*source);
   }
 }
 
-void ClientSendRoomCreationLobbyChartMessage::MergeFrom(const ClientSendRoomCreationLobbyChartMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+void DefaultMessage::MergeFrom(const DefaultMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.DefaultMessage)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.clientname().size() > 0) {
-
-    clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
-  }
-  if (from.chartmessage().size() > 0) {
-
-    chartmessage_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.chartmessage_);
-  }
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
   }
-  if (from.connectioncmdid() != 0) {
-    set_connectioncmdid(from.connectioncmdid());
+  if (from.chartcmdid() != 0) {
+    set_chartcmdid(from.chartcmdid());
   }
 }
 
-void ClientSendRoomCreationLobbyChartMessage::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+void DefaultMessage::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.DefaultMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ClientSendRoomCreationLobbyChartMessage::CopyFrom(const ClientSendRoomCreationLobbyChartMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ClientSendRoomCreationLobbyChartMessage)
+void DefaultMessage::CopyFrom(const DefaultMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.DefaultMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ClientSendRoomCreationLobbyChartMessage::IsInitialized() const {
+bool DefaultMessage::IsInitialized() const {
   return true;
 }
 
-void ClientSendRoomCreationLobbyChartMessage::Swap(ClientSendRoomCreationLobbyChartMessage* other) {
+void DefaultMessage::Swap(DefaultMessage* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ClientSendRoomCreationLobbyChartMessage::InternalSwap(ClientSendRoomCreationLobbyChartMessage* other) {
+void DefaultMessage::InternalSwap(DefaultMessage* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  clientname_.Swap(&other->clientname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  chartmessage_.Swap(&other->chartmessage_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   swap(header_, other->header_);
-  swap(connectioncmdid_, other->connectioncmdid_);
+  swap(chartcmdid_, other->chartcmdid_);
 }
 
-::google::protobuf::Metadata ClientSendRoomCreationLobbyChartMessage::GetMetadata() const {
+::google::protobuf::Metadata DefaultMessage::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
   return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
 }
@@ -7591,11 +7503,11 @@ template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerQueryOrderNotification
 template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom >(arena);
 }
-template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage >(Arena* arena) {
-  return Arena::CreateInternal< ::serverMessageSystem::ServerSendRoomCreationLobbyChartMessage >(arena);
+template<> PROTOBUF_NOINLINE ::serverMessageSystem::ChartMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::ChartMessage >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::ChartMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage >(Arena* arena) {
-  return Arena::CreateInternal< ::serverMessageSystem::ClientSendRoomCreationLobbyChartMessage >(arena);
+template<> PROTOBUF_NOINLINE ::serverMessageSystem::DefaultMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::DefaultMessage >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::DefaultMessage >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
