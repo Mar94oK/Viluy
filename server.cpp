@@ -20,6 +20,7 @@ Server::Server(QObject *parent) : QObject(parent),
     QObject::connect(this, &Server::SignalUpdateRoomsQuantity, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotReportNewRoomsQuantity);
     QObject::connect(this, &Server::SignalConnectionSendOutgoingData, this, &Server::SlotConnectionSendOutgoingData);
     QObject::connect(qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::DebugSignalOpponentEnteringRoomReport, this, &Server::DebugSlotSendReportsOpponentIsEnteringRoom);
+    QObject::connect(this, &Server::SignalUpdateStatistics, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotUpdateStatistic);
 
 
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
@@ -28,6 +29,8 @@ Server::Server(QObject *parent) : QObject(parent),
     connect(tcpServer, &QTcpServer::newConnection, this, &Server::SlotSetUpNewConnection);
 
     _settings.setServerName("TheBestMunchkinServerEver");
+
+    UpdateStatistics();
 }
 
 void Server::SlotServerInitializaion()
@@ -312,6 +315,9 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
                  uint32_t id = room->id();
                 if (RoomDeleting(room->id()))
                 {
+                    ++_closedRooms;
+                    --_roomsArePreparingToGame;
+                    UpdateStatistics();
                     emit SignalServerLogReport("Room with ID : " + QString::number(id)
                                                + " has been deleted successfully!");
                     return true;
@@ -327,6 +333,7 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
                                    + " not found!");
         return false;
     }
+    return false;
 }
 
 bool Server::RoomDeleting(uint32_t roomId)
@@ -357,6 +364,22 @@ Room *Server::DefineRoom(uint32_t roomId)
     }
     qDebug() << "NAY-001: Room with ID: " << roomId << " not found!";
     return nullptr;
+}
+
+void Server::UpdateStatistics()
+{
+
+    QStringList statistic;
+    statistic.push_back(_roomsCreatedBaseText + QString::number(_roomsCreatedDuringSession));
+    statistic.push_back(_connectionsCreatedBaseText + QString::number(_connectionsDuringSession));
+    statistic.push_back(_gamesStartedCreatedBaseText + QString::number(_gamesStartedDuringSession));
+    statistic.push_back(_roomsArePreparingToGameCreatedBaseText + QString::number(_roomsArePreparingToGame));
+    statistic.push_back(_roomsAreActiveBaseText + QString::number(_roomArePLaying));
+    statistic.push_back(_closedRoomsBaseText + QString::number(_closedRooms));
+    statistic.push_back(_activeConnectionsBaseText + QString::number(_activeConnections));
+    statistic.push_back(_maximumSimultaneousConnectionsdBaseText + QString::number(_maximumSimultaneousConnections));
+
+    SignalUpdateStatistics(statistic);
 }
 
 
@@ -415,8 +438,23 @@ void Server::SlotSetUpNewConnection()
     emit SignalServerLogReport("Trying to establish connection #" + QString::number(_establishedConnections.size() + 1));
     QTcpSocket *clientConnection = tcpServer->nextPendingConnection();
     if (clientConnection != nullptr)
+    {
         _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
-    long long ID = clientConnection->socketDescriptor();
+        ++_connectionsDuringSession;
+        ++_activeConnections;
+        if (_maximumSimultaneousConnections < _activeConnections)
+            ++_maximumSimultaneousConnections;
+        UpdateStatistics();
+        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " established!");
+
+    }
+    else
+    {
+        emit SignalServerLogReport("Error while establishing connection #" + QString::number(_establishedConnections.size() + 1));
+        return;
+    }
+
+   long long ID = clientConnection->socketDescriptor();
 
     //connect the signal with the Specified slot.
     connect(clientConnection, &QIODevice::readyRead, [this, ID]{SlotReadIncomingData(ID);});
@@ -426,10 +464,6 @@ void Server::SlotSetUpNewConnection()
     typedef void (QAbstractSocket::*QAbstractSocketErrorSignal)(QAbstractSocket::SocketError);
     connect(clientConnection, static_cast<QAbstractSocketErrorSignal>(&QAbstractSocket::error),
             this, &Server::slot_reportError);
-    if (clientConnection != nullptr)
-        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " established!");
-    else
-        emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size() + 1)  + " ERROR!");
 }
 
 void Server::SlotReadIncomingData(int socketDescriptor)
@@ -533,6 +567,8 @@ void Server::SlotClientConnectionIsClosing(long long ID)
                 {
                     delete _establishedConnections[var];
                     _establishedConnections.erase(_establishedConnections.begin() + var);
+                    --_activeConnections;
+                    UpdateStatistics();
                     emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
                                                + " has been successfully deleted! ");
                     return;
@@ -648,6 +684,9 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
                                  );
 
         _rooms.push_back(newRoom);
+        ++_roomsArePreparingToGame;
+        ++_roomsCreatedDuringSession;
+        UpdateStatistics();
         emit SignalUpdateRoomsQuantity(_rooms.size());
 
         Connection* currentConnection = DefineConnection(socketDescriptor);

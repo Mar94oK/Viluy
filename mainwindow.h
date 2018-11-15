@@ -15,6 +15,7 @@
 #include <QNetworkSession>
 #include <QTcpServer>
 #include <QMainWindow>
+#include <QStringList>
 
 #include <server.h>
 
@@ -52,6 +53,7 @@ public slots:
     void slot_showServerInfoMessage(QString message);
     void SlotReportNewRoomsQuantity(unsigned int quantity);
     void DebugSlotSendOpponentEnteringRoomReport() { emit DebugSignalOpponentEnteringRoomReport(1); }
+    void SlotUpdateStatistic(const QStringList& statistic);
 
 private:        
 

@@ -45,6 +45,7 @@ signals:
     void sig_serverInfoReport(QString);
     void SignalConnectionSendOutgoingData(int socketDescriptor);
     void SignalUpdateRoomsQuantity(unsigned int quantity);
+    void SignalUpdateStatistics(const QStringList& statistic);
 
 private slots:
 
@@ -86,6 +87,29 @@ private:
     bool RoomDeleting(uint32_t roomId);
     Room* DefineRoom(uint32_t roomId);
 
+private:
+
+    void UpdateStatistics();
+
+private:
+
+    uint32_t _roomsCreatedDuringSession = 0;
+    uint32_t _connectionsDuringSession = 0;
+    uint32_t _gamesStartedDuringSession = 0;
+    uint32_t _roomsArePreparingToGame = 0;
+    uint32_t _roomArePLaying = 0;
+    uint32_t _closedRooms = 0;
+    uint32_t _activeConnections = 0;
+    uint32_t _maximumSimultaneousConnections = 0;
+
+    QString _roomsCreatedBaseText = "Создано комнат: ";
+    QString _connectionsCreatedBaseText = "Создано подключений: ";
+    QString _gamesStartedCreatedBaseText = "Начато игр: ";
+    QString _roomsArePreparingToGameCreatedBaseText = "Комнат, ожидающих игроков: ";
+    QString _roomsAreActiveBaseText = "Активных комнат: ";
+    QString _closedRoomsBaseText = "Закрытых комнат: ";
+    QString _activeConnectionsBaseText = "Активных соединений: ";
+    QString _maximumSimultaneousConnectionsdBaseText = "Максимальное количество соединений: ";
 
 };
 

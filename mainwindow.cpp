@@ -46,6 +46,17 @@ void ServerMainWindow::SlotReportNewRoomsQuantity(unsigned int quantity)
         ui->lbl_TotalRooms->setText("Комнат не создано.");
 }
 
+void ServerMainWindow::SlotUpdateStatistic(const QStringList &statistic)
+{
+    //NAY-001:MARK_EXPECTED_IMPROVEMENT to pass here no the whole list, but only the number of string and the value to be changed.
+    QString newStatistic;
+    foreach (QString string, statistic)
+    {
+       newStatistic += string + "\n";
+    }
+    ui->lblStatistics->setText(newStatistic);
+}
+
 
 ServerMainWindow::~ServerMainWindow()
 {
