@@ -105,6 +105,8 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
                 }
                 break;
                 case serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REQUEST:
+                    qDebug() << "Processing CLIENT_CONNECTION_TO_ROOM_REQUEST.";
+                    ProcessClientConnectionToRoomRequest(data, socketDescriptor);
                 break;
 
                 default:
@@ -720,8 +722,8 @@ void Server::ProcessChartMessage(const QByteArray &data, int socketDescriptor)
 
     emit SignalServerLogReport("NAY-001: Processing Chart Message From Socket Descriptor: " + QString::number(socketDescriptor));
     emit SignalServerLogReport("NAY-001: ChartMessage: ChartMessage: " + QString::fromStdString(message.chartmessage()));
-    emit SignalServerLogReport("NAY-001: ChartMessage: ChartMessage: " + QString::fromStdString(message.sendername()));
-    emit SignalServerLogReport("NAY-001: ChartMessage: ID: " + QString::number(roomID));
+    emit SignalServerLogReport("NAY-001: ChartMessage: Sender Name: " + QString::fromStdString(message.sendername()));
+    emit SignalServerLogReport("NAY-001: ChartMessage: Room ID: " + QString::number(roomID));
 
     //First of all, check the room for existance.
     if (_rooms.size() + 1 < roomID)
@@ -743,6 +745,44 @@ void Server::ProcessChartMessage(const QByteArray &data, int socketDescriptor)
         }
     }
 
+
+
+}
+
+void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ClientConnectionToRoomRequest message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessServerInputQueryRequest() ");
+        return;
+    }
+
+    emit SignalServerLogReport("NAY-001: Processing ClientConnectionToRoomRequest From Socket Descriptor: " + QString::number(socketDescriptor));
+    emit SignalServerLogReport("NAY-001: ClientConnectionToRoomRequest: CleintName: " + QString::fromStdString(message.clientname()));
+    emit SignalServerLogReport("NAY-001: ClientConnectionToRoomRequest: AgreeToWait: " + QString::number(message.agreetowait()));
+    emit SignalServerLogReport("NAY-001: ClientConnectionToRoomRequest: ConnectToAnyRoom: " + QString::number(message.connecttoanyroom()));
+
+//    if (!message.agreetowait())
+//    {
+//        //check if there are rooms and there are free rooms:
+//        if(_rooms.size() && _roomsArePreparingToGame)
+//            //check if there is only one waiting room - then send him directly there
+//            //If not the only one, check here if client wants to connect to any room
+//            //If not, send him number of rooms - the SelectionMenu Will be shown to user
+//            //If Yes - apply connection logic - connect user to the first room available
+
+//         else() // if there are no waiting rooms - return messssage with such response. User will stay at the same menu.
+//    }
+//    else
+//    {
+//        //check if there are ready rooms and if user wants to connect to any.
+//        //if so - connect user to the first available
+
+//        //if there are no rooms, or user doen't want to connect to any, show the user selection menu.
+
+//    }
 
 
 }

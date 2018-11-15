@@ -69,6 +69,7 @@ private:
     void ProcessServerInputQueryRequest(const QByteArray& data, int socketDescriptor);
     void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
     void ProcessChartMessage(const QByteArray &data, int socketDescriptor);
+    void ProcessClientConnectionToRoomRequest(const QByteArray &data, int socketDescriptor);
 
     QByteArray FormServerInputQueryReply();
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
