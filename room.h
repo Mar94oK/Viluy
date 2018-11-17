@@ -58,6 +58,9 @@ public:
 
     unsigned int PlayersLeft() { return _connections.size(); }
 
+    void SetIsPlaying() { _isPlaying = true; }
+    bool GetIsPlaying() const { return _isPlaying; }
+
 private:
 
     uint32_t _id;
@@ -66,6 +69,8 @@ private:
     GameSettings _gameSettings;
     std::vector<Player> _players;
     std::vector<Connection* > _connections;
+
+    bool _isPlaying = false;
 
 };
 

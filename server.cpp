@@ -278,6 +278,30 @@ QByteArray Server::FormChartMessage(const QString &textMessage, const QString &s
     return block;
 }
 
+QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder)
+{
+    serverMessageSystem::ClientConnectionToRoomReply message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::CLIENT_CONNECTION_TO_ROOM_REPLY);
+
+    message.set_noroomsavailable(noRoomsAvailable);
+    message.set_freeslotsleft(freeSlotLeft);
+    for (uint32_t var = 0; var < roomIDs.size(); ++var)
+    {
+        message.set_roomid(var, roomIDs[var]);
+    }
+
+    message.set_queryorder(queryOrder);
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: Serialized FormClientConnectionToRoomReply is ready.";
+    return block;
+}
+
 Connection *Server::DefineConnection(int socketDescriptor)
 {
     qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
@@ -368,6 +392,15 @@ Room *Server::DefineRoom(uint32_t roomId)
     return nullptr;
 }
 
+bool Server::QueryOverSize(uint32_t givenSize)
+{
+    qDebug() << "NAY-001: Maximum Query size: "<< _settings.maxNumberOfRooms() * (6-1);
+    if (givenSize > _settings.maxNumberOfRooms() * (6-1))
+        return true;
+     return  false;
+
+}
+
 void Server::UpdateStatistics()
 {
 
@@ -380,6 +413,8 @@ void Server::UpdateStatistics()
     statistic.push_back(_closedRoomsBaseText + QString::number(_closedRooms));
     statistic.push_back(_activeConnectionsBaseText + QString::number(_activeConnections));
     statistic.push_back(_maximumSimultaneousConnectionsdBaseText + QString::number(_maximumSimultaneousConnections));
+    statistic.push_back(_querySizeBaseText + QString::number(_querySize));
+
 
     SignalUpdateStatistics(statistic);
 }
@@ -764,25 +799,269 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
     emit SignalServerLogReport("NAY-001: ClientConnectionToRoomRequest: AgreeToWait: " + QString::number(message.agreetowait()));
     emit SignalServerLogReport("NAY-001: ClientConnectionToRoomRequest: ConnectToAnyRoom: " + QString::number(message.connecttoanyroom()));
 
-//    if (!message.agreetowait())
-//    {
-//        //check if there are rooms and there are free rooms:
-//        if(_rooms.size() && _roomsArePreparingToGame)
-//            //check if there is only one waiting room - then send him directly there
-//            //If not the only one, check here if client wants to connect to any room
-//            //If not, send him number of rooms - the SelectionMenu Will be shown to user
-//            //If Yes - apply connection logic - connect user to the first room available
 
-//         else() // if there are no waiting rooms - return messssage with such response. User will stay at the same menu.
-//    }
-//    else
-//    {
-//        //check if there are ready rooms and if user wants to connect to any.
-//        //if so - connect user to the first available
+    //ПО УМОЛЧАНИЮ ЗАЛОЧИТЬ "Согласен ждать!"
 
-//        //if there are no rooms, or user doen't want to connect to any, show the user selection menu.
+    //Если пользователь не согласен ждать
+    if (!message.agreetowait())
+    {
+        //Если есть комнаты, и среди них есть те, которые готовятся к игре (готовы принять игроков)
+        if (_rooms.size() && _roomsArePreparingToGame)
+        {
+            //Если пользователь согласен присоединиться к любой комнате, а такая комната всего одна ли их несколько - соединить его с первой свободной.
+            if (message.connecttoanyroom() && _roomsArePreparingToGame)
+            {
+                //Отправить пользователя непосредственно в эту комнату
+                //Но проверить очередь.
+                //Если очередь не пустая, отправить ему (есть свободные комнаты) и номер в очереди.
+                //На стороне клиента должно появиться сообщение ожидания в очереди на соединение (с обновлением)
+                //Если очередь пустая, соединить его с текущей комнатой
 
-//    }
+                if (_query.empty())
+                {
+                    //подсоединить его к первой попавшейся
+                    std::vector<uint32_t>roomIDs;
+                    if (FirstReadyToAcceptPlayersRoom() != nullptr) // не может быть равно, т.к. _roomsArePreparingToGame не ноль
+                        roomIDs.push_back(FirstReadyToAcceptPlayersRoom()->id());
+                    else
+                    {
+                        qDebug() << "NAY-001: Unexpected ERROR while FirstReadyToAcceptPlayersRoom()! ";
+                        return;
+                    }
+                    Connection* connection = DefineConnection(socketDescriptor);
+                    connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                      FreeSlotsLeft(),
+                                                                                      roomIDs,
+                                                                                      NO_QUERY_POSITION));
 
+                }
+                else //если очередь не пуста, проверить, что есть места (или - в будущем - сбросить, т.к. ждать он не хочет)
+                {
+                    //если места есть, показать пользователю место в очереди
+                    if (!QueryOverSize(_query.size() + 1))
+                    {
+                        std::vector<uint32_t>roomIDs;
+                        if (FirstReadyToAcceptPlayersRoom() != nullptr) // не может быть равно, т.к. _roomsArePreparingToGame не ноль
+                            roomIDs.push_back(FirstReadyToAcceptPlayersRoom()->id());
+                        else
+                        {
+                            qDebug() << "NAY-001: Unexpected ERROR while FirstReadyToAcceptPlayersRoom()! ";
+                            return;
+                        }
+
+                        Connection* connection = DefineConnection(socketDescriptor);
+                        _query.push(connection);
+                        ++_querySize;
+                        UpdateStatistics();
+                        qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
+                        emit SignalServerLogReport("NAY-001: Connection was added to Query at position: " + QString::number(_query.size()));
+                        connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                          FreeSlotsLeft(),
+                                                                                          roomIDs,
+                                                                                          _query.size()));
+                    }
+                    //если мест нет, сказать об этом
+                    else
+                    {
+                        qDebug() << "NAY-001 : No free space in query! Size: " << _query.size();
+                        emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                        std::vector<uint32_t>roomIDs;
+                        Connection* connection = DefineConnection(socketDescriptor);
+                        connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                          FreeSlotsLeft(),
+                                                                                          roomIDs,
+                                                                                          QUERY_OVERSIZE));
+                    }
+                }
+            } ////Если пользователь согласен присоединиться к любой комнате, а такая комната всего одна
+            //Если пользователь не согласен присоединяться к любой комнате и есть комнаты, готовящиеся к игре
+            if (!message.connecttoanyroom() && _roomsArePreparingToGame)
+            {
+                //Если в очереди всё ещё есть места, отправить ему (есть свободные комнаты) и номер в очереди.
+                if (!QueryOverSize(_query.size() + 1))
+                {
+                    //Показать ему все варианты и добавить его в очередь
+                    std::vector<uint32_t>roomIDs;
+                    for (uint32_t var = 0; var < _rooms.size(); ++var) {
+                        if (!(_rooms[var]->GetIsPlaying()))
+                            roomIDs.push_back(_rooms[var]->id());
+                    }
+
+                    Connection* connection = DefineConnection(socketDescriptor);
+                    _query.push(connection);
+                    ++_querySize;
+                    UpdateStatistics();
+                    qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
+                    connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                      FreeSlotsLeft(),
+                                                                                      roomIDs,
+                                                                                      _query.size()));
+                }
+                else //Если в очереди нет мест, отправить ему сообщение об этом.
+                {
+                    qDebug() << "NAY-001 : No free space in query! Size: " << _query.size();
+                    emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                    std::vector<uint32_t>roomIDs;
+                    Connection* connection = DefineConnection(socketDescriptor);
+                    connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                      FreeSlotsLeft(),
+                                                                                      roomIDs,
+                                                                                      QUERY_OVERSIZE));
+                } ////Если в очереди нет мест, отправить ему сообщение об этом.
+            }////Если пользователь не согласен присоединяться к любой комнате и есть комнаты, готовящиеся к игре
+        }////Если есть комнаты, и среди них есть те, которые готовятся к игре (готовы принять игроков)
+        //Если нет свободных комнат, готовящихся к игре - в независимости от того, готов ли он присоединиться к любой  - сбросить его,
+        //т.к. он не хочет ждать
+        else if ((_rooms.size() && !_roomsArePreparingToGame) || (!_rooms.size()))
+        {
+            //Вернуть ему сообщение о невозмоности присоединиться сразу - нет свободных комнат.
+            //Пользовательское меню на стороне клиента должно показать сообщение об ошибке соединения - "Нет свободных комнат".
+
+            std::vector<uint32_t>roomIDs;
+            Connection* connection = DefineConnection(socketDescriptor);
+            connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(true,
+                                                                              FreeSlotsLeft(),
+                                                                              roomIDs,
+                                                                              NO_QUERY_POSITION));
+        }////Если нет свободных комнат, готовящихся к игре
+    }////Если пользователь не согласен ждать
+    //Если пользователь согласен ждать
+    else
+    {
+        //Если пользователь готов сразу присоединиться к игре и свободные комнаты есть:
+        if (message.connecttoanyroom() && _roomsArePreparingToGame)
+        {
+            //подсоединить его к первой попавшейся
+            if (_query.empty())
+            {
+                //подсоединить его к первой попавшейся
+                std::vector<uint32_t>roomIDs;
+                if (FirstReadyToAcceptPlayersRoom() != nullptr) // не может быть равно, т.к. _roomsArePreparingToGame не ноль
+                    roomIDs.push_back(FirstReadyToAcceptPlayersRoom()->id());
+                else
+                {
+                    qDebug() << "NAY-001: Unexpected ERROR while FirstReadyToAcceptPlayersRoom()! ";
+                    return;
+                }
+                Connection* connection = DefineConnection(socketDescriptor);
+                connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                  FreeSlotsLeft(),
+                                                                                  roomIDs,
+                                                                                  NO_QUERY_POSITION));
+            }
+            else //если очередь не пуста, проверить, что есть места
+            {
+                //если места есть, показать пользователю место в очереди
+                if (!QueryOverSize(_query.size() + 1))
+                {
+                    //Показать ему все варианты и добавить его в очередь
+                    std::vector<uint32_t>roomIDs;
+                    for (uint32_t var = 0; var < _rooms.size(); ++var) {
+                        if (!(_rooms[var]->GetIsPlaying()))
+                            roomIDs.push_back(_rooms[var]->id());
+                    }
+
+                    Connection* connection = DefineConnection(socketDescriptor);
+                    _query.push(connection);
+                    ++_querySize;
+                    UpdateStatistics();
+                    qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
+                    emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                    connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                      FreeSlotsLeft(),
+                                                                                      roomIDs,
+                                                                                      _query.size()));
+                }
+                //если мест нет, сказать об этом
+                else
+                {
+                    qDebug() << "NAY-001 : No free space in query! Size: " << _query.size();
+                    emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                    std::vector<uint32_t>roomIDs;
+                    Connection* connection = DefineConnection(socketDescriptor);
+                    connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                      FreeSlotsLeft(),
+                                                                                      roomIDs,
+                                                                                      QUERY_OVERSIZE));
+                }
+            }
+        }////Если пользователь готов сразу присоединиться к игре и свободные комнаты есть:
+        //Если пользователь не готов сразу присоединиться к игре и свободные комнаты есть:
+        if (!message.connecttoanyroom() && _roomsArePreparingToGame)
+        {
+            //если места есть, показать пользователю все комнаты. Он находится в очереди, И МОЖЕТ СВОБОДНО ВЫБИРАТЬ ЛЮБУЮ КОМНАТУ.
+            //Он сможет выбрать любую комнату даже впердёт тех, кто стоит в очереди перед ним, но слишком долго думает.
+
+            if (!QueryOverSize(_query.size() + 1))
+            {
+                //Показать ему все варианты и добавить его в очередь
+                std::vector<uint32_t>roomIDs;
+                for (uint32_t var = 0; var < _rooms.size(); ++var) {
+                    if (!(_rooms[var]->GetIsPlaying()))
+                        roomIDs.push_back(_rooms[var]->id());
+                }
+
+                Connection* connection = DefineConnection(socketDescriptor);
+                _query.push(connection);
+                ++_querySize;
+                UpdateStatistics();
+                qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
+                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                  FreeSlotsLeft(),
+                                                                                  roomIDs,
+                                                                                  _query.size()));
+            }
+            //если мест нет, сказать об этом
+            else
+            {
+                qDebug() << "NAY-001 : No free space in query! Size: " << _query.size();
+                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                std::vector<uint32_t>roomIDs;
+                Connection* connection = DefineConnection(socketDescriptor);
+                connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
+                                                                                  FreeSlotsLeft(),
+                                                                                  roomIDs,
+                                                                                  QUERY_OVERSIZE));
+            }
+        }////Если пользователь не готов сразу присоединиться к игре и свободные комнаты есть:
+        if (!_roomsArePreparingToGame) //Если свободных комнат нет
+        {
+          //И есть свободное место в очереди - просто добавить его в очередь, показать пустой список, без комнат.
+            if (!QueryOverSize(_query.size() + 1))
+            {
+                //Показать ему пустое окно выбора и добавить его в очередь (меню должно будет показать ему его позицию - чтобы торопился)
+                std::vector<uint32_t>roomIDs;
+
+                Connection* connection = DefineConnection(socketDescriptor);
+                _query.push(connection);
+                ++_querySize;
+                UpdateStatistics();
+                qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
+                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(true,
+                                                                                  FreeSlotsLeft(),
+                                                                                  roomIDs,
+                                                                                  _query.size()));
+            }
+            //если мест нет, сказать об этом
+            else
+            {
+                qDebug() << "NAY-001 : No free space in query! Size: " << _query.size();
+                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                std::vector<uint32_t>roomIDs;
+                Connection* connection = DefineConnection(socketDescriptor);
+                connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(true,
+                                                                                  FreeSlotsLeft(),
+                                                                                  roomIDs,
+                                                                                  QUERY_OVERSIZE));
+            }
+        }
+    }////Если пользователь согласен ждать
+
+    //Отправить ответ в любом случае!
+    Connection* connection = DefineConnection(socketDescriptor);
+    emit SignalServerLogReport("NAY-001: ClientConnectionToRoomReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
+    emit SignalConnectionSendOutgoingData(socketDescriptor);
 
 }

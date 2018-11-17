@@ -15,11 +15,18 @@
 #include <room.h>
 #include "serverMessageSystem.pb.h"
 #include "messagesdefinitions.h"
+#include <queue>
 
 
 #include "connection.h"
 typedef QPair<QString, QString> serverSettings;
 
+
+#define NO_QUERY_POSITION 777
+#define QUERY_OVERSIZE 999
+
+//query maximum size should be calculated as
+//_settings.maximumNumberOfRooms * maximum number of opponents (more than this should never appear)
 
 
 class Server : public QObject
@@ -37,6 +44,8 @@ private:
     std::vector<Room* > _rooms;
     std::vector<Connection*> _establishedConnections;
     ServerSettings _settings;
+
+    std::queue <Connection*> _query;
 
 signals:
 
@@ -76,6 +85,8 @@ private:
     QByteArray FromServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
     QByteArray FormChartMessage(const QString& message, const QString& sender, uint32_t roomID);
 
+    QByteArray FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder);
+
     Connection* DefineConnection(int socketDescriptor);
 
     bool RemoveConnectionFromRoom(int socketDescriptor);
@@ -87,6 +98,20 @@ private:
     void RoomCreation();
     bool RoomDeleting(uint32_t roomId);
     Room* DefineRoom(uint32_t roomId);
+    Room* FirstReadyToAcceptPlayersRoom()
+    {
+        for (uint32_t var = 0; var < _rooms.size(); ++var)
+        {
+            if (!_rooms[var]->GetIsPlaying())
+                return _rooms[var];
+        }
+        return nullptr;
+    }
+
+
+    uint32_t FreeSlotsLeft() { return _settings.maxNumberOfRooms() - _rooms.size(); }
+    uint32_t QueryMaximumSize() { return _settings.maxNumberOfRooms()*(6-1); }
+    bool QueryOverSize(uint32_t givenSize);
 
 private:
 
@@ -102,6 +127,7 @@ private:
     uint32_t _closedRooms = 0;
     uint32_t _activeConnections = 0;
     uint32_t _maximumSimultaneousConnections = 0;
+    uint32_t _querySize = 0;
 
     QString _roomsCreatedBaseText = "Создано комнат: ";
     QString _connectionsCreatedBaseText = "Создано подключений: ";
@@ -111,6 +137,7 @@ private:
     QString _closedRoomsBaseText = "Закрытых комнат: ";
     QString _activeConnectionsBaseText = "Активных соединений: ";
     QString _maximumSimultaneousConnectionsdBaseText = "Максимальное количество соединений: ";
+    QString _querySizeBaseText = "Игроков в очереди: ";
 
 };
 
