@@ -966,7 +966,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                     ++_querySize;
                     UpdateStatistics();
                     qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
-                    emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                    emit SignalServerLogReport("NAY-001: Connection was added to Query at position: " + QString::number(_query.size()));
                     connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
                                                                                       FreeSlotsLeft(),
                                                                                       roomIDs,
@@ -1006,7 +1006,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                 ++_querySize;
                 UpdateStatistics();
                 qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
-                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                emit SignalServerLogReport("NAY-001: Connection was added to Query at position: " + QString::number(_query.size()));
                 connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(false,
                                                                                   FreeSlotsLeft(),
                                                                                   roomIDs,
