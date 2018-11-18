@@ -54,6 +54,26 @@ void Room::setId(const uint32_t &id)
     _id = id;
 }
 
+GameSettings Room::gameSettings() const
+{
+    return _gameSettings;
+}
+
+void Room::setGameSettings(const GameSettings &gameSettings)
+{
+    _gameSettings = gameSettings;
+}
+
+QString Room::name() const
+{
+    return _name;
+}
+
+void Room::setName(const QString &name)
+{
+    _name = name;
+}
+
 
 QString Player::name() const
 {

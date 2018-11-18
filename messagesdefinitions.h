@@ -22,6 +22,10 @@ enum class RoomCreationErrors
 };
 
 
+
+#define NO_QUERY_POSITION 777
+#define QUERY_OVERSIZE 999
+
 #endif // PROTOBUFMESSAGESIDENTIFICATORS_H
 
 #endif // MESSAGESDEFINITIONS_H

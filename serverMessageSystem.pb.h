@@ -39,7 +39,7 @@ namespace protobuf_serverMessageSystem_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[15];
+  static const ::google::protobuf::internal::ParseTable schema[17];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -65,6 +65,9 @@ extern ClientRoomCreationRequestDefaultTypeInternal _ClientRoomCreationRequest_d
 class CommonHeader;
 class CommonHeaderDefaultTypeInternal;
 extern CommonHeaderDefaultTypeInternal _CommonHeader_default_instance_;
+class CreatedRoom;
+class CreatedRoomDefaultTypeInternal;
+extern CreatedRoomDefaultTypeInternal _CreatedRoom_default_instance_;
 class DefaultMessage;
 class DefaultMessageDefaultTypeInternal;
 extern DefaultMessageDefaultTypeInternal _DefaultMessage_default_instance_;
@@ -89,6 +92,9 @@ extern ServerQueryReplyDefaultTypeInternal _ServerQueryReply_default_instance_;
 class ServerReportsOpponentIsEnteringRoom;
 class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal;
 extern ServerReportsOpponentIsEnteringRoomDefaultTypeInternal _ServerReportsOpponentIsEnteringRoom_default_instance_;
+class ServerRoomWasRemovedFromSelectableList;
+class ServerRoomWasRemovedFromSelectableListDefaultTypeInternal;
+extern ServerRoomWasRemovedFromSelectableListDefaultTypeInternal _ServerRoomWasRemovedFromSelectableList_default_instance_;
 class TimeSettings;
 class TimeSettingsDefaultTypeInternal;
 extern TimeSettingsDefaultTypeInternal _TimeSettings_default_instance_;
@@ -101,6 +107,7 @@ template<> ::serverMessageSystem::ClientConnectionToRoomRequest* Arena::CreateMa
 template<> ::serverMessageSystem::ClientRoomCreationReply* Arena::CreateMaybeMessage<::serverMessageSystem::ClientRoomCreationReply>(Arena*);
 template<> ::serverMessageSystem::ClientRoomCreationRequest* Arena::CreateMaybeMessage<::serverMessageSystem::ClientRoomCreationRequest>(Arena*);
 template<> ::serverMessageSystem::CommonHeader* Arena::CreateMaybeMessage<::serverMessageSystem::CommonHeader>(Arena*);
+template<> ::serverMessageSystem::CreatedRoom* Arena::CreateMaybeMessage<::serverMessageSystem::CreatedRoom>(Arena*);
 template<> ::serverMessageSystem::DefaultMessage* Arena::CreateMaybeMessage<::serverMessageSystem::DefaultMessage>(Arena*);
 template<> ::serverMessageSystem::GameSettings* Arena::CreateMaybeMessage<::serverMessageSystem::GameSettings>(Arena*);
 template<> ::serverMessageSystem::GameType* Arena::CreateMaybeMessage<::serverMessageSystem::GameType>(Arena*);
@@ -109,6 +116,7 @@ template<> ::serverMessageSystem::ServerInputQuery* Arena::CreateMaybeMessage<::
 template<> ::serverMessageSystem::ServerQueryOrderNotification* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryOrderNotification>(Arena*);
 template<> ::serverMessageSystem::ServerQueryReply* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryReply>(Arena*);
 template<> ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsOpponentIsEnteringRoom>(Arena*);
+template<> ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList* Arena::CreateMaybeMessage<::serverMessageSystem::ServerRoomWasRemovedFromSelectableList>(Arena*);
 template<> ::serverMessageSystem::TimeSettings* Arena::CreateMaybeMessage<::serverMessageSystem::TimeSettings>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -166,12 +174,13 @@ enum ConnectionSubSysCommandsID {
   CLIENT_CONNECTION_TO_ROOM_REQUEST = 4,
   CLIENT_CONNECTION_TO_ROOM_REPLY = 5,
   SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6,
+  SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST = 7,
   ConnectionSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ConnectionSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ConnectionSubSysCommandsID_IsValid(int value);
 const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MIN = SERVER_INPUT_QUERY_REQUEST;
-const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM;
+const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST;
 const int ConnectionSubSysCommandsID_ARRAYSIZE = ConnectionSubSysCommandsID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ConnectionSubSysCommandsID_descriptor();
@@ -832,6 +841,138 @@ class RoomCreationErrors : public ::google::protobuf::Message /* @@protoc_insert
 };
 // -------------------------------------------------------------------
 
+class CreatedRoom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.CreatedRoom) */ {
+ public:
+  CreatedRoom();
+  virtual ~CreatedRoom();
+
+  CreatedRoom(const CreatedRoom& from);
+
+  inline CreatedRoom& operator=(const CreatedRoom& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  CreatedRoom(CreatedRoom&& from) noexcept
+    : CreatedRoom() {
+    *this = ::std::move(from);
+  }
+
+  inline CreatedRoom& operator=(CreatedRoom&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CreatedRoom& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CreatedRoom* internal_default_instance() {
+    return reinterpret_cast<const CreatedRoom*>(
+               &_CreatedRoom_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  void Swap(CreatedRoom* other);
+  friend void swap(CreatedRoom& a, CreatedRoom& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreatedRoom* New() const final {
+    return CreateMaybeMessage<CreatedRoom>(NULL);
+  }
+
+  CreatedRoom* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<CreatedRoom>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const CreatedRoom& from);
+  void MergeFrom(const CreatedRoom& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreatedRoom* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string roomName = 2;
+  void clear_roomname();
+  static const int kRoomNameFieldNumber = 2;
+  const ::std::string& roomname() const;
+  void set_roomname(const ::std::string& value);
+  #if LANG_CXX11
+  void set_roomname(::std::string&& value);
+  #endif
+  void set_roomname(const char* value);
+  void set_roomname(const char* value, size_t size);
+  ::std::string* mutable_roomname();
+  ::std::string* release_roomname();
+  void set_allocated_roomname(::std::string* roomname);
+
+  // uint32 roomID = 1;
+  void clear_roomid();
+  static const int kRoomIDFieldNumber = 1;
+  ::google::protobuf::uint32 roomid() const;
+  void set_roomid(::google::protobuf::uint32 value);
+
+  // uint32 players = 3;
+  void clear_players();
+  static const int kPlayersFieldNumber = 3;
+  ::google::protobuf::uint32 players() const;
+  void set_players(::google::protobuf::uint32 value);
+
+  // uint32 maximumNumberOfPlayers = 4;
+  void clear_maximumnumberofplayers();
+  static const int kMaximumNumberOfPlayersFieldNumber = 4;
+  ::google::protobuf::uint32 maximumnumberofplayers() const;
+  void set_maximumnumberofplayers(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.CreatedRoom)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr roomname_;
+  ::google::protobuf::uint32 roomid_;
+  ::google::protobuf::uint32 players_;
+  ::google::protobuf::uint32 maximumnumberofplayers_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class ServerInputQuery : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerInputQuery) */ {
  public:
   ServerInputQuery();
@@ -867,7 +1008,7 @@ class ServerInputQuery : public ::google::protobuf::Message /* @@protoc_insertio
                &_ServerInputQuery_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   void Swap(ServerInputQuery* other);
   friend void swap(ServerInputQuery& a, ServerInputQuery& b) {
@@ -1013,7 +1154,7 @@ class ServerQueryReply : public ::google::protobuf::Message /* @@protoc_insertio
                &_ServerQueryReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   void Swap(ServerQueryReply* other);
   friend void swap(ServerQueryReply& a, ServerQueryReply& b) {
@@ -1158,7 +1299,7 @@ class ClientRoomCreationRequest : public ::google::protobuf::Message /* @@protoc
                &_ClientRoomCreationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   void Swap(ClientRoomCreationRequest* other);
   friend void swap(ClientRoomCreationRequest& a, ClientRoomCreationRequest& b) {
@@ -1224,6 +1365,20 @@ class ClientRoomCreationRequest : public ::google::protobuf::Message /* @@protoc
   ::std::string* release_clientname();
   void set_allocated_clientname(::std::string* clientname);
 
+  // string roomName = 4;
+  void clear_roomname();
+  static const int kRoomNameFieldNumber = 4;
+  const ::std::string& roomname() const;
+  void set_roomname(const ::std::string& value);
+  #if LANG_CXX11
+  void set_roomname(::std::string&& value);
+  #endif
+  void set_roomname(const char* value);
+  void set_roomname(const char* value, size_t size);
+  ::std::string* mutable_roomname();
+  ::std::string* release_roomname();
+  void set_allocated_roomname(::std::string* roomname);
+
   // .serverMessageSystem.CommonHeader header = 1;
   bool has_header() const;
   void clear_header();
@@ -1236,10 +1391,10 @@ class ClientRoomCreationRequest : public ::google::protobuf::Message /* @@protoc
   ::serverMessageSystem::CommonHeader* mutable_header();
   void set_allocated_header(::serverMessageSystem::CommonHeader* header);
 
-  // .serverMessageSystem.GameSettings gameSettings = 4;
+  // .serverMessageSystem.GameSettings gameSettings = 5;
   bool has_gamesettings() const;
   void clear_gamesettings();
-  static const int kGameSettingsFieldNumber = 4;
+  static const int kGameSettingsFieldNumber = 5;
   private:
   const ::serverMessageSystem::GameSettings& _internal_gamesettings() const;
   public:
@@ -1259,6 +1414,7 @@ class ClientRoomCreationRequest : public ::google::protobuf::Message /* @@protoc
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr clientname_;
+  ::google::protobuf::internal::ArenaStringPtr roomname_;
   ::serverMessageSystem::CommonHeader* header_;
   ::serverMessageSystem::GameSettings* gamesettings_;
   int connectioncmdid_;
@@ -1302,7 +1458,7 @@ class ClientRoomCreationReply : public ::google::protobuf::Message /* @@protoc_i
                &_ClientRoomCreationReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   void Swap(ClientRoomCreationReply* other);
   friend void swap(ClientRoomCreationReply& a, ClientRoomCreationReply& b) {
@@ -1452,7 +1608,7 @@ class ClientConnectionToRoomRequest : public ::google::protobuf::Message /* @@pr
                &_ClientConnectionToRoomRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   void Swap(ClientConnectionToRoomRequest* other);
   friend void swap(ClientConnectionToRoomRequest& a, ClientConnectionToRoomRequest& b) {
@@ -1597,7 +1753,7 @@ class ClientConnectionToRoomReply : public ::google::protobuf::Message /* @@prot
                &_ClientConnectionToRoomReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   void Swap(ClientConnectionToRoomReply* other);
   friend void swap(ClientConnectionToRoomReply& a, ClientConnectionToRoomReply& b) {
@@ -1649,17 +1805,17 @@ class ClientConnectionToRoomReply : public ::google::protobuf::Message /* @@prot
 
   // accessors -------------------------------------------------------
 
-  // repeated uint32 roomID = 5;
-  int roomid_size() const;
-  void clear_roomid();
-  static const int kRoomIDFieldNumber = 5;
-  ::google::protobuf::uint32 roomid(int index) const;
-  void set_roomid(int index, ::google::protobuf::uint32 value);
-  void add_roomid(::google::protobuf::uint32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-      roomid() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-      mutable_roomid();
+  // repeated .serverMessageSystem.CreatedRoom room = 5;
+  int room_size() const;
+  void clear_room();
+  static const int kRoomFieldNumber = 5;
+  ::serverMessageSystem::CreatedRoom* mutable_room(int index);
+  ::google::protobuf::RepeatedPtrField< ::serverMessageSystem::CreatedRoom >*
+      mutable_room();
+  const ::serverMessageSystem::CreatedRoom& room(int index) const;
+  ::serverMessageSystem::CreatedRoom* add_room();
+  const ::google::protobuf::RepeatedPtrField< ::serverMessageSystem::CreatedRoom >&
+      room() const;
 
   // .serverMessageSystem.CommonHeader header = 1;
   bool has_header() const;
@@ -1697,17 +1853,23 @@ class ClientConnectionToRoomReply : public ::google::protobuf::Message /* @@prot
   ::google::protobuf::uint32 queryorder() const;
   void set_queryorder(::google::protobuf::uint32 value);
 
+  // uint32 querySize = 7;
+  void clear_querysize();
+  static const int kQuerySizeFieldNumber = 7;
+  ::google::protobuf::uint32 querysize() const;
+  void set_querysize(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:serverMessageSystem.ClientConnectionToRoomReply)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > roomid_;
-  mutable int _roomid_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField< ::serverMessageSystem::CreatedRoom > room_;
   ::serverMessageSystem::CommonHeader* header_;
   int connectioncmdid_;
   bool noroomsavailable_;
   ::google::protobuf::uint32 freeslotsleft_;
   ::google::protobuf::uint32 queryorder_;
+  ::google::protobuf::uint32 querysize_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
 };
@@ -1748,7 +1910,7 @@ class ServerQueryOrderNotification : public ::google::protobuf::Message /* @@pro
                &_ServerQueryOrderNotification_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   void Swap(ServerQueryOrderNotification* other);
   friend void swap(ServerQueryOrderNotification& a, ServerQueryOrderNotification& b) {
@@ -1871,7 +2033,7 @@ class ServerReportsOpponentIsEnteringRoom : public ::google::protobuf::Message /
                &_ServerReportsOpponentIsEnteringRoom_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   void Swap(ServerReportsOpponentIsEnteringRoom* other);
   friend void swap(ServerReportsOpponentIsEnteringRoom& a, ServerReportsOpponentIsEnteringRoom& b) {
@@ -2009,7 +2171,7 @@ class ChartMessage : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_ChartMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   void Swap(ChartMessage* other);
   friend void swap(ChartMessage& a, ChartMessage& b) {
@@ -2162,7 +2324,7 @@ class DefaultMessage : public ::google::protobuf::Message /* @@protoc_insertion_
                &_DefaultMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   void Swap(DefaultMessage* other);
   friend void swap(DefaultMessage& a, DefaultMessage& b) {
@@ -2238,6 +2400,142 @@ class DefaultMessage : public ::google::protobuf::Message /* @@protoc_insertion_
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::serverMessageSystem::CommonHeader* header_;
   int chartcmdid_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class ServerRoomWasRemovedFromSelectableList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerRoomWasRemovedFromSelectableList) */ {
+ public:
+  ServerRoomWasRemovedFromSelectableList();
+  virtual ~ServerRoomWasRemovedFromSelectableList();
+
+  ServerRoomWasRemovedFromSelectableList(const ServerRoomWasRemovedFromSelectableList& from);
+
+  inline ServerRoomWasRemovedFromSelectableList& operator=(const ServerRoomWasRemovedFromSelectableList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ServerRoomWasRemovedFromSelectableList(ServerRoomWasRemovedFromSelectableList&& from) noexcept
+    : ServerRoomWasRemovedFromSelectableList() {
+    *this = ::std::move(from);
+  }
+
+  inline ServerRoomWasRemovedFromSelectableList& operator=(ServerRoomWasRemovedFromSelectableList&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServerRoomWasRemovedFromSelectableList& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ServerRoomWasRemovedFromSelectableList* internal_default_instance() {
+    return reinterpret_cast<const ServerRoomWasRemovedFromSelectableList*>(
+               &_ServerRoomWasRemovedFromSelectableList_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  void Swap(ServerRoomWasRemovedFromSelectableList* other);
+  friend void swap(ServerRoomWasRemovedFromSelectableList& a, ServerRoomWasRemovedFromSelectableList& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServerRoomWasRemovedFromSelectableList* New() const final {
+    return CreateMaybeMessage<ServerRoomWasRemovedFromSelectableList>(NULL);
+  }
+
+  ServerRoomWasRemovedFromSelectableList* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServerRoomWasRemovedFromSelectableList>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ServerRoomWasRemovedFromSelectableList& from);
+  void MergeFrom(const ServerRoomWasRemovedFromSelectableList& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServerRoomWasRemovedFromSelectableList* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  bool has_header() const;
+  void clear_header();
+  static const int kHeaderFieldNumber = 1;
+  private:
+  const ::serverMessageSystem::CommonHeader& _internal_header() const;
+  public:
+  const ::serverMessageSystem::CommonHeader& header() const;
+  ::serverMessageSystem::CommonHeader* release_header();
+  ::serverMessageSystem::CommonHeader* mutable_header();
+  void set_allocated_header(::serverMessageSystem::CommonHeader* header);
+
+  // .serverMessageSystem.CreatedRoom room = 4;
+  bool has_room() const;
+  void clear_room();
+  static const int kRoomFieldNumber = 4;
+  private:
+  const ::serverMessageSystem::CreatedRoom& _internal_room() const;
+  public:
+  const ::serverMessageSystem::CreatedRoom& room() const;
+  ::serverMessageSystem::CreatedRoom* release_room();
+  ::serverMessageSystem::CreatedRoom* mutable_room();
+  void set_allocated_room(::serverMessageSystem::CreatedRoom* room);
+
+  // bool deletedOrUpdateFlag = 2;
+  void clear_deletedorupdateflag();
+  static const int kDeletedOrUpdateFlagFieldNumber = 2;
+  bool deletedorupdateflag() const;
+  void set_deletedorupdateflag(bool value);
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+  void clear_connectioncmdid();
+  static const int kConnectionCmdIDFieldNumber = 3;
+  ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
+  void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
+
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::serverMessageSystem::CommonHeader* header_;
+  ::serverMessageSystem::CreatedRoom* room_;
+  bool deletedorupdateflag_;
+  int connectioncmdid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
 };
@@ -2570,6 +2868,105 @@ inline void RoomCreationErrors::set_incorrectsettings(bool value) {
   
   incorrectsettings_ = value;
   // @@protoc_insertion_point(field_set:serverMessageSystem.RoomCreationErrors.incorrectSettings)
+}
+
+// -------------------------------------------------------------------
+
+// CreatedRoom
+
+// uint32 roomID = 1;
+inline void CreatedRoom::clear_roomid() {
+  roomid_ = 0u;
+}
+inline ::google::protobuf::uint32 CreatedRoom::roomid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.CreatedRoom.roomID)
+  return roomid_;
+}
+inline void CreatedRoom::set_roomid(::google::protobuf::uint32 value) {
+  
+  roomid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.CreatedRoom.roomID)
+}
+
+// string roomName = 2;
+inline void CreatedRoom::clear_roomname() {
+  roomname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CreatedRoom::roomname() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.CreatedRoom.roomName)
+  return roomname_.GetNoArena();
+}
+inline void CreatedRoom::set_roomname(const ::std::string& value) {
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.CreatedRoom.roomName)
+}
+#if LANG_CXX11
+inline void CreatedRoom::set_roomname(::std::string&& value) {
+  
+  roomname_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.CreatedRoom.roomName)
+}
+#endif
+inline void CreatedRoom::set_roomname(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.CreatedRoom.roomName)
+}
+inline void CreatedRoom::set_roomname(const char* value, size_t size) {
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.CreatedRoom.roomName)
+}
+inline ::std::string* CreatedRoom::mutable_roomname() {
+  
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.CreatedRoom.roomName)
+  return roomname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CreatedRoom::release_roomname() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.CreatedRoom.roomName)
+  
+  return roomname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CreatedRoom::set_allocated_roomname(::std::string* roomname) {
+  if (roomname != NULL) {
+    
+  } else {
+    
+  }
+  roomname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), roomname);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.CreatedRoom.roomName)
+}
+
+// uint32 players = 3;
+inline void CreatedRoom::clear_players() {
+  players_ = 0u;
+}
+inline ::google::protobuf::uint32 CreatedRoom::players() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.CreatedRoom.players)
+  return players_;
+}
+inline void CreatedRoom::set_players(::google::protobuf::uint32 value) {
+  
+  players_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.CreatedRoom.players)
+}
+
+// uint32 maximumNumberOfPlayers = 4;
+inline void CreatedRoom::clear_maximumnumberofplayers() {
+  maximumnumberofplayers_ = 0u;
+}
+inline ::google::protobuf::uint32 CreatedRoom::maximumnumberofplayers() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.CreatedRoom.maximumNumberOfPlayers)
+  return maximumnumberofplayers_;
+}
+inline void CreatedRoom::set_maximumnumberofplayers(::google::protobuf::uint32 value) {
+  
+  maximumnumberofplayers_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.CreatedRoom.maximumNumberOfPlayers)
 }
 
 // -------------------------------------------------------------------
@@ -3028,7 +3425,60 @@ inline void ClientRoomCreationRequest::set_allocated_clientname(::std::string* c
   // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ClientRoomCreationRequest.clientName)
 }
 
-// .serverMessageSystem.GameSettings gameSettings = 4;
+// string roomName = 4;
+inline void ClientRoomCreationRequest::clear_roomname() {
+  roomname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ClientRoomCreationRequest::roomname() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientRoomCreationRequest.roomName)
+  return roomname_.GetNoArena();
+}
+inline void ClientRoomCreationRequest::set_roomname(const ::std::string& value) {
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientRoomCreationRequest.roomName)
+}
+#if LANG_CXX11
+inline void ClientRoomCreationRequest::set_roomname(::std::string&& value) {
+  
+  roomname_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ClientRoomCreationRequest.roomName)
+}
+#endif
+inline void ClientRoomCreationRequest::set_roomname(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ClientRoomCreationRequest.roomName)
+}
+inline void ClientRoomCreationRequest::set_roomname(const char* value, size_t size) {
+  
+  roomname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ClientRoomCreationRequest.roomName)
+}
+inline ::std::string* ClientRoomCreationRequest::mutable_roomname() {
+  
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ClientRoomCreationRequest.roomName)
+  return roomname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ClientRoomCreationRequest::release_roomname() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ClientRoomCreationRequest.roomName)
+  
+  return roomname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ClientRoomCreationRequest::set_allocated_roomname(::std::string* roomname) {
+  if (roomname != NULL) {
+    
+  } else {
+    
+  }
+  roomname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), roomname);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ClientRoomCreationRequest.roomName)
+}
+
+// .serverMessageSystem.GameSettings gameSettings = 5;
 inline bool ClientRoomCreationRequest::has_gamesettings() const {
   return this != internal_default_instance() && gamesettings_ != NULL;
 }
@@ -3503,34 +3953,34 @@ inline void ClientConnectionToRoomReply::set_freeslotsleft(::google::protobuf::u
   // @@protoc_insertion_point(field_set:serverMessageSystem.ClientConnectionToRoomReply.freeSlotsLeft)
 }
 
-// repeated uint32 roomID = 5;
-inline int ClientConnectionToRoomReply::roomid_size() const {
-  return roomid_.size();
+// repeated .serverMessageSystem.CreatedRoom room = 5;
+inline int ClientConnectionToRoomReply::room_size() const {
+  return room_.size();
 }
-inline void ClientConnectionToRoomReply::clear_roomid() {
-  roomid_.Clear();
+inline void ClientConnectionToRoomReply::clear_room() {
+  room_.Clear();
 }
-inline ::google::protobuf::uint32 ClientConnectionToRoomReply::roomid(int index) const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientConnectionToRoomReply.roomID)
-  return roomid_.Get(index);
+inline ::serverMessageSystem::CreatedRoom* ClientConnectionToRoomReply::mutable_room(int index) {
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ClientConnectionToRoomReply.room)
+  return room_.Mutable(index);
 }
-inline void ClientConnectionToRoomReply::set_roomid(int index, ::google::protobuf::uint32 value) {
-  roomid_.Set(index, value);
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientConnectionToRoomReply.roomID)
+inline ::google::protobuf::RepeatedPtrField< ::serverMessageSystem::CreatedRoom >*
+ClientConnectionToRoomReply::mutable_room() {
+  // @@protoc_insertion_point(field_mutable_list:serverMessageSystem.ClientConnectionToRoomReply.room)
+  return &room_;
 }
-inline void ClientConnectionToRoomReply::add_roomid(::google::protobuf::uint32 value) {
-  roomid_.Add(value);
-  // @@protoc_insertion_point(field_add:serverMessageSystem.ClientConnectionToRoomReply.roomID)
+inline const ::serverMessageSystem::CreatedRoom& ClientConnectionToRoomReply::room(int index) const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientConnectionToRoomReply.room)
+  return room_.Get(index);
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-ClientConnectionToRoomReply::roomid() const {
-  // @@protoc_insertion_point(field_list:serverMessageSystem.ClientConnectionToRoomReply.roomID)
-  return roomid_;
+inline ::serverMessageSystem::CreatedRoom* ClientConnectionToRoomReply::add_room() {
+  // @@protoc_insertion_point(field_add:serverMessageSystem.ClientConnectionToRoomReply.room)
+  return room_.Add();
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-ClientConnectionToRoomReply::mutable_roomid() {
-  // @@protoc_insertion_point(field_mutable_list:serverMessageSystem.ClientConnectionToRoomReply.roomID)
-  return &roomid_;
+inline const ::google::protobuf::RepeatedPtrField< ::serverMessageSystem::CreatedRoom >&
+ClientConnectionToRoomReply::room() const {
+  // @@protoc_insertion_point(field_list:serverMessageSystem.ClientConnectionToRoomReply.room)
+  return room_;
 }
 
 // uint32 queryOrder = 6;
@@ -3545,6 +3995,20 @@ inline void ClientConnectionToRoomReply::set_queryorder(::google::protobuf::uint
   
   queryorder_ = value;
   // @@protoc_insertion_point(field_set:serverMessageSystem.ClientConnectionToRoomReply.queryOrder)
+}
+
+// uint32 querySize = 7;
+inline void ClientConnectionToRoomReply::clear_querysize() {
+  querysize_ = 0u;
+}
+inline ::google::protobuf::uint32 ClientConnectionToRoomReply::querysize() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ClientConnectionToRoomReply.querySize)
+  return querysize_;
+}
+inline void ClientConnectionToRoomReply::set_querysize(::google::protobuf::uint32 value) {
+  
+  querysize_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ClientConnectionToRoomReply.querySize)
 }
 
 // -------------------------------------------------------------------
@@ -4036,9 +4500,153 @@ inline void DefaultMessage::set_chartcmdid(::serverMessageSystem::ChartSubSysCom
   // @@protoc_insertion_point(field_set:serverMessageSystem.DefaultMessage.chartCmdID)
 }
 
+// -------------------------------------------------------------------
+
+// ServerRoomWasRemovedFromSelectableList
+
+// .serverMessageSystem.CommonHeader header = 1;
+inline bool ServerRoomWasRemovedFromSelectableList::has_header() const {
+  return this != internal_default_instance() && header_ != NULL;
+}
+inline void ServerRoomWasRemovedFromSelectableList::clear_header() {
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerRoomWasRemovedFromSelectableList::_internal_header() const {
+  return *header_;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerRoomWasRemovedFromSelectableList::header() const {
+  const ::serverMessageSystem::CommonHeader* p = header_;
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
+      &::serverMessageSystem::_CommonHeader_default_instance_);
+}
+inline ::serverMessageSystem::CommonHeader* ServerRoomWasRemovedFromSelectableList::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  
+  ::serverMessageSystem::CommonHeader* temp = header_;
+  header_ = NULL;
+  return temp;
+}
+inline ::serverMessageSystem::CommonHeader* ServerRoomWasRemovedFromSelectableList::mutable_header() {
+  
+  if (header_ == NULL) {
+    auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
+    header_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  return header_;
+}
+inline void ServerRoomWasRemovedFromSelectableList::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete header_;
+  }
+  if (header) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      header = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, header, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  header_ = header;
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+}
+
+// bool deletedOrUpdateFlag = 2;
+inline void ServerRoomWasRemovedFromSelectableList::clear_deletedorupdateflag() {
+  deletedorupdateflag_ = false;
+}
+inline bool ServerRoomWasRemovedFromSelectableList::deletedorupdateflag() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.deletedOrUpdateFlag)
+  return deletedorupdateflag_;
+}
+inline void ServerRoomWasRemovedFromSelectableList::set_deletedorupdateflag(bool value) {
+  
+  deletedorupdateflag_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.deletedOrUpdateFlag)
+}
+
+// .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+inline void ServerRoomWasRemovedFromSelectableList::clear_connectioncmdid() {
+  connectioncmdid_ = 0;
+}
+inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerRoomWasRemovedFromSelectableList::connectioncmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.connectionCmdID)
+  return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
+}
+inline void ServerRoomWasRemovedFromSelectableList::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+  
+  connectioncmdid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.connectionCmdID)
+}
+
+// .serverMessageSystem.CreatedRoom room = 4;
+inline bool ServerRoomWasRemovedFromSelectableList::has_room() const {
+  return this != internal_default_instance() && room_ != NULL;
+}
+inline void ServerRoomWasRemovedFromSelectableList::clear_room() {
+  if (GetArenaNoVirtual() == NULL && room_ != NULL) {
+    delete room_;
+  }
+  room_ = NULL;
+}
+inline const ::serverMessageSystem::CreatedRoom& ServerRoomWasRemovedFromSelectableList::_internal_room() const {
+  return *room_;
+}
+inline const ::serverMessageSystem::CreatedRoom& ServerRoomWasRemovedFromSelectableList::room() const {
+  const ::serverMessageSystem::CreatedRoom* p = room_;
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CreatedRoom*>(
+      &::serverMessageSystem::_CreatedRoom_default_instance_);
+}
+inline ::serverMessageSystem::CreatedRoom* ServerRoomWasRemovedFromSelectableList::release_room() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  
+  ::serverMessageSystem::CreatedRoom* temp = room_;
+  room_ = NULL;
+  return temp;
+}
+inline ::serverMessageSystem::CreatedRoom* ServerRoomWasRemovedFromSelectableList::mutable_room() {
+  
+  if (room_ == NULL) {
+    auto* p = CreateMaybeMessage<::serverMessageSystem::CreatedRoom>(GetArenaNoVirtual());
+    room_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  return room_;
+}
+inline void ServerRoomWasRemovedFromSelectableList::set_allocated_room(::serverMessageSystem::CreatedRoom* room) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete room_;
+  }
+  if (room) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      room = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, room, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  room_ = room;
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

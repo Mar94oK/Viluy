@@ -21,6 +21,7 @@
 
 namespace protobuf_serverMessageSystem_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_CommonHeader;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_CreatedRoom;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GameType;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_RoomCreationErrors;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_TimeSettings;
@@ -52,6 +53,11 @@ class RoomCreationErrorsDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<RoomCreationErrors>
       _instance;
 } _RoomCreationErrors_default_instance_;
+class CreatedRoomDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<CreatedRoom>
+      _instance;
+} _CreatedRoom_default_instance_;
 class ServerInputQueryDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ServerInputQuery>
@@ -102,6 +108,11 @@ class DefaultMessageDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<DefaultMessage>
       _instance;
 } _DefaultMessage_default_instance_;
+class ServerRoomWasRemovedFromSelectableListDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<ServerRoomWasRemovedFromSelectableList>
+      _instance;
+} _ServerRoomWasRemovedFromSelectableList_default_instance_;
 }  // namespace serverMessageSystem
 namespace protobuf_serverMessageSystem_2eproto {
 static void InitDefaultsCommonHeader() {
@@ -175,6 +186,20 @@ static void InitDefaultsRoomCreationErrors() {
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_RoomCreationErrors =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsRoomCreationErrors}, {}};
+
+static void InitDefaultsCreatedRoom() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::serverMessageSystem::_CreatedRoom_default_instance_;
+    new (ptr) ::serverMessageSystem::CreatedRoom();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::serverMessageSystem::CreatedRoom::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_CreatedRoom =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCreatedRoom}, {}};
 
 static void InitDefaultsServerInputQuery() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -264,9 +289,10 @@ static void InitDefaultsClientConnectionToRoomReply() {
   ::serverMessageSystem::ClientConnectionToRoomReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_ClientConnectionToRoomReply =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsClientConnectionToRoomReply}, {
-      &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,}};
+::google::protobuf::internal::SCCInfo<2> scc_info_ClientConnectionToRoomReply =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsClientConnectionToRoomReply}, {
+      &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,
+      &protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base,}};
 
 static void InitDefaultsServerQueryOrderNotification() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -328,12 +354,29 @@ static void InitDefaultsDefaultMessage() {
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsDefaultMessage}, {
       &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,}};
 
+static void InitDefaultsServerRoomWasRemovedFromSelectableList() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_;
+    new (ptr) ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<2> scc_info_ServerRoomWasRemovedFromSelectableList =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsServerRoomWasRemovedFromSelectableList}, {
+      &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,
+      &protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base,}};
+
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_CommonHeader.base);
   ::google::protobuf::internal::InitSCC(&scc_info_TimeSettings.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GameType.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GameSettings.base);
   ::google::protobuf::internal::InitSCC(&scc_info_RoomCreationErrors.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_CreatedRoom.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerInputQuery.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerQueryReply.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ClientRoomCreationRequest.base);
@@ -344,9 +387,10 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsOpponentIsEnteringRoom.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ChartMessage.base);
   ::google::protobuf::internal::InitSCC(&scc_info_DefaultMessage.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ServerRoomWasRemovedFromSelectableList.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[15];
+::google::protobuf::Metadata file_level_metadata[17];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[5];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -392,6 +436,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::RoomCreationErrors, rulesarenotsupported_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::RoomCreationErrors, incorrectsettings_),
   ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, roomid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, roomname_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, players_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, maximumnumberofplayers_),
+  ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerInputQuery, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -418,6 +471,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationRequest, header_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationRequest, connectioncmdid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationRequest, clientname_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationRequest, roomname_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationRequest, gamesettings_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientRoomCreationReply, _internal_metadata_),
@@ -449,8 +503,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, connectioncmdid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, noroomsavailable_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, freeslotsleft_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, roomid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, room_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, queryorder_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientConnectionToRoomReply, querysize_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerQueryOrderNotification, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -485,6 +540,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, header_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, chartcmdid_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, deletedorupdateflag_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, connectioncmdid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, room_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -492,16 +556,18 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 16, -1, sizeof(::serverMessageSystem::GameType)},
   { 24, -1, sizeof(::serverMessageSystem::GameSettings)},
   { 33, -1, sizeof(::serverMessageSystem::RoomCreationErrors)},
-  { 41, -1, sizeof(::serverMessageSystem::ServerInputQuery)},
-  { 50, -1, sizeof(::serverMessageSystem::ServerQueryReply)},
-  { 60, -1, sizeof(::serverMessageSystem::ClientRoomCreationRequest)},
-  { 69, -1, sizeof(::serverMessageSystem::ClientRoomCreationReply)},
-  { 80, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomRequest)},
-  { 90, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomReply)},
-  { 101, -1, sizeof(::serverMessageSystem::ServerQueryOrderNotification)},
-  { 109, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
-  { 118, -1, sizeof(::serverMessageSystem::ChartMessage)},
-  { 128, -1, sizeof(::serverMessageSystem::DefaultMessage)},
+  { 41, -1, sizeof(::serverMessageSystem::CreatedRoom)},
+  { 50, -1, sizeof(::serverMessageSystem::ServerInputQuery)},
+  { 59, -1, sizeof(::serverMessageSystem::ServerQueryReply)},
+  { 69, -1, sizeof(::serverMessageSystem::ClientRoomCreationRequest)},
+  { 79, -1, sizeof(::serverMessageSystem::ClientRoomCreationReply)},
+  { 90, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomRequest)},
+  { 100, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomReply)},
+  { 112, -1, sizeof(::serverMessageSystem::ServerQueryOrderNotification)},
+  { 120, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
+  { 129, -1, sizeof(::serverMessageSystem::ChartMessage)},
+  { 139, -1, sizeof(::serverMessageSystem::DefaultMessage)},
+  { 146, -1, sizeof(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -510,6 +576,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_GameType_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_GameSettings_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_RoomCreationErrors_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_CreatedRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerInputQuery_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerQueryReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientRoomCreationRequest_default_instance_),
@@ -520,6 +587,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsOpponentIsEnteringRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ChartMessage_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_DefaultMessage_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -537,7 +605,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 15);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 17);
 }
 
 void AddDescriptorsImpl() {
@@ -559,77 +627,89 @@ void AddDescriptorsImpl() {
       "yers\030\003 \001(\r\022!\n\031settingsCorrectionAllowed\030"
       "\004 \001(\010\"k\n\022RoomCreationErrors\022\034\n\024noFreeSlo"
       "tsAvailable\030\001 \001(\010\022\034\n\024rulesAreNotSupporte"
-      "d\030\002 \001(\010\022\031\n\021incorrectSettings\030\003 \001(\010\"\263\001\n\020S"
-      "erverInputQuery\0221\n\006header\030\001 \001(\0132!.server"
+      "d\030\002 \001(\010\022\031\n\021incorrectSettings\030\003 \001(\010\"`\n\013Cr"
+      "eatedRoom\022\016\n\006roomID\030\001 \001(\r\022\020\n\010roomName\030\002 "
+      "\001(\t\022\017\n\007players\030\003 \001(\r\022\036\n\026maximumNumberOfP"
+      "layers\030\004 \001(\r\"\263\001\n\020ServerInputQuery\0221\n\006hea"
+      "der\030\001 \001(\0132!.serverMessageSystem.CommonHe"
+      "ader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMe"
+      "ssageSystem.ConnectionSubSysCommandsID\022\022"
+      "\n\nclientName\030\003 \001(\t\022\016\n\006OsType\030\004 \001(\t\"\341\001\n\020S"
+      "erverQueryReply\0221\n\006header\030\001 \001(\0132!.server"
       "MessageSystem.CommonHeader\022H\n\017connection"
       "CmdID\030\002 \001(\0162/.serverMessageSystem.Connec"
-      "tionSubSysCommandsID\022\022\n\nclientName\030\003 \001(\t"
-      "\022\016\n\006OsType\030\004 \001(\t\"\341\001\n\020ServerQueryReply\0221\n"
-      "\006header\030\001 \001(\0132!.serverMessageSystem.Comm"
-      "onHeader\022H\n\017connectionCmdID\030\002 \001(\0162/.serv"
-      "erMessageSystem.ConnectionSubSysCommands"
-      "ID\022\033\n\023roomCreationAllowed\030\003 \001(\010\022\037\n\027conne"
-      "ctionToRoomAllowed\030\004 \001(\010\022\022\n\nserverName\030\005"
-      " \001(\t\"\345\001\n\031ClientRoomCreationRequest\0221\n\006he"
+      "tionSubSysCommandsID\022\033\n\023roomCreationAllo"
+      "wed\030\003 \001(\010\022\037\n\027connectionToRoomAllowed\030\004 \001"
+      "(\010\022\022\n\nserverName\030\005 \001(\t\"\367\001\n\031ClientRoomCre"
+      "ationRequest\0221\n\006header\030\001 \001(\0132!.serverMes"
+      "sageSystem.CommonHeader\022H\n\017connectionCmd"
+      "ID\030\002 \001(\0162/.serverMessageSystem.Connectio"
+      "nSubSysCommandsID\022\022\n\nclientName\030\003 \001(\t\022\020\n"
+      "\010roomName\030\004 \001(\t\0227\n\014gameSettings\030\005 \001(\0132!."
+      "serverMessageSystem.GameSettings\"\235\002\n\027Cli"
+      "entRoomCreationReply\0221\n\006header\030\001 \001(\0132!.s"
+      "erverMessageSystem.CommonHeader\022H\n\017conne"
+      "ctionCmdID\030\002 \001(\0162/.serverMessageSystem.C"
+      "onnectionSubSysCommandsID\022\031\n\021connectionA"
+      "llowed\030\003 \001(\010\022\016\n\006slotID\030\004 \001(\r\022\025\n\rfreeSlot"
+      "sLeft\030\005 \001(\r\022C\n\022roomCreationErrors\030\006 \001(\0132"
+      "\'.serverMessageSystem.RoomCreationErrors"
+      "\"\337\001\n\035ClientConnectionToRoomRequest\0221\n\006he"
       "ader\030\001 \001(\0132!.serverMessageSystem.CommonH"
       "eader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverM"
       "essageSystem.ConnectionSubSysCommandsID\022"
-      "\022\n\nclientName\030\003 \001(\t\0227\n\014gameSettings\030\004 \001("
-      "\0132!.serverMessageSystem.GameSettings\"\235\002\n"
-      "\027ClientRoomCreationReply\0221\n\006header\030\001 \001(\013"
-      "2!.serverMessageSystem.CommonHeader\022H\n\017c"
-      "onnectionCmdID\030\002 \001(\0162/.serverMessageSyst"
-      "em.ConnectionSubSysCommandsID\022\031\n\021connect"
-      "ionAllowed\030\003 \001(\010\022\016\n\006slotID\030\004 \001(\r\022\025\n\rfree"
-      "SlotsLeft\030\005 \001(\r\022C\n\022roomCreationErrors\030\006 "
-      "\001(\0132\'.serverMessageSystem.RoomCreationEr"
-      "rors\"\337\001\n\035ClientConnectionToRoomRequest\0221"
-      "\n\006header\030\001 \001(\0132!.serverMessageSystem.Com"
-      "monHeader\022H\n\017connectionCmdID\030\002 \001(\0162/.ser"
-      "verMessageSystem.ConnectionSubSysCommand"
-      "sID\022\022\n\nclientName\030\003 \001(\t\022\030\n\020connectToAnyR"
-      "oom\030\004 \001(\010\022\023\n\013agreeToWait\030\005 \001(\010\"\357\001\n\033Clien"
-      "tConnectionToRoomReply\0221\n\006header\030\001 \001(\0132!"
-      ".serverMessageSystem.CommonHeader\022H\n\017con"
-      "nectionCmdID\030\002 \001(\0162/.serverMessageSystem"
-      ".ConnectionSubSysCommandsID\022\030\n\020noRoomsAv"
-      "ailable\030\003 \001(\010\022\025\n\rfreeSlotsLeft\030\004 \001(\r\022\016\n\006"
-      "roomID\030\005 \003(\r\022\022\n\nqueryOrder\030\006 \001(\r\"\257\001\n\034Ser"
-      "verQueryOrderNotification\0221\n\006header\030\001 \001("
-      "\0132!.serverMessageSystem.CommonHeader\022H\n\017"
-      "connectionCmdID\030\002 \001(\0162/.serverMessageSys"
-      "tem.ConnectionSubSysCommandsID\022\022\n\nqueryO"
-      "rder\030\003 \001(\r\"\310\001\n#ServerReportsOpponentIsEn"
-      "teringRoom\0221\n\006header\030\001 \001(\0132!.serverMessa"
-      "geSystem.CommonHeader\022H\n\017connectionCmdID"
-      "\030\002 \001(\0162/.serverMessageSystem.ConnectionS"
-      "ubSysCommandsID\022\024\n\014opponentName\030\003 \001(\t\022\016\n"
-      "\006roomID\030\004 \001(\r\"\273\001\n\014ChartMessage\0221\n\006header"
-      "\030\001 \001(\0132!.serverMessageSystem.CommonHeade"
-      "r\022>\n\nchartCmdID\030\002 \001(\0162*.serverMessageSys"
-      "tem.ChartSubSysCommandsID\022\022\n\nsenderName\030"
-      "\003 \001(\t\022\024\n\014chartMessage\030\004 \001(\t\022\016\n\006roomID\030\005 "
-      "\001(\r\"\203\001\n\016DefaultMessage\0221\n\006header\030\001 \001(\0132!"
-      ".serverMessageSystem.CommonHeader\022>\n\ncha"
-      "rtCmdID\030\002 \001(\0162*.serverMessageSystem.Char"
-      "tSubSysCommandsID*&\n\tRulesType\022\r\n\tAutoma"
-      "tic\020\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030\n\024CONN"
-      "ECTION_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSY"
-      "STEM\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022"
-      "\023\n\017CHART_SUBSYSTEM\020\003*\226\002\n\032ConnectionSubSy"
-      "sCommandsID\022\036\n\032SERVER_INPUT_QUERY_REQUES"
-      "T\020\000\022\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLI"
-      "ENT_ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_RO"
-      "OM_CREATION_REPLY\020\003\022%\n!CLIENT_CONNECTION"
-      "_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_"
-      "TO_ROOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONE"
-      "NT_IS_ENTERING_ROOM\020\006*B\n\025ChartSubSysComm"
-      "andsID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART_NOTIF"
-      "ICATION\020\001*9\n\023GameCreationRequest\022\017\n\013Join"
-      "TheGame\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
+      "\022\n\nclientName\030\003 \001(\t\022\030\n\020connectToAnyRoom\030"
+      "\004 \001(\010\022\023\n\013agreeToWait\030\005 \001(\010\"\242\002\n\033ClientCon"
+      "nectionToRoomReply\0221\n\006header\030\001 \001(\0132!.ser"
+      "verMessageSystem.CommonHeader\022H\n\017connect"
+      "ionCmdID\030\002 \001(\0162/.serverMessageSystem.Con"
+      "nectionSubSysCommandsID\022\030\n\020noRoomsAvaila"
+      "ble\030\003 \001(\010\022\025\n\rfreeSlotsLeft\030\004 \001(\r\022.\n\004room"
+      "\030\005 \003(\0132 .serverMessageSystem.CreatedRoom"
+      "\022\022\n\nqueryOrder\030\006 \001(\r\022\021\n\tquerySize\030\007 \001(\r\""
+      "\257\001\n\034ServerQueryOrderNotification\0221\n\006head"
+      "er\030\001 \001(\0132!.serverMessageSystem.CommonHea"
+      "der\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMes"
+      "sageSystem.ConnectionSubSysCommandsID\022\022\n"
+      "\nqueryOrder\030\003 \001(\r\"\310\001\n#ServerReportsOppon"
+      "entIsEnteringRoom\0221\n\006header\030\001 \001(\0132!.serv"
+      "erMessageSystem.CommonHeader\022H\n\017connecti"
+      "onCmdID\030\002 \001(\0162/.serverMessageSystem.Conn"
+      "ectionSubSysCommandsID\022\024\n\014opponentName\030\003"
+      " \001(\t\022\016\n\006roomID\030\004 \001(\r\"\273\001\n\014ChartMessage\0221\n"
+      "\006header\030\001 \001(\0132!.serverMessageSystem.Comm"
+      "onHeader\022>\n\nchartCmdID\030\002 \001(\0162*.serverMes"
+      "sageSystem.ChartSubSysCommandsID\022\022\n\nsend"
+      "erName\030\003 \001(\t\022\024\n\014chartMessage\030\004 \001(\t\022\016\n\006ro"
+      "omID\030\005 \001(\r\"\203\001\n\016DefaultMessage\0221\n\006header\030"
+      "\001 \001(\0132!.serverMessageSystem.CommonHeader"
+      "\022>\n\nchartCmdID\030\002 \001(\0162*.serverMessageSyst"
+      "em.ChartSubSysCommandsID\"\362\001\n&ServerRoomW"
+      "asRemovedFromSelectableList\0221\n\006header\030\001 "
+      "\001(\0132!.serverMessageSystem.CommonHeader\022\033"
+      "\n\023deletedOrUpdateFlag\030\002 \001(\010\022H\n\017connectio"
+      "nCmdID\030\003 \001(\0162/.serverMessageSystem.Conne"
+      "ctionSubSysCommandsID\022.\n\004room\030\004 \001(\0132 .se"
+      "rverMessageSystem.CreatedRoom*&\n\tRulesTy"
+      "pe\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*y\n\013SubSyst"
+      "emID\022\030\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026GAME_A"
+      "CTIONS_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFICATION_"
+      "SUBSYSTEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\310\002\n\032Con"
+      "nectionSubSysCommandsID\022\036\n\032SERVER_INPUT_"
+      "QUERY_REQUEST\020\000\022\034\n\030SERVER_INPUT_QUERY_RE"
+      "PLY\020\001\022 \n\034CLIENT_ROOM_CREATION_REQUEST\020\002\022"
+      "\036\n\032CLIENT_ROOM_CREATION_REPLY\020\003\022%\n!CLIEN"
+      "T_CONNECTION_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT"
+      "_CONNECTION_TO_ROOM_REPLY\020\005\022,\n(SERVER_RE"
+      "PORTS_OPPONENT_IS_ENTERING_ROOM\020\006\0220\n,SER"
+      "VER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIS"
+      "T\020\007*B\n\025ChartSubSysCommandsID\022\021\n\rCHART_ME"
+      "SSAGE\020\000\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameC"
+      "reationRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreat"
+      "eTheGame\020\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 3356);
+      descriptor, 3818);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "serverMessageSystem.proto", &protobuf_RegisterTypes);
 }
@@ -689,6 +769,7 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
@@ -2285,6 +2366,365 @@ void RoomCreationErrors::InternalSwap(RoomCreationErrors* other) {
 
 // ===================================================================
 
+void CreatedRoom::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CreatedRoom::kRoomIDFieldNumber;
+const int CreatedRoom::kRoomNameFieldNumber;
+const int CreatedRoom::kPlayersFieldNumber;
+const int CreatedRoom::kMaximumNumberOfPlayersFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CreatedRoom::CreatedRoom()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:serverMessageSystem.CreatedRoom)
+}
+CreatedRoom::CreatedRoom(const CreatedRoom& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  roomname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.roomname().size() > 0) {
+    roomname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  ::memcpy(&roomid_, &from.roomid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&maximumnumberofplayers_) -
+    reinterpret_cast<char*>(&roomid_)) + sizeof(maximumnumberofplayers_));
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.CreatedRoom)
+}
+
+void CreatedRoom::SharedCtor() {
+  roomname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&roomid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&maximumnumberofplayers_) -
+      reinterpret_cast<char*>(&roomid_)) + sizeof(maximumnumberofplayers_));
+}
+
+CreatedRoom::~CreatedRoom() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.CreatedRoom)
+  SharedDtor();
+}
+
+void CreatedRoom::SharedDtor() {
+  roomname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void CreatedRoom::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* CreatedRoom::descriptor() {
+  ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const CreatedRoom& CreatedRoom::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base);
+  return *internal_default_instance();
+}
+
+
+void CreatedRoom::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.CreatedRoom)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  roomname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&roomid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&maximumnumberofplayers_) -
+      reinterpret_cast<char*>(&roomid_)) + sizeof(maximumnumberofplayers_));
+  _internal_metadata_.Clear();
+}
+
+bool CreatedRoom::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.CreatedRoom)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint32 roomID = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &roomid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string roomName = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.CreatedRoom.roomName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 players = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &players_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 maximumNumberOfPlayers = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &maximumnumberofplayers_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.CreatedRoom)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.CreatedRoom)
+  return false;
+#undef DO_
+}
+
+void CreatedRoom::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.CreatedRoom)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 roomID = 1;
+  if (this->roomid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->roomid(), output);
+  }
+
+  // string roomName = 2;
+  if (this->roomname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.CreatedRoom.roomName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->roomname(), output);
+  }
+
+  // uint32 players = 3;
+  if (this->players() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->players(), output);
+  }
+
+  // uint32 maximumNumberOfPlayers = 4;
+  if (this->maximumnumberofplayers() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->maximumnumberofplayers(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.CreatedRoom)
+}
+
+::google::protobuf::uint8* CreatedRoom::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.CreatedRoom)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 roomID = 1;
+  if (this->roomid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->roomid(), target);
+  }
+
+  // string roomName = 2;
+  if (this->roomname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.CreatedRoom.roomName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->roomname(), target);
+  }
+
+  // uint32 players = 3;
+  if (this->players() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->players(), target);
+  }
+
+  // uint32 maximumNumberOfPlayers = 4;
+  if (this->maximumnumberofplayers() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->maximumnumberofplayers(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.CreatedRoom)
+  return target;
+}
+
+size_t CreatedRoom::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.CreatedRoom)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string roomName = 2;
+  if (this->roomname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+
+  // uint32 roomID = 1;
+  if (this->roomid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->roomid());
+  }
+
+  // uint32 players = 3;
+  if (this->players() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->players());
+  }
+
+  // uint32 maximumNumberOfPlayers = 4;
+  if (this->maximumnumberofplayers() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->maximumnumberofplayers());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CreatedRoom::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.CreatedRoom)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CreatedRoom* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const CreatedRoom>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.CreatedRoom)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.CreatedRoom)
+    MergeFrom(*source);
+  }
+}
+
+void CreatedRoom::MergeFrom(const CreatedRoom& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.CreatedRoom)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.roomname().size() > 0) {
+
+    roomname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
+  if (from.roomid() != 0) {
+    set_roomid(from.roomid());
+  }
+  if (from.players() != 0) {
+    set_players(from.players());
+  }
+  if (from.maximumnumberofplayers() != 0) {
+    set_maximumnumberofplayers(from.maximumnumberofplayers());
+  }
+}
+
+void CreatedRoom::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.CreatedRoom)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CreatedRoom::CopyFrom(const CreatedRoom& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.CreatedRoom)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreatedRoom::IsInitialized() const {
+  return true;
+}
+
+void CreatedRoom::Swap(CreatedRoom* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CreatedRoom::InternalSwap(CreatedRoom* other) {
+  using std::swap;
+  roomname_.Swap(&other->roomname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(roomid_, other->roomid_);
+  swap(players_, other->players_);
+  swap(maximumnumberofplayers_, other->maximumnumberofplayers_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata CreatedRoom::GetMetadata() const {
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 void ServerInputQuery::InitAsDefaultInstance() {
   ::serverMessageSystem::_ServerInputQuery_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
       ::serverMessageSystem::CommonHeader::internal_default_instance());
@@ -3093,6 +3533,7 @@ void ClientRoomCreationRequest::InitAsDefaultInstance() {
 const int ClientRoomCreationRequest::kHeaderFieldNumber;
 const int ClientRoomCreationRequest::kConnectionCmdIDFieldNumber;
 const int ClientRoomCreationRequest::kClientNameFieldNumber;
+const int ClientRoomCreationRequest::kRoomNameFieldNumber;
 const int ClientRoomCreationRequest::kGameSettingsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -3111,6 +3552,10 @@ ClientRoomCreationRequest::ClientRoomCreationRequest(const ClientRoomCreationReq
   if (from.clientname().size() > 0) {
     clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
   }
+  roomname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.roomname().size() > 0) {
+    roomname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
   if (from.has_header()) {
     header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
   } else {
@@ -3127,6 +3572,7 @@ ClientRoomCreationRequest::ClientRoomCreationRequest(const ClientRoomCreationReq
 
 void ClientRoomCreationRequest::SharedCtor() {
   clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  roomname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&header_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&connectioncmdid_) -
       reinterpret_cast<char*>(&header_)) + sizeof(connectioncmdid_));
@@ -3139,6 +3585,7 @@ ClientRoomCreationRequest::~ClientRoomCreationRequest() {
 
 void ClientRoomCreationRequest::SharedDtor() {
   clientname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  roomname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete header_;
   if (this != internal_default_instance()) delete gamesettings_;
 }
@@ -3164,6 +3611,7 @@ void ClientRoomCreationRequest::Clear() {
   (void) cached_has_bits;
 
   clientname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  roomname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
@@ -3229,10 +3677,26 @@ bool ClientRoomCreationRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // .serverMessageSystem.GameSettings gameSettings = 4;
+      // string roomName = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->roomname().data(), static_cast<int>(this->roomname().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.ClientRoomCreationRequest.roomName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.GameSettings gameSettings = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_gamesettings()));
         } else {
@@ -3289,10 +3753,20 @@ void ClientRoomCreationRequest::SerializeWithCachedSizes(
       3, this->clientname(), output);
   }
 
-  // .serverMessageSystem.GameSettings gameSettings = 4;
+  // string roomName = 4;
+  if (this->roomname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ClientRoomCreationRequest.roomName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->roomname(), output);
+  }
+
+  // .serverMessageSystem.GameSettings gameSettings = 5;
   if (this->has_gamesettings()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->_internal_gamesettings(), output);
+      5, this->_internal_gamesettings(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -3333,11 +3807,22 @@ void ClientRoomCreationRequest::SerializeWithCachedSizes(
         3, this->clientname(), target);
   }
 
-  // .serverMessageSystem.GameSettings gameSettings = 4;
+  // string roomName = 4;
+  if (this->roomname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomname().data(), static_cast<int>(this->roomname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ClientRoomCreationRequest.roomName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->roomname(), target);
+  }
+
+  // .serverMessageSystem.GameSettings gameSettings = 5;
   if (this->has_gamesettings()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, this->_internal_gamesettings(), deterministic, target);
+        5, this->_internal_gamesettings(), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -3364,6 +3849,13 @@ size_t ClientRoomCreationRequest::ByteSizeLong() const {
         this->clientname());
   }
 
+  // string roomName = 4;
+  if (this->roomname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->roomname());
+  }
+
   // .serverMessageSystem.CommonHeader header = 1;
   if (this->has_header()) {
     total_size += 1 +
@@ -3371,7 +3863,7 @@ size_t ClientRoomCreationRequest::ByteSizeLong() const {
         *header_);
   }
 
-  // .serverMessageSystem.GameSettings gameSettings = 4;
+  // .serverMessageSystem.GameSettings gameSettings = 5;
   if (this->has_gamesettings()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
@@ -3415,6 +3907,10 @@ void ClientRoomCreationRequest::MergeFrom(const ClientRoomCreationRequest& from)
 
     clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
   }
+  if (from.roomname().size() > 0) {
+
+    roomname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomname_);
+  }
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
   }
@@ -3451,6 +3947,8 @@ void ClientRoomCreationRequest::Swap(ClientRoomCreationRequest* other) {
 void ClientRoomCreationRequest::InternalSwap(ClientRoomCreationRequest* other) {
   using std::swap;
   clientname_.Swap(&other->clientname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  roomname_.Swap(&other->roomname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(header_, other->header_);
   swap(gamesettings_, other->gamesettings_);
@@ -4316,8 +4814,9 @@ const int ClientConnectionToRoomReply::kHeaderFieldNumber;
 const int ClientConnectionToRoomReply::kConnectionCmdIDFieldNumber;
 const int ClientConnectionToRoomReply::kNoRoomsAvailableFieldNumber;
 const int ClientConnectionToRoomReply::kFreeSlotsLeftFieldNumber;
-const int ClientConnectionToRoomReply::kRoomIDFieldNumber;
+const int ClientConnectionToRoomReply::kRoomFieldNumber;
 const int ClientConnectionToRoomReply::kQueryOrderFieldNumber;
+const int ClientConnectionToRoomReply::kQuerySizeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ClientConnectionToRoomReply::ClientConnectionToRoomReply()
@@ -4330,7 +4829,7 @@ ClientConnectionToRoomReply::ClientConnectionToRoomReply()
 ClientConnectionToRoomReply::ClientConnectionToRoomReply(const ClientConnectionToRoomReply& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      roomid_(from.roomid_) {
+      room_(from.room_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_header()) {
     header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
@@ -4338,15 +4837,15 @@ ClientConnectionToRoomReply::ClientConnectionToRoomReply(const ClientConnectionT
     header_ = NULL;
   }
   ::memcpy(&connectioncmdid_, &from.connectioncmdid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&queryorder_) -
-    reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(queryorder_));
+    static_cast<size_t>(reinterpret_cast<char*>(&querysize_) -
+    reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(querysize_));
   // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ClientConnectionToRoomReply)
 }
 
 void ClientConnectionToRoomReply::SharedCtor() {
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&queryorder_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(queryorder_));
+      reinterpret_cast<char*>(&querysize_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(querysize_));
 }
 
 ClientConnectionToRoomReply::~ClientConnectionToRoomReply() {
@@ -4378,14 +4877,14 @@ void ClientConnectionToRoomReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  roomid_.Clear();
+  room_.Clear();
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
   ::memset(&connectioncmdid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&queryorder_) -
-      reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(queryorder_));
+      reinterpret_cast<char*>(&querysize_) -
+      reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(querysize_));
   _internal_metadata_.Clear();
 }
 
@@ -4454,19 +4953,12 @@ bool ClientConnectionToRoomReply::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated uint32 roomID = 5;
+      // repeated .serverMessageSystem.CreatedRoom room = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, this->mutable_roomid())));
-        } else if (
-            static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 1, 42u, input, this->mutable_roomid())));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_room()));
         } else {
           goto handle_unusual;
         }
@@ -4481,6 +4973,20 @@ bool ClientConnectionToRoomReply::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &queryorder_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 querySize = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(56u /* 56 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &querysize_)));
         } else {
           goto handle_unusual;
         }
@@ -4535,20 +5041,23 @@ void ClientConnectionToRoomReply::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->freeslotsleft(), output);
   }
 
-  // repeated uint32 roomID = 5;
-  if (this->roomid_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(5, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(static_cast< ::google::protobuf::uint32>(
-        _roomid_cached_byte_size_));
-  }
-  for (int i = 0, n = this->roomid_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
-      this->roomid(i), output);
+  // repeated .serverMessageSystem.CreatedRoom room = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->room_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5,
+      this->room(static_cast<int>(i)),
+      output);
   }
 
   // uint32 queryOrder = 6;
   if (this->queryorder() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->queryorder(), output);
+  }
+
+  // uint32 querySize = 7;
+  if (this->querysize() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->querysize(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -4588,22 +5097,22 @@ void ClientConnectionToRoomReply::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->freeslotsleft(), target);
   }
 
-  // repeated uint32 roomID = 5;
-  if (this->roomid_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      5,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-        static_cast< ::google::protobuf::int32>(
-            _roomid_cached_byte_size_), target);
+  // repeated .serverMessageSystem.CreatedRoom room = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->room_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteUInt32NoTagToArray(this->roomid_, target);
+      InternalWriteMessageToArray(
+        5, this->room(static_cast<int>(i)), deterministic, target);
   }
 
   // uint32 queryOrder = 6;
   if (this->queryorder() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->queryorder(), target);
+  }
+
+  // uint32 querySize = 7;
+  if (this->querysize() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->querysize(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -4623,20 +5132,15 @@ size_t ClientConnectionToRoomReply::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated uint32 roomID = 5;
+  // repeated .serverMessageSystem.CreatedRoom room = 5;
   {
-    size_t data_size = ::google::protobuf::internal::WireFormatLite::
-      UInt32Size(this->roomid_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-            static_cast< ::google::protobuf::int32>(data_size));
+    unsigned int count = static_cast<unsigned int>(this->room_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->room(static_cast<int>(i)));
     }
-    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
-    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _roomid_cached_byte_size_ = cached_size;
-    GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
   }
 
   // .serverMessageSystem.CommonHeader header = 1;
@@ -4671,6 +5175,13 @@ size_t ClientConnectionToRoomReply::ByteSizeLong() const {
         this->queryorder());
   }
 
+  // uint32 querySize = 7;
+  if (this->querysize() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->querysize());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -4698,7 +5209,7 @@ void ClientConnectionToRoomReply::MergeFrom(const ClientConnectionToRoomReply& f
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  roomid_.MergeFrom(from.roomid_);
+  room_.MergeFrom(from.room_);
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
   }
@@ -4713,6 +5224,9 @@ void ClientConnectionToRoomReply::MergeFrom(const ClientConnectionToRoomReply& f
   }
   if (from.queryorder() != 0) {
     set_queryorder(from.queryorder());
+  }
+  if (from.querysize() != 0) {
+    set_querysize(from.querysize());
   }
 }
 
@@ -4740,12 +5254,13 @@ void ClientConnectionToRoomReply::Swap(ClientConnectionToRoomReply* other) {
 }
 void ClientConnectionToRoomReply::InternalSwap(ClientConnectionToRoomReply* other) {
   using std::swap;
-  roomid_.InternalSwap(&other->roomid_);
+  CastToBase(&room_)->InternalSwap(CastToBase(&other->room_));
   swap(header_, other->header_);
   swap(connectioncmdid_, other->connectioncmdid_);
   swap(noroomsavailable_, other->noroomsavailable_);
   swap(freeslotsleft_, other->freeslotsleft_);
   swap(queryorder_, other->queryorder_);
+  swap(querysize_, other->querysize_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
@@ -6153,6 +6668,369 @@ void DefaultMessage::InternalSwap(DefaultMessage* other) {
 }
 
 
+// ===================================================================
+
+void ServerRoomWasRemovedFromSelectableList::InitAsDefaultInstance() {
+  ::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+      ::serverMessageSystem::CommonHeader::internal_default_instance());
+  ::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_._instance.get_mutable()->room_ = const_cast< ::serverMessageSystem::CreatedRoom*>(
+      ::serverMessageSystem::CreatedRoom::internal_default_instance());
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ServerRoomWasRemovedFromSelectableList::kHeaderFieldNumber;
+const int ServerRoomWasRemovedFromSelectableList::kDeletedOrUpdateFlagFieldNumber;
+const int ServerRoomWasRemovedFromSelectableList::kConnectionCmdIDFieldNumber;
+const int ServerRoomWasRemovedFromSelectableList::kRoomFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ServerRoomWasRemovedFromSelectableList::ServerRoomWasRemovedFromSelectableList()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomWasRemovedFromSelectableList.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+}
+ServerRoomWasRemovedFromSelectableList::ServerRoomWasRemovedFromSelectableList(const ServerRoomWasRemovedFromSelectableList& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_header()) {
+    header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  if (from.has_room()) {
+    room_ = new ::serverMessageSystem::CreatedRoom(*from.room_);
+  } else {
+    room_ = NULL;
+  }
+  ::memcpy(&deletedorupdateflag_, &from.deletedorupdateflag_,
+    static_cast<size_t>(reinterpret_cast<char*>(&connectioncmdid_) -
+    reinterpret_cast<char*>(&deletedorupdateflag_)) + sizeof(connectioncmdid_));
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+}
+
+void ServerRoomWasRemovedFromSelectableList::SharedCtor() {
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&connectioncmdid_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(connectioncmdid_));
+}
+
+ServerRoomWasRemovedFromSelectableList::~ServerRoomWasRemovedFromSelectableList() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  SharedDtor();
+}
+
+void ServerRoomWasRemovedFromSelectableList::SharedDtor() {
+  if (this != internal_default_instance()) delete header_;
+  if (this != internal_default_instance()) delete room_;
+}
+
+void ServerRoomWasRemovedFromSelectableList::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* ServerRoomWasRemovedFromSelectableList::descriptor() {
+  ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const ServerRoomWasRemovedFromSelectableList& ServerRoomWasRemovedFromSelectableList::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomWasRemovedFromSelectableList.base);
+  return *internal_default_instance();
+}
+
+
+void ServerRoomWasRemovedFromSelectableList::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+  if (GetArenaNoVirtual() == NULL && room_ != NULL) {
+    delete room_;
+  }
+  room_ = NULL;
+  ::memset(&deletedorupdateflag_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&connectioncmdid_) -
+      reinterpret_cast<char*>(&deletedorupdateflag_)) + sizeof(connectioncmdid_));
+  _internal_metadata_.Clear();
+}
+
+bool ServerRoomWasRemovedFromSelectableList::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .serverMessageSystem.CommonHeader header = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_header()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bool deletedOrUpdateFlag = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &deletedorupdateflag_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_connectioncmdid(static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.CreatedRoom room = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_room()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  return false;
+#undef DO_
+}
+
+void ServerRoomWasRemovedFromSelectableList::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->_internal_header(), output);
+  }
+
+  // bool deletedOrUpdateFlag = 2;
+  if (this->deletedorupdateflag() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->deletedorupdateflag(), output);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+  if (this->connectioncmdid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->connectioncmdid(), output);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 4;
+  if (this->has_room()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->_internal_room(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+}
+
+::google::protobuf::uint8* ServerRoomWasRemovedFromSelectableList::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, this->_internal_header(), deterministic, target);
+  }
+
+  // bool deletedOrUpdateFlag = 2;
+  if (this->deletedorupdateflag() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->deletedorupdateflag(), target);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+  if (this->connectioncmdid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->connectioncmdid(), target);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 4;
+  if (this->has_room()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        4, this->_internal_room(), deterministic, target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  return target;
+}
+
+size_t ServerRoomWasRemovedFromSelectableList::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *header_);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 4;
+  if (this->has_room()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *room_);
+  }
+
+  // bool deletedOrUpdateFlag = 2;
+  if (this->deletedorupdateflag() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
+  if (this->connectioncmdid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->connectioncmdid());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ServerRoomWasRemovedFromSelectableList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ServerRoomWasRemovedFromSelectableList* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ServerRoomWasRemovedFromSelectableList>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+    MergeFrom(*source);
+  }
+}
+
+void ServerRoomWasRemovedFromSelectableList::MergeFrom(const ServerRoomWasRemovedFromSelectableList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_header()) {
+    mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
+  }
+  if (from.has_room()) {
+    mutable_room()->::serverMessageSystem::CreatedRoom::MergeFrom(from.room());
+  }
+  if (from.deletedorupdateflag() != 0) {
+    set_deletedorupdateflag(from.deletedorupdateflag());
+  }
+  if (from.connectioncmdid() != 0) {
+    set_connectioncmdid(from.connectioncmdid());
+  }
+}
+
+void ServerRoomWasRemovedFromSelectableList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerRoomWasRemovedFromSelectableList::CopyFrom(const ServerRoomWasRemovedFromSelectableList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerRoomWasRemovedFromSelectableList::IsInitialized() const {
+  return true;
+}
+
+void ServerRoomWasRemovedFromSelectableList::Swap(ServerRoomWasRemovedFromSelectableList* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ServerRoomWasRemovedFromSelectableList::InternalSwap(ServerRoomWasRemovedFromSelectableList* other) {
+  using std::swap;
+  swap(header_, other->header_);
+  swap(room_, other->room_);
+  swap(deletedorupdateflag_, other->deletedorupdateflag_);
+  swap(connectioncmdid_, other->connectioncmdid_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata ServerRoomWasRemovedFromSelectableList::GetMetadata() const {
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace serverMessageSystem
 namespace google {
@@ -6171,6 +7049,9 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::GameSetting
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::RoomCreationErrors* Arena::CreateMaybeMessage< ::serverMessageSystem::RoomCreationErrors >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::RoomCreationErrors >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::CreatedRoom* Arena::CreateMaybeMessage< ::serverMessageSystem::CreatedRoom >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::CreatedRoom >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerInputQuery* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerInputQuery >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ServerInputQuery >(arena);
@@ -6201,6 +7082,9 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ChartMessag
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::DefaultMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::DefaultMessage >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::DefaultMessage >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

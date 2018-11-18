@@ -288,12 +288,21 @@ QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32
 
     message.set_noroomsavailable(noRoomsAvailable);
     message.set_freeslotsleft(freeSlotLeft);
-    for (uint32_t var = 0; var < roomIDs.size(); ++var)
-    {
-        message.set_roomid(var, roomIDs[var]);
-    }
 
+
+    message.set_querysize(_query.size());
     message.set_queryorder(queryOrder);
+
+    //Теперь надо проконтролировать, что везде комнаты создаются и обслуживаются правильно - т.е. в комнате надо изменять число игроков, вызывать для
+    //них соответсвующие методы и т.д.
+    for (uint32_t var = 0; var < _rooms.size(); ++var)
+    {
+        serverMessageSystem::CreatedRoom *room = message.mutable_room(var);
+        room->set_players(_rooms[var]->numberOfPlayers());
+        room->set_roomid(_rooms[var]->id());
+        room->set_maximumnumberofplayers(_rooms[var]->gameSettings().maximumNumberOfPlayers());
+        room->set_roomname(_rooms[var]->name().toUtf8().constData());
+    }
 
     QByteArray block;
     block.resize(message.ByteSize());
@@ -713,7 +722,7 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
 
         //ROOM_ID_DEFINITION
         Room* newRoom = new Room(_rooms.size() + 1,
-                                 "NewRoom",
+                                 QString::fromStdString(message.roomname()),
                                  1,
                                  givenSettings,
                                  Player(QString::fromStdString(message.clientname())),

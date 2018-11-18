@@ -22,8 +22,6 @@
 typedef QPair<QString, QString> serverSettings;
 
 
-#define NO_QUERY_POSITION 777
-#define QUERY_OVERSIZE 999
 
 //query maximum size should be calculated as
 //_settings.maximumNumberOfRooms * maximum number of opponents (more than this should never appear)
@@ -79,6 +77,7 @@ private:
     void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
     void ProcessChartMessage(const QByteArray &data, int socketDescriptor);
     void ProcessClientConnectionToRoomRequest(const QByteArray &data, int socketDescriptor);
+
 
     QByteArray FormServerInputQueryReply();
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);

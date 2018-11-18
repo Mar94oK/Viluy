@@ -61,6 +61,12 @@ public:
     void SetIsPlaying() { _isPlaying = true; }
     bool GetIsPlaying() const { return _isPlaying; }
 
+    GameSettings gameSettings() const;
+    void setGameSettings(const GameSettings &gameSettings);
+
+    QString name() const;
+    void setName(const QString &name);
+
 private:
 
     uint32_t _id;

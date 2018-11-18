@@ -32,6 +32,7 @@ enum ConnectionSubSysCommandsID
     CLIENT_CONNECTION_TO_ROOM_REQUEST = 4;
     CLIENT_CONNECTION_TO_ROOM_REPLY = 5;
     SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6;
+    SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST = 7;
 }
 
 enum ChartSubSysCommandsID
@@ -95,6 +96,15 @@ message RoomCreationErrors
     bool incorrectSettings = 3;
 }
 
+// CreatedRoom (Sub-Message, DO NOT USE for sending)
+message CreatedRoom
+{
+    uint32 roomID = 1;
+    string roomName = 2;
+    uint32 players = 3;
+    uint32 maximumNumberOfPlayers = 4;
+}
+
 //#1 Idea: Check whether server is ready to work...
 message ServerInputQuery
 {
@@ -121,7 +131,8 @@ message ClientRoomCreationRequest
     CommonHeader header = 1;                        //allways included
     ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
     string clientName = 3;
-    GameSettings gameSettings = 4;
+    string roomName = 4;
+    GameSettings gameSettings = 5;
 }
 
 //#4 Room Creation Reply
@@ -154,8 +165,9 @@ message ClientConnectionToRoomReply
     ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
     bool noRoomsAvailable = 3;                      //if no Rooms Available, set thi field
     uint32 freeSlotsLeft = 4;                       //how many free Slots are left
-    repeated uint32 roomID = 5;                     //how many Rooms IDs are provided
+    repeated CreatedRoom room = 5;                  //how Rooms IDs are provided
     uint32 queryOrder = 6;                          //place in order
+    uint32 querySize = 7;                           //total waiters
 }
 
 //#7
@@ -193,4 +205,27 @@ message DefaultMessage //Used for message-type distinguish cast.
     ChartSubSysCommandsID chartCmdID = 2;
 }
 
+//#11
+message ServerRoomWasRemovedFromSelectableList
+{
+    CommonHeader header = 1;                        //allways included
+    bool deletedOrUpdateFlag = 2;                   //Shows what to do with the room - Update info or Delete;
+    ConnectionSubSysCommandsID connectionCmdID = 3; //command ID
+    CreatedRoom room = 4;                           //room was removed (doesn't matter - started or closed)
+}
+
+message ClientWantedToEnterTheRoom
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    string clientName = 3;                          //client's name
+    uint32 roomID = 4;                              //roomID to enter
+}
+
+message ServerClientWantedToEnterTheRoomReply
+{
+    CommonHeader header = 1;                        //allways included
+    ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
+    bool entranceAllowed = 3;                       //Allowed or Rejected
+}
 
