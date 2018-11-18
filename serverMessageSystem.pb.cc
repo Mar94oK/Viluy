@@ -108,11 +108,11 @@ class DefaultMessageDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<DefaultMessage>
       _instance;
 } _DefaultMessage_default_instance_;
-class ServerRoomWasRemovedFromSelectableListDefaultTypeInternal {
+class ServerRoomChangesInSelectableListDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ServerRoomWasRemovedFromSelectableList>
+  ::google::protobuf::internal::ExplicitlyConstructed<ServerRoomChangesInSelectableList>
       _instance;
-} _ServerRoomWasRemovedFromSelectableList_default_instance_;
+} _ServerRoomChangesInSelectableList_default_instance_;
 class ClientWantedToEnterTheRoomDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ClientWantedToEnterTheRoom>
@@ -364,19 +364,19 @@ static void InitDefaultsDefaultMessage() {
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsDefaultMessage}, {
       &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,}};
 
-static void InitDefaultsServerRoomWasRemovedFromSelectableList() {
+static void InitDefaultsServerRoomChangesInSelectableList() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_;
-    new (ptr) ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList();
+    void* ptr = &::serverMessageSystem::_ServerRoomChangesInSelectableList_default_instance_;
+    new (ptr) ::serverMessageSystem::ServerRoomChangesInSelectableList();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList::InitAsDefaultInstance();
+  ::serverMessageSystem::ServerRoomChangesInSelectableList::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<2> scc_info_ServerRoomWasRemovedFromSelectableList =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsServerRoomWasRemovedFromSelectableList}, {
+::google::protobuf::internal::SCCInfo<2> scc_info_ServerRoomChangesInSelectableList =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsServerRoomChangesInSelectableList}, {
       &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,
       &protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base,}};
 
@@ -427,7 +427,7 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsOpponentIsEnteringRoom.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ChartMessage.base);
   ::google::protobuf::internal::InitSCC(&scc_info_DefaultMessage.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_ServerRoomWasRemovedFromSelectableList.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ServerRoomChangesInSelectableList.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ClientWantedToEnterTheRoom.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerClientWantedToEnterTheRoomReply.base);
 }
@@ -583,14 +583,14 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, header_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::DefaultMessage, chartcmdid_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomChangesInSelectableList, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, header_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, deletedorupdateflag_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, connectioncmdid_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList, room_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomChangesInSelectableList, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomChangesInSelectableList, deletedorupdateflag_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomChangesInSelectableList, connectioncmdid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerRoomChangesInSelectableList, room_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ClientWantedToEnterTheRoom, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -626,7 +626,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 120, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
   { 129, -1, sizeof(::serverMessageSystem::ChartMessage)},
   { 139, -1, sizeof(::serverMessageSystem::DefaultMessage)},
-  { 146, -1, sizeof(::serverMessageSystem::ServerRoomWasRemovedFromSelectableList)},
+  { 146, -1, sizeof(::serverMessageSystem::ServerRoomChangesInSelectableList)},
   { 155, -1, sizeof(::serverMessageSystem::ClientWantedToEnterTheRoom)},
   { 164, -1, sizeof(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply)},
 };
@@ -648,7 +648,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsOpponentIsEnteringRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ChartMessage_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_DefaultMessage_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerRoomChangesInSelectableList_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientWantedToEnterTheRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_),
 };
@@ -747,42 +747,43 @@ void AddDescriptorsImpl() {
       "omID\030\005 \001(\r\"\203\001\n\016DefaultMessage\0221\n\006header\030"
       "\001 \001(\0132!.serverMessageSystem.CommonHeader"
       "\022>\n\nchartCmdID\030\002 \001(\0162*.serverMessageSyst"
-      "em.ChartSubSysCommandsID\"\362\001\n&ServerRoomW"
-      "asRemovedFromSelectableList\0221\n\006header\030\001 "
-      "\001(\0132!.serverMessageSystem.CommonHeader\022\033"
-      "\n\023deletedOrUpdateFlag\030\002 \001(\010\022H\n\017connectio"
-      "nCmdID\030\003 \001(\0162/.serverMessageSystem.Conne"
-      "ctionSubSysCommandsID\022.\n\004room\030\004 \001(\0132 .se"
-      "rverMessageSystem.CreatedRoom\"\275\001\n\032Client"
-      "WantedToEnterTheRoom\0221\n\006header\030\001 \001(\0132!.s"
-      "erverMessageSystem.CommonHeader\022H\n\017conne"
-      "ctionCmdID\030\002 \001(\0162/.serverMessageSystem.C"
-      "onnectionSubSysCommandsID\022\022\n\nclientName\030"
-      "\003 \001(\t\022\016\n\006roomID\030\004 \001(\r\"\275\001\n%ServerClientWa"
-      "ntedToEnterTheRoomReply\0221\n\006header\030\001 \001(\0132"
-      "!.serverMessageSystem.CommonHeader\022H\n\017co"
-      "nnectionCmdID\030\002 \001(\0162/.serverMessageSyste"
-      "m.ConnectionSubSysCommandsID\022\027\n\017entrance"
-      "Allowed\030\003 \001(\010*&\n\tRulesType\022\r\n\tAutomatic\020"
-      "\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030\n\024CONNECTI"
-      "ON_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSYSTEM"
-      "\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022\023\n\017C"
-      "HART_SUBSYSTEM\020\003*\310\002\n\032ConnectionSubSysCom"
-      "mandsID\022\036\n\032SERVER_INPUT_QUERY_REQUEST\020\000\022"
-      "\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIENT_"
-      "ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROOM_C"
-      "REATION_REPLY\020\003\022%\n!CLIENT_CONNECTION_TO_"
-      "ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_TO_R"
-      "OOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONENT_I"
-      "S_ENTERING_ROOM\020\006\0220\n,SERVER_ROOM_WAS_REM"
-      "OVED_FROM_SELECTABLE_LIST\020\007*B\n\025ChartSubS"
-      "ysCommandsID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART"
-      "_NOTIFICATION\020\001*9\n\023GameCreationRequest\022\017"
-      "\n\013JoinTheGame\020\000\022\021\n\rCreateTheGame\020\001b\006prot"
-      "o3"
+      "em.ChartSubSysCommandsID\"\355\001\n!ServerRoomC"
+      "hangesInSelectableList\0221\n\006header\030\001 \001(\0132!"
+      ".serverMessageSystem.CommonHeader\022\033\n\023del"
+      "etedOrUpdateFlag\030\002 \001(\010\022H\n\017connectionCmdI"
+      "D\030\003 \001(\0162/.serverMessageSystem.Connection"
+      "SubSysCommandsID\022.\n\004room\030\004 \001(\0132 .serverM"
+      "essageSystem.CreatedRoom\"\275\001\n\032ClientWante"
+      "dToEnterTheRoom\0221\n\006header\030\001 \001(\0132!.server"
+      "MessageSystem.CommonHeader\022H\n\017connection"
+      "CmdID\030\002 \001(\0162/.serverMessageSystem.Connec"
+      "tionSubSysCommandsID\022\022\n\nclientName\030\003 \001(\t"
+      "\022\016\n\006roomID\030\004 \001(\r\"\275\001\n%ServerClientWantedT"
+      "oEnterTheRoomReply\0221\n\006header\030\001 \001(\0132!.ser"
+      "verMessageSystem.CommonHeader\022H\n\017connect"
+      "ionCmdID\030\002 \001(\0162/.serverMessageSystem.Con"
+      "nectionSubSysCommandsID\022\027\n\017entranceAllow"
+      "ed\030\003 \001(\010*&\n\tRulesType\022\r\n\tAutomatic\020\000\022\n\n\006"
+      "Manual\020\001*y\n\013SubSystemID\022\030\n\024CONNECTION_SU"
+      "BSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSYSTEM\020\001\022\037\n"
+      "\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022\023\n\017CHART_"
+      "SUBSYSTEM\020\003*\231\003\n\032ConnectionSubSysCommands"
+      "ID\022\036\n\032SERVER_INPUT_QUERY_REQUEST\020\000\022\034\n\030SE"
+      "RVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIENT_ROOM_"
+      "CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROOM_CREATI"
+      "ON_REPLY\020\003\022%\n!CLIENT_CONNECTION_TO_ROOM_"
+      "REQUEST\020\004\022#\n\037CLIENT_CONNECTION_TO_ROOM_R"
+      "EPLY\020\005\022,\n(SERVER_REPORTS_OPPONENT_IS_ENT"
+      "ERING_ROOM\020\006\022*\n&SERVER_ROOM_CHANGES_IN_S"
+      "ELECTABLE_LIST\020\007\022#\n\037CLIENT_WANTED_TO_ENT"
+      "ER_THE_ROOM\020\010\0220\n,SERVER_CLIENT_WANTED_TO"
+      "_ENTER_THE_ROOM_REPLY\020\t*B\n\025ChartSubSysCo"
+      "mmandsID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART_NOT"
+      "IFICATION\020\001*9\n\023GameCreationRequest\022\017\n\013Jo"
+      "inTheGame\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 4202);
+      descriptor, 4278);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "serverMessageSystem.proto", &protobuf_RegisterTypes);
 }
@@ -843,6 +844,8 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
+    case 9:
       return true;
     default:
       return false;
@@ -6743,27 +6746,27 @@ void DefaultMessage::InternalSwap(DefaultMessage* other) {
 
 // ===================================================================
 
-void ServerRoomWasRemovedFromSelectableList::InitAsDefaultInstance() {
-  ::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+void ServerRoomChangesInSelectableList::InitAsDefaultInstance() {
+  ::serverMessageSystem::_ServerRoomChangesInSelectableList_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
       ::serverMessageSystem::CommonHeader::internal_default_instance());
-  ::serverMessageSystem::_ServerRoomWasRemovedFromSelectableList_default_instance_._instance.get_mutable()->room_ = const_cast< ::serverMessageSystem::CreatedRoom*>(
+  ::serverMessageSystem::_ServerRoomChangesInSelectableList_default_instance_._instance.get_mutable()->room_ = const_cast< ::serverMessageSystem::CreatedRoom*>(
       ::serverMessageSystem::CreatedRoom::internal_default_instance());
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ServerRoomWasRemovedFromSelectableList::kHeaderFieldNumber;
-const int ServerRoomWasRemovedFromSelectableList::kDeletedOrUpdateFlagFieldNumber;
-const int ServerRoomWasRemovedFromSelectableList::kConnectionCmdIDFieldNumber;
-const int ServerRoomWasRemovedFromSelectableList::kRoomFieldNumber;
+const int ServerRoomChangesInSelectableList::kHeaderFieldNumber;
+const int ServerRoomChangesInSelectableList::kDeletedOrUpdateFlagFieldNumber;
+const int ServerRoomChangesInSelectableList::kConnectionCmdIDFieldNumber;
+const int ServerRoomChangesInSelectableList::kRoomFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ServerRoomWasRemovedFromSelectableList::ServerRoomWasRemovedFromSelectableList()
+ServerRoomChangesInSelectableList::ServerRoomChangesInSelectableList()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   ::google::protobuf::internal::InitSCC(
-      &protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomWasRemovedFromSelectableList.base);
+      &protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomChangesInSelectableList.base);
   SharedCtor();
-  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerRoomChangesInSelectableList)
 }
-ServerRoomWasRemovedFromSelectableList::ServerRoomWasRemovedFromSelectableList(const ServerRoomWasRemovedFromSelectableList& from)
+ServerRoomChangesInSelectableList::ServerRoomChangesInSelectableList(const ServerRoomChangesInSelectableList& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
@@ -6780,41 +6783,41 @@ ServerRoomWasRemovedFromSelectableList::ServerRoomWasRemovedFromSelectableList(c
   ::memcpy(&deletedorupdateflag_, &from.deletedorupdateflag_,
     static_cast<size_t>(reinterpret_cast<char*>(&connectioncmdid_) -
     reinterpret_cast<char*>(&deletedorupdateflag_)) + sizeof(connectioncmdid_));
-  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerRoomChangesInSelectableList)
 }
 
-void ServerRoomWasRemovedFromSelectableList::SharedCtor() {
+void ServerRoomChangesInSelectableList::SharedCtor() {
   ::memset(&header_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&connectioncmdid_) -
       reinterpret_cast<char*>(&header_)) + sizeof(connectioncmdid_));
 }
 
-ServerRoomWasRemovedFromSelectableList::~ServerRoomWasRemovedFromSelectableList() {
-  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+ServerRoomChangesInSelectableList::~ServerRoomChangesInSelectableList() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerRoomChangesInSelectableList)
   SharedDtor();
 }
 
-void ServerRoomWasRemovedFromSelectableList::SharedDtor() {
+void ServerRoomChangesInSelectableList::SharedDtor() {
   if (this != internal_default_instance()) delete header_;
   if (this != internal_default_instance()) delete room_;
 }
 
-void ServerRoomWasRemovedFromSelectableList::SetCachedSize(int size) const {
+void ServerRoomChangesInSelectableList::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* ServerRoomWasRemovedFromSelectableList::descriptor() {
+const ::google::protobuf::Descriptor* ServerRoomChangesInSelectableList::descriptor() {
   ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const ServerRoomWasRemovedFromSelectableList& ServerRoomWasRemovedFromSelectableList::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomWasRemovedFromSelectableList.base);
+const ServerRoomChangesInSelectableList& ServerRoomChangesInSelectableList::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_ServerRoomChangesInSelectableList.base);
   return *internal_default_instance();
 }
 
 
-void ServerRoomWasRemovedFromSelectableList::Clear() {
-// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+void ServerRoomChangesInSelectableList::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -6833,11 +6836,11 @@ void ServerRoomWasRemovedFromSelectableList::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool ServerRoomWasRemovedFromSelectableList::MergePartialFromCodedStream(
+bool ServerRoomChangesInSelectableList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   for (;;) {
     ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -6908,17 +6911,17 @@ bool ServerRoomWasRemovedFromSelectableList::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerRoomChangesInSelectableList)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerRoomChangesInSelectableList)
   return false;
 #undef DO_
 }
 
-void ServerRoomWasRemovedFromSelectableList::SerializeWithCachedSizes(
+void ServerRoomChangesInSelectableList::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -6949,13 +6952,13 @@ void ServerRoomWasRemovedFromSelectableList::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerRoomChangesInSelectableList)
 }
 
-::google::protobuf::uint8* ServerRoomWasRemovedFromSelectableList::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ServerRoomChangesInSelectableList::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -6988,12 +6991,12 @@ void ServerRoomWasRemovedFromSelectableList::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerRoomChangesInSelectableList)
   return target;
 }
 
-size_t ServerRoomWasRemovedFromSelectableList::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+size_t ServerRoomChangesInSelectableList::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -7031,23 +7034,23 @@ size_t ServerRoomWasRemovedFromSelectableList::ByteSizeLong() const {
   return total_size;
 }
 
-void ServerRoomWasRemovedFromSelectableList::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+void ServerRoomChangesInSelectableList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   GOOGLE_DCHECK_NE(&from, this);
-  const ServerRoomWasRemovedFromSelectableList* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const ServerRoomWasRemovedFromSelectableList>(
+  const ServerRoomChangesInSelectableList* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ServerRoomChangesInSelectableList>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerRoomChangesInSelectableList)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerRoomChangesInSelectableList)
     MergeFrom(*source);
   }
 }
 
-void ServerRoomWasRemovedFromSelectableList::MergeFrom(const ServerRoomWasRemovedFromSelectableList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+void ServerRoomChangesInSelectableList::MergeFrom(const ServerRoomChangesInSelectableList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -7067,29 +7070,29 @@ void ServerRoomWasRemovedFromSelectableList::MergeFrom(const ServerRoomWasRemove
   }
 }
 
-void ServerRoomWasRemovedFromSelectableList::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+void ServerRoomChangesInSelectableList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ServerRoomWasRemovedFromSelectableList::CopyFrom(const ServerRoomWasRemovedFromSelectableList& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+void ServerRoomChangesInSelectableList::CopyFrom(const ServerRoomChangesInSelectableList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerRoomChangesInSelectableList)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ServerRoomWasRemovedFromSelectableList::IsInitialized() const {
+bool ServerRoomChangesInSelectableList::IsInitialized() const {
   return true;
 }
 
-void ServerRoomWasRemovedFromSelectableList::Swap(ServerRoomWasRemovedFromSelectableList* other) {
+void ServerRoomChangesInSelectableList::Swap(ServerRoomChangesInSelectableList* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ServerRoomWasRemovedFromSelectableList::InternalSwap(ServerRoomWasRemovedFromSelectableList* other) {
+void ServerRoomChangesInSelectableList::InternalSwap(ServerRoomChangesInSelectableList* other) {
   using std::swap;
   swap(header_, other->header_);
   swap(room_, other->room_);
@@ -7098,7 +7101,7 @@ void ServerRoomWasRemovedFromSelectableList::InternalSwap(ServerRoomWasRemovedFr
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
-::google::protobuf::Metadata ServerRoomWasRemovedFromSelectableList::GetMetadata() const {
+::google::protobuf::Metadata ServerRoomChangesInSelectableList::GetMetadata() const {
   protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -7844,8 +7847,8 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ChartMessag
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::DefaultMessage* Arena::CreateMaybeMessage< ::serverMessageSystem::DefaultMessage >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::DefaultMessage >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList >(Arena* arena) {
-  return Arena::CreateInternal< ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList >(arena);
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerRoomChangesInSelectableList* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerRoomChangesInSelectableList >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::ServerRoomChangesInSelectableList >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ClientWantedToEnterTheRoom* Arena::CreateMaybeMessage< ::serverMessageSystem::ClientWantedToEnterTheRoom >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ClientWantedToEnterTheRoom >(arena);

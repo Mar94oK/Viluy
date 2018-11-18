@@ -278,6 +278,34 @@ QByteArray Server::FormChartMessage(const QString &textMessage, const QString &s
     return block;
 }
 
+QByteArray Server::FormServerRoomChangesInSelectableList(uint32_t roomId, bool deleteUpdateFlag)
+{
+    serverMessageSystem::ServerRoomChangesInSelectableList message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST);
+
+    message.set_deletedorupdateflag(deleteUpdateFlag);
+
+    if (deleteUpdateFlag)
+    {
+        serverMessageSystem::CreatedRoom *room = message.mutable_room();
+        Room* givenRoom = DefineRoom(roomId);
+        room->set_roomname(givenRoom->name().toUtf8().constData());
+        room->set_maximumnumberofplayers(givenRoom->gameSettings().maximumNumberOfPlayers());
+        room->set_roomid(givenRoom->id());
+        room->set_players(givenRoom->numberOfPlayers());
+    }
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: Serialized FormServerRoomChangesInSelectableList is ready.";
+    return block;
+
+}
+
 QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder)
 {
     serverMessageSystem::ClientConnectionToRoomReply message;
@@ -347,6 +375,10 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
             {
                 emit SignalServerLogReport("Room with ID : " + QString::number(room->id())
                                            + "is Empty. To be deleted.");
+
+                //    NAY-001: MARK_EXPECTED_ERROR
+                //Here should be sure that id is still valid.
+                SendRoomDeletedMessageToQuery(room->id());
                  uint32_t id = room->id();
                 if (RoomDeleting(room->id()))
                 {
@@ -368,6 +400,23 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
                                    + " not found!");
         return false;
     }
+    return false;
+}
+
+bool Server::RemoveConnectionFromQuery(int socketDescriptor)
+{
+    for (uint32_t var = 0; var < _query.size(); ++var)
+    {
+        if (_query[var]->socket()->socketDescriptor() == socketDescriptor)
+        {
+            delete _query[var];
+            //        NAY-001: MARK_EXPECTED_ERROR
+            //When I delete here the Connection* since it is the same like in all the other places, an erro may appear;
+            _query.erase(_query.begin() + var);
+            return true;
+        }
+    }
+    qDebug() << "NAY-001:: Error! RemoveConnectionFromQuery() Connection with such SocketDesriptor not found." << socketDescriptor;
     return false;
 }
 
@@ -426,6 +475,26 @@ void Server::UpdateStatistics()
 
 
     SignalUpdateStatistics(statistic);
+}
+
+void Server::SendRoomDeletedMessageToQuery(uint32_t roomID)
+{
+    foreach (Connection* connection, _query)
+    {
+        connection->setOutgoingDataBuffer(FormServerRoomChangesInSelectableList(roomID, false));
+        emit SignalServerLogReport("NAY-001: Report Deleting Room to Query. Socket:" + QString::number(connection->socket()->socketDescriptor()));
+        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+    }
+}
+
+void Server::SendRoomAddedMessageToQuery(uint32_t roomID)
+{
+    foreach (Connection* connection, _query)
+    {
+        connection->setOutgoingDataBuffer(FormServerRoomChangesInSelectableList(roomID, true));
+        emit SignalServerLogReport("NAY-001: Report Adding Room to Query. Socket:" + QString::number(connection->socket()->socketDescriptor()));
+        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+    }
 }
 
 
@@ -607,17 +676,24 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         qDebug() << "NAY-001: Processing exclusion of unconnected socket.";
         if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))
         {
-            for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
+            if (RemoveConnectionFromQuery(CLOSED_SOCKET_DESCRIPTOR))
             {
-                if (_establishedConnections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
+                --_querySize;
+                UpdateStatistics();
+                for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
                 {
-                    delete _establishedConnections[var];
-                    _establishedConnections.erase(_establishedConnections.begin() + var);
-                    --_activeConnections;
-                    UpdateStatistics();
-                    emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
-                                               + " has been successfully deleted! ");
-                    return;
+                    if (_establishedConnections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
+                    {
+                        delete _establishedConnections[var];
+                        //should also delete here from queue
+
+                        _establishedConnections.erase(_establishedConnections.begin() + var);
+                        --_activeConnections;
+                        UpdateStatistics();
+                        emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
+                                                   + " has been successfully deleted! ");
+                        return;
+                    }
                 }
             }
         }
@@ -739,6 +815,8 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
         currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(true, _rooms.size(), _settings.maxNumberOfRooms() - _rooms.size(), RoomCreationErrors::NO_ERRORS));
         emit SignalServerLogReport("NAY-001: ClientRoomCreationReply to socket #" + QString::number(socketDescriptor));
         emit SignalConnectionSendOutgoingData(socketDescriptor);
+
+        SendRoomAddedMessageToQuery(_rooms.size());
     }
     else //NO FREE SPACE AVAILABLE
     {
@@ -859,7 +937,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                         }
 
                         Connection* connection = DefineConnection(socketDescriptor);
-                        _query.push(connection);
+                        _query.push_back(connection);
                         ++_querySize;
                         UpdateStatistics();
                         qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
@@ -897,7 +975,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                     }
 
                     Connection* connection = DefineConnection(socketDescriptor);
-                    _query.push(connection);
+                    _query.push_back(connection);
                     ++_querySize;
                     UpdateStatistics();
                     qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
@@ -971,7 +1049,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                     }
 
                     Connection* connection = DefineConnection(socketDescriptor);
-                    _query.push(connection);
+                    _query.push_back(connection);
                     ++_querySize;
                     UpdateStatistics();
                     qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
@@ -1011,7 +1089,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                 }
 
                 Connection* connection = DefineConnection(socketDescriptor);
-                _query.push(connection);
+                _query.push_back(connection);
                 ++_querySize;
                 UpdateStatistics();
                 qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
@@ -1043,7 +1121,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                 std::vector<uint32_t>roomIDs;
 
                 Connection* connection = DefineConnection(socketDescriptor);
-                _query.push(connection);
+                _query.push_back(connection);
                 ++_querySize;
                 UpdateStatistics();
                 qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();

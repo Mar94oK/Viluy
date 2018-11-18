@@ -32,7 +32,9 @@ enum ConnectionSubSysCommandsID
     CLIENT_CONNECTION_TO_ROOM_REQUEST = 4;
     CLIENT_CONNECTION_TO_ROOM_REPLY = 5;
     SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6;
-    SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST = 7;
+    SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST = 7;
+    CLIENT_WANTED_TO_ENTER_THE_ROOM = 8;
+    SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9;
 }
 
 enum ChartSubSysCommandsID
@@ -206,7 +208,7 @@ message DefaultMessage //Used for message-type distinguish cast.
 }
 
 //#11
-message ServerRoomWasRemovedFromSelectableList
+message ServerRoomChangesInSelectableList
 {
     CommonHeader header = 1;                        //allways included
     bool deletedOrUpdateFlag = 2;                   //Shows what to do with the room - Update info or Delete;

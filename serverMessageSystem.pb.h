@@ -98,9 +98,9 @@ extern ServerQueryReplyDefaultTypeInternal _ServerQueryReply_default_instance_;
 class ServerReportsOpponentIsEnteringRoom;
 class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal;
 extern ServerReportsOpponentIsEnteringRoomDefaultTypeInternal _ServerReportsOpponentIsEnteringRoom_default_instance_;
-class ServerRoomWasRemovedFromSelectableList;
-class ServerRoomWasRemovedFromSelectableListDefaultTypeInternal;
-extern ServerRoomWasRemovedFromSelectableListDefaultTypeInternal _ServerRoomWasRemovedFromSelectableList_default_instance_;
+class ServerRoomChangesInSelectableList;
+class ServerRoomChangesInSelectableListDefaultTypeInternal;
+extern ServerRoomChangesInSelectableListDefaultTypeInternal _ServerRoomChangesInSelectableList_default_instance_;
 class TimeSettings;
 class TimeSettingsDefaultTypeInternal;
 extern TimeSettingsDefaultTypeInternal _TimeSettings_default_instance_;
@@ -124,7 +124,7 @@ template<> ::serverMessageSystem::ServerInputQuery* Arena::CreateMaybeMessage<::
 template<> ::serverMessageSystem::ServerQueryOrderNotification* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryOrderNotification>(Arena*);
 template<> ::serverMessageSystem::ServerQueryReply* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryReply>(Arena*);
 template<> ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsOpponentIsEnteringRoom>(Arena*);
-template<> ::serverMessageSystem::ServerRoomWasRemovedFromSelectableList* Arena::CreateMaybeMessage<::serverMessageSystem::ServerRoomWasRemovedFromSelectableList>(Arena*);
+template<> ::serverMessageSystem::ServerRoomChangesInSelectableList* Arena::CreateMaybeMessage<::serverMessageSystem::ServerRoomChangesInSelectableList>(Arena*);
 template<> ::serverMessageSystem::TimeSettings* Arena::CreateMaybeMessage<::serverMessageSystem::TimeSettings>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -182,13 +182,15 @@ enum ConnectionSubSysCommandsID {
   CLIENT_CONNECTION_TO_ROOM_REQUEST = 4,
   CLIENT_CONNECTION_TO_ROOM_REPLY = 5,
   SERVER_REPORTS_OPPONENT_IS_ENTERING_ROOM = 6,
-  SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST = 7,
+  SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST = 7,
+  CLIENT_WANTED_TO_ENTER_THE_ROOM = 8,
+  SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9,
   ConnectionSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ConnectionSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ConnectionSubSysCommandsID_IsValid(int value);
 const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MIN = SERVER_INPUT_QUERY_REQUEST;
-const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_ROOM_WAS_REMOVED_FROM_SELECTABLE_LIST;
+const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY;
 const int ConnectionSubSysCommandsID_ARRAYSIZE = ConnectionSubSysCommandsID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ConnectionSubSysCommandsID_descriptor();
@@ -2413,24 +2415,24 @@ class DefaultMessage : public ::google::protobuf::Message /* @@protoc_insertion_
 };
 // -------------------------------------------------------------------
 
-class ServerRoomWasRemovedFromSelectableList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerRoomWasRemovedFromSelectableList) */ {
+class ServerRoomChangesInSelectableList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerRoomChangesInSelectableList) */ {
  public:
-  ServerRoomWasRemovedFromSelectableList();
-  virtual ~ServerRoomWasRemovedFromSelectableList();
+  ServerRoomChangesInSelectableList();
+  virtual ~ServerRoomChangesInSelectableList();
 
-  ServerRoomWasRemovedFromSelectableList(const ServerRoomWasRemovedFromSelectableList& from);
+  ServerRoomChangesInSelectableList(const ServerRoomChangesInSelectableList& from);
 
-  inline ServerRoomWasRemovedFromSelectableList& operator=(const ServerRoomWasRemovedFromSelectableList& from) {
+  inline ServerRoomChangesInSelectableList& operator=(const ServerRoomChangesInSelectableList& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  ServerRoomWasRemovedFromSelectableList(ServerRoomWasRemovedFromSelectableList&& from) noexcept
-    : ServerRoomWasRemovedFromSelectableList() {
+  ServerRoomChangesInSelectableList(ServerRoomChangesInSelectableList&& from) noexcept
+    : ServerRoomChangesInSelectableList() {
     *this = ::std::move(from);
   }
 
-  inline ServerRoomWasRemovedFromSelectableList& operator=(ServerRoomWasRemovedFromSelectableList&& from) noexcept {
+  inline ServerRoomChangesInSelectableList& operator=(ServerRoomChangesInSelectableList&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2440,34 +2442,34 @@ class ServerRoomWasRemovedFromSelectableList : public ::google::protobuf::Messag
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ServerRoomWasRemovedFromSelectableList& default_instance();
+  static const ServerRoomChangesInSelectableList& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ServerRoomWasRemovedFromSelectableList* internal_default_instance() {
-    return reinterpret_cast<const ServerRoomWasRemovedFromSelectableList*>(
-               &_ServerRoomWasRemovedFromSelectableList_default_instance_);
+  static inline const ServerRoomChangesInSelectableList* internal_default_instance() {
+    return reinterpret_cast<const ServerRoomChangesInSelectableList*>(
+               &_ServerRoomChangesInSelectableList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     16;
 
-  void Swap(ServerRoomWasRemovedFromSelectableList* other);
-  friend void swap(ServerRoomWasRemovedFromSelectableList& a, ServerRoomWasRemovedFromSelectableList& b) {
+  void Swap(ServerRoomChangesInSelectableList* other);
+  friend void swap(ServerRoomChangesInSelectableList& a, ServerRoomChangesInSelectableList& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ServerRoomWasRemovedFromSelectableList* New() const final {
-    return CreateMaybeMessage<ServerRoomWasRemovedFromSelectableList>(NULL);
+  inline ServerRoomChangesInSelectableList* New() const final {
+    return CreateMaybeMessage<ServerRoomChangesInSelectableList>(NULL);
   }
 
-  ServerRoomWasRemovedFromSelectableList* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<ServerRoomWasRemovedFromSelectableList>(arena);
+  ServerRoomChangesInSelectableList* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServerRoomChangesInSelectableList>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const ServerRoomWasRemovedFromSelectableList& from);
-  void MergeFrom(const ServerRoomWasRemovedFromSelectableList& from);
+  void CopyFrom(const ServerRoomChangesInSelectableList& from);
+  void MergeFrom(const ServerRoomChangesInSelectableList& from);
   void Clear() final;
   bool IsInitialized() const final;
 
@@ -2484,7 +2486,7 @@ class ServerRoomWasRemovedFromSelectableList : public ::google::protobuf::Messag
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ServerRoomWasRemovedFromSelectableList* other);
+  void InternalSwap(ServerRoomChangesInSelectableList* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -2536,7 +2538,7 @@ class ServerRoomWasRemovedFromSelectableList : public ::google::protobuf::Messag
   ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
   void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
 
-  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerRoomWasRemovedFromSelectableList)
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerRoomChangesInSelectableList)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -4771,44 +4773,44 @@ inline void DefaultMessage::set_chartcmdid(::serverMessageSystem::ChartSubSysCom
 
 // -------------------------------------------------------------------
 
-// ServerRoomWasRemovedFromSelectableList
+// ServerRoomChangesInSelectableList
 
 // .serverMessageSystem.CommonHeader header = 1;
-inline bool ServerRoomWasRemovedFromSelectableList::has_header() const {
+inline bool ServerRoomChangesInSelectableList::has_header() const {
   return this != internal_default_instance() && header_ != NULL;
 }
-inline void ServerRoomWasRemovedFromSelectableList::clear_header() {
+inline void ServerRoomChangesInSelectableList::clear_header() {
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
 }
-inline const ::serverMessageSystem::CommonHeader& ServerRoomWasRemovedFromSelectableList::_internal_header() const {
+inline const ::serverMessageSystem::CommonHeader& ServerRoomChangesInSelectableList::_internal_header() const {
   return *header_;
 }
-inline const ::serverMessageSystem::CommonHeader& ServerRoomWasRemovedFromSelectableList::header() const {
+inline const ::serverMessageSystem::CommonHeader& ServerRoomChangesInSelectableList::header() const {
   const ::serverMessageSystem::CommonHeader* p = header_;
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomChangesInSelectableList.header)
   return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
       &::serverMessageSystem::_CommonHeader_default_instance_);
 }
-inline ::serverMessageSystem::CommonHeader* ServerRoomWasRemovedFromSelectableList::release_header() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+inline ::serverMessageSystem::CommonHeader* ServerRoomChangesInSelectableList::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomChangesInSelectableList.header)
   
   ::serverMessageSystem::CommonHeader* temp = header_;
   header_ = NULL;
   return temp;
 }
-inline ::serverMessageSystem::CommonHeader* ServerRoomWasRemovedFromSelectableList::mutable_header() {
+inline ::serverMessageSystem::CommonHeader* ServerRoomChangesInSelectableList::mutable_header() {
   
   if (header_ == NULL) {
     auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
     header_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomChangesInSelectableList.header)
   return header_;
 }
-inline void ServerRoomWasRemovedFromSelectableList::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+inline void ServerRoomChangesInSelectableList::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
     delete header_;
@@ -4824,73 +4826,73 @@ inline void ServerRoomWasRemovedFromSelectableList::set_allocated_header(::serve
     
   }
   header_ = header;
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.header)
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomChangesInSelectableList.header)
 }
 
 // bool deletedOrUpdateFlag = 2;
-inline void ServerRoomWasRemovedFromSelectableList::clear_deletedorupdateflag() {
+inline void ServerRoomChangesInSelectableList::clear_deletedorupdateflag() {
   deletedorupdateflag_ = false;
 }
-inline bool ServerRoomWasRemovedFromSelectableList::deletedorupdateflag() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.deletedOrUpdateFlag)
+inline bool ServerRoomChangesInSelectableList::deletedorupdateflag() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomChangesInSelectableList.deletedOrUpdateFlag)
   return deletedorupdateflag_;
 }
-inline void ServerRoomWasRemovedFromSelectableList::set_deletedorupdateflag(bool value) {
+inline void ServerRoomChangesInSelectableList::set_deletedorupdateflag(bool value) {
   
   deletedorupdateflag_ = value;
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.deletedOrUpdateFlag)
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomChangesInSelectableList.deletedOrUpdateFlag)
 }
 
 // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 3;
-inline void ServerRoomWasRemovedFromSelectableList::clear_connectioncmdid() {
+inline void ServerRoomChangesInSelectableList::clear_connectioncmdid() {
   connectioncmdid_ = 0;
 }
-inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerRoomWasRemovedFromSelectableList::connectioncmdid() const {
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.connectionCmdID)
+inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerRoomChangesInSelectableList::connectioncmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomChangesInSelectableList.connectionCmdID)
   return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
 }
-inline void ServerRoomWasRemovedFromSelectableList::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+inline void ServerRoomChangesInSelectableList::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
   
   connectioncmdid_ = value;
-  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.connectionCmdID)
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerRoomChangesInSelectableList.connectionCmdID)
 }
 
 // .serverMessageSystem.CreatedRoom room = 4;
-inline bool ServerRoomWasRemovedFromSelectableList::has_room() const {
+inline bool ServerRoomChangesInSelectableList::has_room() const {
   return this != internal_default_instance() && room_ != NULL;
 }
-inline void ServerRoomWasRemovedFromSelectableList::clear_room() {
+inline void ServerRoomChangesInSelectableList::clear_room() {
   if (GetArenaNoVirtual() == NULL && room_ != NULL) {
     delete room_;
   }
   room_ = NULL;
 }
-inline const ::serverMessageSystem::CreatedRoom& ServerRoomWasRemovedFromSelectableList::_internal_room() const {
+inline const ::serverMessageSystem::CreatedRoom& ServerRoomChangesInSelectableList::_internal_room() const {
   return *room_;
 }
-inline const ::serverMessageSystem::CreatedRoom& ServerRoomWasRemovedFromSelectableList::room() const {
+inline const ::serverMessageSystem::CreatedRoom& ServerRoomChangesInSelectableList::room() const {
   const ::serverMessageSystem::CreatedRoom* p = room_;
-  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerRoomChangesInSelectableList.room)
   return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CreatedRoom*>(
       &::serverMessageSystem::_CreatedRoom_default_instance_);
 }
-inline ::serverMessageSystem::CreatedRoom* ServerRoomWasRemovedFromSelectableList::release_room() {
-  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+inline ::serverMessageSystem::CreatedRoom* ServerRoomChangesInSelectableList::release_room() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerRoomChangesInSelectableList.room)
   
   ::serverMessageSystem::CreatedRoom* temp = room_;
   room_ = NULL;
   return temp;
 }
-inline ::serverMessageSystem::CreatedRoom* ServerRoomWasRemovedFromSelectableList::mutable_room() {
+inline ::serverMessageSystem::CreatedRoom* ServerRoomChangesInSelectableList::mutable_room() {
   
   if (room_ == NULL) {
     auto* p = CreateMaybeMessage<::serverMessageSystem::CreatedRoom>(GetArenaNoVirtual());
     room_ = p;
   }
-  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerRoomChangesInSelectableList.room)
   return room_;
 }
-inline void ServerRoomWasRemovedFromSelectableList::set_allocated_room(::serverMessageSystem::CreatedRoom* room) {
+inline void ServerRoomChangesInSelectableList::set_allocated_room(::serverMessageSystem::CreatedRoom* room) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
     delete room_;
@@ -4906,7 +4908,7 @@ inline void ServerRoomWasRemovedFromSelectableList::set_allocated_room(::serverM
     
   }
   room_ = room;
-  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomWasRemovedFromSelectableList.room)
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerRoomChangesInSelectableList.room)
 }
 
 // -------------------------------------------------------------------

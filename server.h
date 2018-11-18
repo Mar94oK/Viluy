@@ -43,7 +43,7 @@ private:
     std::vector<Connection*> _establishedConnections;
     ServerSettings _settings;
 
-    std::queue <Connection*> _query;
+    std::vector <Connection*> _query;
 
 signals:
 
@@ -83,12 +83,14 @@ private:
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
     QByteArray FromServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
     QByteArray FormChartMessage(const QString& message, const QString& sender, uint32_t roomID);
+    QByteArray FormServerRoomChangesInSelectableList(uint32_t roomId, bool deleteUpdateFlag);
 
     QByteArray FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder);
 
     Connection* DefineConnection(int socketDescriptor);
 
     bool RemoveConnectionFromRoom(int socketDescriptor);
+    bool RemoveConnectionFromQuery(int socketDescriptor);
     bool RemoveConenctionFromServerCeonncetionsPull(int socketDescriptor);
 
 
@@ -115,6 +117,11 @@ private:
 private:
 
     void UpdateStatistics();
+
+private:
+
+    void SendRoomDeletedMessageToQuery(uint32_t roomID);
+    void SendRoomAddedMessageToQuery(uint32_t roomID);
 
 private:
 
