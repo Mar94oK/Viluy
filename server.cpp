@@ -409,10 +409,19 @@ bool Server::RemoveConnectionFromQuery(int socketDescriptor)
     {
         if (_query[var]->socket()->socketDescriptor() == socketDescriptor)
         {
-            delete _query[var];
+
+            //It has been an error!!! =))))
+            //Not so good idea to use raw pointers, nontheless, don't spend much time
+            // I should work more on GameMechanics sooner. At least, this week (19.11.2018 today)
+            // So, nevermind.There is the only place where I do remove connections. I know the
+            // order of removing.
+            //            if (_query[var] != nullptr)
+            //                delete _query[var];
             //        NAY-001: MARK_EXPECTED_ERROR
             //When I delete here the Connection* since it is the same like in all the other places, an erro may appear;
             _query.erase(_query.begin() + var);
+            emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in query) " + QString::number(var)
+                                       + " has been successfully deleted! ");
             return true;
         }
     }
@@ -674,31 +683,49 @@ void Server::SlotClientConnectionIsClosing(long long ID)
     if (connection->socket()->state() != QAbstractSocket::SocketState::ConnectedState)
     {
         qDebug() << "NAY-001: Processing exclusion of unconnected socket.";
+
+
+        //Delete from Query:
+        qDebug() << "NAY-001: Satring remove from query..";
+        if (RemoveConnectionFromQuery(CLOSED_SOCKET_DESCRIPTOR))
+        {
+            --_querySize;
+            UpdateStatistics();
+            qDebug() << "NAY-001: After minusig query and update stsatistics..";
+            emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in query) " + QString::number(connection->socket()->socketDescriptor())
+                                       + " has been successfully deleted! ");
+        }
+        else
+        {
+            emit SignalServerLogReport("NAY-001: Error while Removing Connection: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
+                                       + "  from Query.");
+        }
+        //Delete from Rooms:
         if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))
         {
-            if (RemoveConnectionFromQuery(CLOSED_SOCKET_DESCRIPTOR))
-            {
-                --_querySize;
-                UpdateStatistics();
-                for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
-                {
-                    if (_establishedConnections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
-                    {
-                        delete _establishedConnections[var];
-                        //should also delete here from queue
+            emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in room) " + QString::number(connection->socket()->socketDescriptor())
+                                       + " has been successfully deleted! ");
+        }
+        else
+        {
+            emit SignalServerLogReport("NAY-001: Error while Removing Connection with scoketId: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
+                                       + " from Room.");
+        }
 
-                        _establishedConnections.erase(_establishedConnections.begin() + var);
-                        --_activeConnections;
-                        UpdateStatistics();
-                        emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
-                                                   + " has been successfully deleted! ");
-                        return;
-                    }
-                }
+        //Delete from Established Connections (Only here is actual deleting process!):
+        for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
+        {
+            if (_establishedConnections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
+            {
+                delete _establishedConnections[var];
+                //should also delete here from queue
+                _establishedConnections.erase(_establishedConnections.begin() + var);
+                --_activeConnections;
+                UpdateStatistics();
+                emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)
+                                           + " has been successfully deleted! ");
             }
         }
-        emit SignalServerLogReport("NAY-001: Error while Removing Connection with scoketId: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
-                                   + " from Room.");
     }
 
 }
@@ -1125,7 +1152,7 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
                 ++_querySize;
                 UpdateStatistics();
                 qDebug() << "NAY-001 : Connection was added to Query at position: " << _query.size();
-                emit SignalServerLogReport("NAY-001: No free space in query! Size: " + QString::number(_query.size()));
+                emit SignalServerLogReport("NAY-001: Connection was added to Query at position: " + QString::number(_query.size()));
                 connection->setOutgoingDataBuffer(FormClientConnectionToRoomReply(true,
                                                                                   FreeSlotsLeft(),
                                                                                   roomIDs,
