@@ -297,6 +297,12 @@ QByteArray Server::FormServerRoomChangesInSelectableList(uint32_t roomId, bool d
         room->set_roomid(givenRoom->id());
         room->set_players(givenRoom->numberOfPlayers());
     }
+    else
+    {
+        serverMessageSystem::CreatedRoom *room = message.mutable_room();
+        Room* givenRoom = DefineRoom(roomId);
+        room->set_roomid(givenRoom->id());
+    }
 
     QByteArray block;
     block.resize(message.ByteSize());
@@ -379,7 +385,7 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
 
                 //    NAY-001: MARK_EXPECTED_ERROR
                 //Here should be sure that id is still valid.
-                SendRoomDeletedMessageToQuery(room->id());
+                 SendRoomDeletedMessageToQuery(room->id());
                  uint32_t id = room->id();
                 if (RoomDeleting(room->id()))
                 {
@@ -824,6 +830,7 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
 //        _id(id), _name(name), _numberOfPlayers(numberOfPLayers), _gameSettings(settings)
 
         //ROOM_ID_DEFINITION
+
         Room* newRoom = new Room(_rooms.size() + 1,
                                  QString::fromStdString(message.roomname()),
                                  1,
@@ -833,6 +840,7 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
                                  );
 
         _rooms.push_back(newRoom);
+        emit SignalServerLogReport("NAY-001: Creted room with ID: " + QString::number(_rooms.back()->id()));
         ++_roomsArePreparingToGame;
         ++_roomsCreatedDuringSession;
         UpdateStatistics();
