@@ -325,6 +325,7 @@ QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32
     //них соответсвующие методы и т.д.
     for (uint32_t var = 0; var < _rooms.size(); ++var)
     {
+        message.add_room();
         serverMessageSystem::CreatedRoom *room = message.mutable_room(var);
         room->set_players(_rooms[var]->numberOfPlayers());
         room->set_roomid(_rooms[var]->id());
@@ -691,7 +692,6 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         {
             --_querySize;
             UpdateStatistics();
-            qDebug() << "NAY-001: After minusig query and update stsatistics..";
             emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in query) " + QString::number(connection->socket()->socketDescriptor())
                                        + " has been successfully deleted! ");
         }
