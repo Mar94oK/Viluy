@@ -337,7 +337,18 @@ QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32
         room->set_roomid(_rooms[var]->id());
         room->set_maximumnumberofplayers(_rooms[var]->gameSettings().maximumNumberOfPlayers());
         room->set_roomname(_rooms[var]->name().toUtf8().constData());
+
+        for (uint32_t y = 0; y < _rooms[var]->players().size(); ++y)
+        {
+            room->add_player();
+            serverMessageSystem::Player *newPlayer(room->mutable_player(y));
+            newPlayer->set_playerid(y);
+            newPlayer->set_playername(_rooms[var]->players()[y].name().toUtf8().constData());
+
+        }
     }
+
+
 
     QByteArray block;
     block.resize(message.ByteSize());
