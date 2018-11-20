@@ -98,6 +98,13 @@ message RoomCreationErrors
     bool incorrectSettings = 3;
 }
 
+message Player
+{
+    string playerName = 1; // player name
+    uint32 playerID = 2; // 0 - Leader
+}
+
+
 // CreatedRoom (Sub-Message, DO NOT USE for sending)
 message CreatedRoom
 {
@@ -105,6 +112,7 @@ message CreatedRoom
     string roomName = 2;
     uint32 players = 3;
     uint32 maximumNumberOfPlayers = 4;
+    repeated Player player = 5;
 }
 
 //#1 Idea: Check whether server is ready to work...
@@ -229,5 +237,8 @@ message ServerClientWantedToEnterTheRoomReply
     CommonHeader header = 1;                        //allways included
     ConnectionSubSysCommandsID connectionCmdID = 2; //command ID
     bool entranceAllowed = 3;                       //Allowed or Rejected
+    string masterName = 4;
+    CreatedRoom room = 5;                           //Room to be joined - for the GUI to draw it.
+    GameSettings settings = 6;                      //Settings selected by user, created the room
 }
 

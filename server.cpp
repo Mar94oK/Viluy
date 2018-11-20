@@ -236,7 +236,7 @@ QByteArray Server::FormClientRoomCreationReply(bool created, unsigned int slotId
 
 }
 
-QByteArray Server::FromServerReportsOpponentIsEnteringRoom(const QString &opponentName, uint32_t roomId)
+QByteArray Server::FormServerReportsOpponentIsEnteringRoom(const QString &opponentName, uint32_t roomId)
 {
     serverMessageSystem::ServerReportsOpponentIsEnteringRoom message;
     serverMessageSystem::CommonHeader *header = message.mutable_header();
@@ -343,6 +343,60 @@ QByteArray Server::FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32
     block.resize(message.ByteSize());
     message.SerializeToArray(block.data(), block.size());
     qDebug() << "NAY-001: Serialized FormClientConnectionToRoomReply is ready.";
+    return block;
+}
+
+QByteArray Server::FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bool entranceAllowed)
+{
+    serverMessageSystem::ServerClientWantedToEnterTheRoomReply message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY);
+
+    Room* currentRoom = DefineRoom(roomId);
+    if (currentRoom == nullptr)
+    {
+        qDebug() << "NAY-001: Error while FormServerClientWantedToEnterTheRoomReply().";
+        message.set_entranceallowed(entranceAllowed);
+    }
+    else
+    {
+        message.set_entranceallowed(entranceAllowed);
+        message.set_mastername(currentRoom->players()[0].name().toUtf8().constData());
+        serverMessageSystem::CreatedRoom *createdRoom(message.mutable_room());
+        createdRoom->set_maximumnumberofplayers(currentRoom->gameSettings().maximumNumberOfPlayers());
+        createdRoom->set_roomid(roomId);
+        createdRoom->set_roomname(currentRoom->name().toUtf8().constData());
+        createdRoom->set_players(currentRoom->numberOfPlayers());
+        for (uint32_t var = 0; var < currentRoom->players().size(); ++var)
+        {
+            createdRoom->add_player();
+            serverMessageSystem::Player *newPlayer(createdRoom->mutable_player(var));
+            newPlayer->set_playerid(var);
+            newPlayer->set_playername(currentRoom->players()[var].name().toUtf8().constData());
+
+        }
+
+        serverMessageSystem::GameSettings *settings(message.mutable_settings());
+        settings->set_settingscorrectionallowed(currentRoom->gameSettings().settingsCorrectionAllowed());
+        settings->set_maximumnumberofplayers(currentRoom->gameSettings().maximumNumberOfPlayers());
+        serverMessageSystem::GameType *gameType(settings->mutable_gametype());
+        gameType->set_hasaddonwildaxe(currentRoom->gameSettings().hasAddonWildAxe());
+        gameType->set_hasaddonclericalerrors(currentRoom->gameSettings().hasAddonClericalErrors());
+        gameType->set_rulestype(serverMessageSystem::RulesType::Automatic);
+
+        serverMessageSystem::TimeSettings *timeSettings(settings->mutable_timesettings());
+        timeSettings->set_diplomacytime(currentRoom->gameSettings().diplomacyTime());
+        timeSettings->set_timeforopponentsdecision(currentRoom->gameSettings().timeForOpponentsDecision());
+        timeSettings->set_timetothink(currentRoom->gameSettings().timeToThink());
+        timeSettings->set_totaltimetomove(currentRoom->gameSettings().totalTimeToMove());
+    }
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: Serialized FormServerClientWantedToEnterTheRoomReply is ready.";
     return block;
 }
 
@@ -750,7 +804,7 @@ void Server::DebugSlotSendReportsOpponentIsEnteringRoom(uint32_t roomId)
 
     QString opponentName = "TheVeryFirstOpponent";
 
-    (room->connections())[MASTER_CONNECTION_ID]->setOutgoingDataBuffer(FromServerReportsOpponentIsEnteringRoom(opponentName, roomId));
+    (room->connections())[MASTER_CONNECTION_ID]->setOutgoingDataBuffer(FormServerReportsOpponentIsEnteringRoom(opponentName, roomId));
     unsigned int socketDescriptor = (room->connections())[MASTER_CONNECTION_ID]->socket()->socketDescriptor();
     emit SignalConnectionSendOutgoingData(socketDescriptor);
     emit SignalServerLogReport("NAY-001: DebugSlotSendReportsOpponentIsEnteringRoom to socket #" + QString::number(socketDescriptor));
@@ -1185,5 +1239,87 @@ void Server::ProcessClientConnectionToRoomRequest(const QByteArray &data, int so
     Connection* connection = DefineConnection(socketDescriptor);
     emit SignalServerLogReport("NAY-001: ClientConnectionToRoomReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
     emit SignalConnectionSendOutgoingData(socketDescriptor);
+
+}
+
+void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ClientWantedToEnterTheRoom message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-001: Error while ProcessClientWantedToEnterTheRoom() ");
+        return;
+    }
+
+    qDebug() << "NAY-001: ClientWantedToEnterTheRoom: ClientName: " << QString::fromStdString(message.clientname());
+    qDebug() << "NAY-001: ClientWantedToEnterTheRoom: RoomID: " << QString::number(message.roomid());
+
+
+    //First of all, check the roomID:
+    Room* currentRoom = DefineRoom(message.roomid());
+    if (currentRoom == nullptr) //not found
+    {
+        qDebug() << "NAY-001: Room with ID: " << QString::number(message.roomid()) << " not Found!";
+        emit SignalServerLogReport("NAY-001: Error while ProcessClientWantedToEnterTheRoom(). Room not found!");
+        Connection* currentConnection = DefineConnection(socketDescriptor);
+        //NAY-001: MARK_EXPECTED_ERROR
+        //SHOULD WORK WITH NULLPTR for Room
+        currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),false));
+        return; //no such room
+    }
+
+    //Check if there is an empty slot for entering:
+    if (!currentRoom->PlayersLeft()) //no free space
+    {
+        qDebug() << "NAY-001: Room with ID: " << QString::number(message.roomid()) << " not Found!";
+        emit SignalServerLogReport("NAY-001: Error while ProcessClientWantedToEnterTheRoom(). Room not found!");
+        Connection* currentConnection = DefineConnection(socketDescriptor);
+        currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),false));
+        return; //no such room
+    }
+
+    //If there is room and there are empty slots:
+    //Add the user to the room:
+    currentRoom->AddUserToTheRoom(Player(QString::fromStdString(message.clientname())),
+                                  DefineConnection(socketDescriptor));
+
+    //Send the Entrance allowance:
+    Connection* currentConnection = DefineConnection(socketDescriptor);
+    currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),true));
+    //Send Broadcast Message ServerReportsOpponentIsEnteringRoom
+
+    foreach (Connection* connection, currentRoom->connections())
+    {
+        connection->setOutgoingDataBuffer(FormServerReportsOpponentIsEnteringRoom(QString::fromStdString(message.clientname()),message.roomid()));
+        emit SignalServerLogReport("NAY-001: ServerReportsOpponentIsEnteringRoom to socket #" + QString::number(connection->socket()->socketDescriptor()));
+        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+    }
+
+    //MayBe also send Chart message:
+    foreach (Connection* connection, currentRoom->connections())
+    {
+        connection->setOutgoingDataBuffer(FormChartMessage("Client #" + QString::number(currentRoom->players().size() - 1),
+                                                           _settings.serverName(),
+                                                           currentRoom->id()));
+        emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
+    }
+
+
+    //then check if the room is full:
+    if (!currentRoom->PlayersLeft())
+    {
+        //If it is, send start the Game Process (TheGameIsAboutToStartMessage);
+        qDebug() << "NAY-001: The room is full! The Game is about ot start!";
+        currentRoom->SetIsPlaying();
+        emit SignalServerLogReport("NAY-001: The room with ID:" + QString::number(currentRoom->id()) + " has been started playing!");
+
+        //Send here TheGameIsAboutToStartMessage as a broadcast.
+    }
+
+
+
+
 
 }

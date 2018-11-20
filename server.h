@@ -77,15 +77,18 @@ private:
     void ProcessClientRoomCreationRequest(const QByteArray &data, int socketDescriptor);
     void ProcessChartMessage(const QByteArray &data, int socketDescriptor);
     void ProcessClientConnectionToRoomRequest(const QByteArray &data, int socketDescriptor);
+    void ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socketDescriptor);
 
 
     QByteArray FormServerInputQueryReply();
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
-    QByteArray FromServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
+    QByteArray FormServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
     QByteArray FormChartMessage(const QString& message, const QString& sender, uint32_t roomID);
     QByteArray FormServerRoomChangesInSelectableList(uint32_t roomId, bool deleteUpdateFlag);
 
     QByteArray FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder);
+
+    QByteArray FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bool entranceAllowed);
 
     Connection* DefineConnection(int socketDescriptor);
 

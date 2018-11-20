@@ -56,7 +56,12 @@ public:
     uint32_t id() const;
     void setId(const uint32_t &id);
 
-    unsigned int PlayersLeft() { return _connections.size(); }
+
+    //NAY-001: MARK_EXPECTED_ERROR
+    //So many ideas how to define these values.
+    //So I should be very accurate while forming an maintaning all of them!
+    uint32_t PlayersLeft()
+    { return _gameSettings.maximumNumberOfPlayers() - _numberOfPlayers; }
 
     void SetIsPlaying() { _isPlaying = true; }
     bool GetIsPlaying() const { return _isPlaying; }
@@ -66,6 +71,8 @@ public:
 
     QString name() const;
     void setName(const QString &name);
+
+    void AddUserToTheRoom(Player player, Connection* connection);
 
 private:
 

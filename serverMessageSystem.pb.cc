@@ -17,10 +17,11 @@
 #include <google/protobuf/port_def.inc>
 
 extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_CommonHeader_serverMessageSystem_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_CreatedRoom_serverMessageSystem_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GameType_serverMessageSystem_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Player_serverMessageSystem_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_RoomCreationErrors_serverMessageSystem_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_TimeSettings_serverMessageSystem_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_CreatedRoom_serverMessageSystem_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_serverMessageSystem_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_GameSettings_serverMessageSystem_2eproto;
 namespace serverMessageSystem {
 class CommonHeaderDefaultTypeInternal {
@@ -43,6 +44,10 @@ class RoomCreationErrorsDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<RoomCreationErrors> _instance;
 } _RoomCreationErrors_default_instance_;
+class PlayerDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<Player> _instance;
+} _Player_default_instance_;
 class CreatedRoomDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<CreatedRoom> _instance;
@@ -172,6 +177,20 @@ static void InitDefaultsRoomCreationErrors_serverMessageSystem_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_RoomCreationErrors_serverMessageSystem_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsRoomCreationErrors_serverMessageSystem_2eproto}, {}};
 
+static void InitDefaultsPlayer_serverMessageSystem_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::serverMessageSystem::_Player_default_instance_;
+    new (ptr) ::serverMessageSystem::Player();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::serverMessageSystem::Player::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_Player_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsPlayer_serverMessageSystem_2eproto}, {}};
+
 static void InitDefaultsCreatedRoom_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -183,8 +202,9 @@ static void InitDefaultsCreatedRoom_serverMessageSystem_2eproto() {
   ::serverMessageSystem::CreatedRoom::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_CreatedRoom_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsCreatedRoom_serverMessageSystem_2eproto}, {}};
+::google::protobuf::internal::SCCInfo<1> scc_info_CreatedRoom_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsCreatedRoom_serverMessageSystem_2eproto}, {
+      &scc_info_Player_serverMessageSystem_2eproto.base,}};
 
 static void InitDefaultsServerInputQuery_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -381,9 +401,11 @@ static void InitDefaultsServerClientWantedToEnterTheRoomReply_serverMessageSyste
   ::serverMessageSystem::ServerClientWantedToEnterTheRoomReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_ServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto}, {
-      &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
+::google::protobuf::internal::SCCInfo<3> scc_info_ServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto}, {
+      &scc_info_CommonHeader_serverMessageSystem_2eproto.base,
+      &scc_info_CreatedRoom_serverMessageSystem_2eproto.base,
+      &scc_info_GameSettings_serverMessageSystem_2eproto.base,}};
 
 void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_CommonHeader_serverMessageSystem_2eproto.base);
@@ -391,6 +413,7 @@ void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_GameType_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_GameSettings_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_RoomCreationErrors_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Player_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_CreatedRoom_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerInputQuery_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerQueryReply_serverMessageSystem_2eproto.base);
@@ -407,7 +430,7 @@ void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_ServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[19];
+::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[20];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_serverMessageSystem_2eproto[5];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_serverMessageSystem_2eproto = nullptr;
 
@@ -454,6 +477,13 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::RoomCreationErrors, rulesarenotsupported_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::RoomCreationErrors, incorrectsettings_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::Player, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::Player, playername_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::Player, playerid_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -462,6 +492,7 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, roomname_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, players_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, maximumnumberofplayers_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::CreatedRoom, player_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerInputQuery, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -584,6 +615,9 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, header_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, connectioncmdid_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, entranceallowed_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, mastername_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, room_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, settings_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -591,20 +625,21 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 16, -1, sizeof(::serverMessageSystem::GameType)},
   { 24, -1, sizeof(::serverMessageSystem::GameSettings)},
   { 33, -1, sizeof(::serverMessageSystem::RoomCreationErrors)},
-  { 41, -1, sizeof(::serverMessageSystem::CreatedRoom)},
-  { 50, -1, sizeof(::serverMessageSystem::ServerInputQuery)},
-  { 59, -1, sizeof(::serverMessageSystem::ServerQueryReply)},
-  { 69, -1, sizeof(::serverMessageSystem::ClientRoomCreationRequest)},
-  { 79, -1, sizeof(::serverMessageSystem::ClientRoomCreationReply)},
-  { 90, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomRequest)},
-  { 100, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomReply)},
-  { 112, -1, sizeof(::serverMessageSystem::ServerQueryOrderNotification)},
-  { 120, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
-  { 129, -1, sizeof(::serverMessageSystem::ChartMessage)},
-  { 139, -1, sizeof(::serverMessageSystem::DefaultMessage)},
-  { 146, -1, sizeof(::serverMessageSystem::ServerRoomChangesInSelectableList)},
-  { 155, -1, sizeof(::serverMessageSystem::ClientWantedToEnterTheRoom)},
-  { 164, -1, sizeof(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply)},
+  { 41, -1, sizeof(::serverMessageSystem::Player)},
+  { 48, -1, sizeof(::serverMessageSystem::CreatedRoom)},
+  { 58, -1, sizeof(::serverMessageSystem::ServerInputQuery)},
+  { 67, -1, sizeof(::serverMessageSystem::ServerQueryReply)},
+  { 77, -1, sizeof(::serverMessageSystem::ClientRoomCreationRequest)},
+  { 87, -1, sizeof(::serverMessageSystem::ClientRoomCreationReply)},
+  { 98, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomRequest)},
+  { 108, -1, sizeof(::serverMessageSystem::ClientConnectionToRoomReply)},
+  { 120, -1, sizeof(::serverMessageSystem::ServerQueryOrderNotification)},
+  { 128, -1, sizeof(::serverMessageSystem::ServerReportsOpponentIsEnteringRoom)},
+  { 137, -1, sizeof(::serverMessageSystem::ChartMessage)},
+  { 147, -1, sizeof(::serverMessageSystem::DefaultMessage)},
+  { 154, -1, sizeof(::serverMessageSystem::ServerRoomChangesInSelectableList)},
+  { 163, -1, sizeof(::serverMessageSystem::ClientWantedToEnterTheRoom)},
+  { 172, -1, sizeof(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -613,6 +648,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_GameType_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_GameSettings_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_RoomCreationErrors_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_Player_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_CreatedRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerInputQuery_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerQueryReply_default_instance_),
@@ -632,7 +668,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_serverMessageSystem_2eproto = {
   {}, AddDescriptors_serverMessageSystem_2eproto, "serverMessageSystem.proto", schemas,
   file_default_instances, TableStruct_serverMessageSystem_2eproto::offsets,
-  file_level_metadata_serverMessageSystem_2eproto, 19, file_level_enum_descriptors_serverMessageSystem_2eproto, file_level_service_descriptors_serverMessageSystem_2eproto,
+  file_level_metadata_serverMessageSystem_2eproto, 20, file_level_enum_descriptors_serverMessageSystem_2eproto, file_level_service_descriptors_serverMessageSystem_2eproto,
 };
 
 ::google::protobuf::internal::DescriptorTable descriptor_table_serverMessageSystem_2eproto = {
@@ -653,99 +689,105 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   "yers\030\003 \001(\r\022!\n\031settingsCorrectionAllowed\030"
   "\004 \001(\010\"k\n\022RoomCreationErrors\022\034\n\024noFreeSlo"
   "tsAvailable\030\001 \001(\010\022\034\n\024rulesAreNotSupporte"
-  "d\030\002 \001(\010\022\031\n\021incorrectSettings\030\003 \001(\010\"`\n\013Cr"
-  "eatedRoom\022\016\n\006roomID\030\001 \001(\r\022\020\n\010roomName\030\002 "
-  "\001(\t\022\017\n\007players\030\003 \001(\r\022\036\n\026maximumNumberOfP"
-  "layers\030\004 \001(\r\"\263\001\n\020ServerInputQuery\0221\n\006hea"
-  "der\030\001 \001(\0132!.serverMessageSystem.CommonHe"
-  "ader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMe"
-  "ssageSystem.ConnectionSubSysCommandsID\022\022"
-  "\n\nclientName\030\003 \001(\t\022\016\n\006OsType\030\004 \001(\t\"\341\001\n\020S"
-  "erverQueryReply\0221\n\006header\030\001 \001(\0132!.server"
-  "MessageSystem.CommonHeader\022H\n\017connection"
-  "CmdID\030\002 \001(\0162/.serverMessageSystem.Connec"
-  "tionSubSysCommandsID\022\033\n\023roomCreationAllo"
-  "wed\030\003 \001(\010\022\037\n\027connectionToRoomAllowed\030\004 \001"
-  "(\010\022\022\n\nserverName\030\005 \001(\t\"\367\001\n\031ClientRoomCre"
-  "ationRequest\0221\n\006header\030\001 \001(\0132!.serverMes"
-  "sageSystem.CommonHeader\022H\n\017connectionCmd"
-  "ID\030\002 \001(\0162/.serverMessageSystem.Connectio"
-  "nSubSysCommandsID\022\022\n\nclientName\030\003 \001(\t\022\020\n"
-  "\010roomName\030\004 \001(\t\0227\n\014gameSettings\030\005 \001(\0132!."
-  "serverMessageSystem.GameSettings\"\235\002\n\027Cli"
-  "entRoomCreationReply\0221\n\006header\030\001 \001(\0132!.s"
-  "erverMessageSystem.CommonHeader\022H\n\017conne"
-  "ctionCmdID\030\002 \001(\0162/.serverMessageSystem.C"
-  "onnectionSubSysCommandsID\022\031\n\021connectionA"
-  "llowed\030\003 \001(\010\022\016\n\006slotID\030\004 \001(\r\022\025\n\rfreeSlot"
-  "sLeft\030\005 \001(\r\022C\n\022roomCreationErrors\030\006 \001(\0132"
-  "\'.serverMessageSystem.RoomCreationErrors"
-  "\"\337\001\n\035ClientConnectionToRoomRequest\0221\n\006he"
+  "d\030\002 \001(\010\022\031\n\021incorrectSettings\030\003 \001(\010\".\n\006Pl"
+  "ayer\022\022\n\nplayerName\030\001 \001(\t\022\020\n\010playerID\030\002 \001"
+  "(\r\"\215\001\n\013CreatedRoom\022\016\n\006roomID\030\001 \001(\r\022\020\n\010ro"
+  "omName\030\002 \001(\t\022\017\n\007players\030\003 \001(\r\022\036\n\026maximum"
+  "NumberOfPlayers\030\004 \001(\r\022+\n\006player\030\005 \003(\0132\033."
+  "serverMessageSystem.Player\"\263\001\n\020ServerInp"
+  "utQuery\0221\n\006header\030\001 \001(\0132!.serverMessageS"
+  "ystem.CommonHeader\022H\n\017connectionCmdID\030\002 "
+  "\001(\0162/.serverMessageSystem.ConnectionSubS"
+  "ysCommandsID\022\022\n\nclientName\030\003 \001(\t\022\016\n\006OsTy"
+  "pe\030\004 \001(\t\"\341\001\n\020ServerQueryReply\0221\n\006header\030"
+  "\001 \001(\0132!.serverMessageSystem.CommonHeader"
+  "\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMessag"
+  "eSystem.ConnectionSubSysCommandsID\022\033\n\023ro"
+  "omCreationAllowed\030\003 \001(\010\022\037\n\027connectionToR"
+  "oomAllowed\030\004 \001(\010\022\022\n\nserverName\030\005 \001(\t\"\367\001\n"
+  "\031ClientRoomCreationRequest\0221\n\006header\030\001 \001"
+  "(\0132!.serverMessageSystem.CommonHeader\022H\n"
+  "\017connectionCmdID\030\002 \001(\0162/.serverMessageSy"
+  "stem.ConnectionSubSysCommandsID\022\022\n\nclien"
+  "tName\030\003 \001(\t\022\020\n\010roomName\030\004 \001(\t\0227\n\014gameSet"
+  "tings\030\005 \001(\0132!.serverMessageSystem.GameSe"
+  "ttings\"\235\002\n\027ClientRoomCreationReply\0221\n\006he"
   "ader\030\001 \001(\0132!.serverMessageSystem.CommonH"
   "eader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverM"
   "essageSystem.ConnectionSubSysCommandsID\022"
-  "\022\n\nclientName\030\003 \001(\t\022\030\n\020connectToAnyRoom\030"
-  "\004 \001(\010\022\023\n\013agreeToWait\030\005 \001(\010\"\242\002\n\033ClientCon"
-  "nectionToRoomReply\0221\n\006header\030\001 \001(\0132!.ser"
-  "verMessageSystem.CommonHeader\022H\n\017connect"
-  "ionCmdID\030\002 \001(\0162/.serverMessageSystem.Con"
-  "nectionSubSysCommandsID\022\030\n\020noRoomsAvaila"
-  "ble\030\003 \001(\010\022\025\n\rfreeSlotsLeft\030\004 \001(\r\022.\n\004room"
-  "\030\005 \003(\0132 .serverMessageSystem.CreatedRoom"
-  "\022\022\n\nqueryOrder\030\006 \001(\r\022\021\n\tquerySize\030\007 \001(\r\""
-  "\257\001\n\034ServerQueryOrderNotification\0221\n\006head"
+  "\031\n\021connectionAllowed\030\003 \001(\010\022\016\n\006slotID\030\004 \001"
+  "(\r\022\025\n\rfreeSlotsLeft\030\005 \001(\r\022C\n\022roomCreatio"
+  "nErrors\030\006 \001(\0132\'.serverMessageSystem.Room"
+  "CreationErrors\"\337\001\n\035ClientConnectionToRoo"
+  "mRequest\0221\n\006header\030\001 \001(\0132!.serverMessage"
+  "System.CommonHeader\022H\n\017connectionCmdID\030\002"
+  " \001(\0162/.serverMessageSystem.ConnectionSub"
+  "SysCommandsID\022\022\n\nclientName\030\003 \001(\t\022\030\n\020con"
+  "nectToAnyRoom\030\004 \001(\010\022\023\n\013agreeToWait\030\005 \001(\010"
+  "\"\242\002\n\033ClientConnectionToRoomReply\0221\n\006head"
   "er\030\001 \001(\0132!.serverMessageSystem.CommonHea"
   "der\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMes"
-  "sageSystem.ConnectionSubSysCommandsID\022\022\n"
-  "\nqueryOrder\030\003 \001(\r\"\310\001\n#ServerReportsOppon"
-  "entIsEnteringRoom\0221\n\006header\030\001 \001(\0132!.serv"
-  "erMessageSystem.CommonHeader\022H\n\017connecti"
-  "onCmdID\030\002 \001(\0162/.serverMessageSystem.Conn"
-  "ectionSubSysCommandsID\022\024\n\014opponentName\030\003"
-  " \001(\t\022\016\n\006roomID\030\004 \001(\r\"\273\001\n\014ChartMessage\0221\n"
-  "\006header\030\001 \001(\0132!.serverMessageSystem.Comm"
-  "onHeader\022>\n\nchartCmdID\030\002 \001(\0162*.serverMes"
-  "sageSystem.ChartSubSysCommandsID\022\022\n\nsend"
-  "erName\030\003 \001(\t\022\024\n\014chartMessage\030\004 \001(\t\022\016\n\006ro"
-  "omID\030\005 \001(\r\"\203\001\n\016DefaultMessage\0221\n\006header\030"
+  "sageSystem.ConnectionSubSysCommandsID\022\030\n"
+  "\020noRoomsAvailable\030\003 \001(\010\022\025\n\rfreeSlotsLeft"
+  "\030\004 \001(\r\022.\n\004room\030\005 \003(\0132 .serverMessageSyst"
+  "em.CreatedRoom\022\022\n\nqueryOrder\030\006 \001(\r\022\021\n\tqu"
+  "erySize\030\007 \001(\r\"\257\001\n\034ServerQueryOrderNotifi"
+  "cation\0221\n\006header\030\001 \001(\0132!.serverMessageSy"
+  "stem.CommonHeader\022H\n\017connectionCmdID\030\002 \001"
+  "(\0162/.serverMessageSystem.ConnectionSubSy"
+  "sCommandsID\022\022\n\nqueryOrder\030\003 \001(\r\"\310\001\n#Serv"
+  "erReportsOpponentIsEnteringRoom\0221\n\006heade"
+  "r\030\001 \001(\0132!.serverMessageSystem.CommonHead"
+  "er\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMess"
+  "ageSystem.ConnectionSubSysCommandsID\022\024\n\014"
+  "opponentName\030\003 \001(\t\022\016\n\006roomID\030\004 \001(\r\"\273\001\n\014C"
+  "hartMessage\0221\n\006header\030\001 \001(\0132!.serverMess"
+  "ageSystem.CommonHeader\022>\n\nchartCmdID\030\002 \001"
+  "(\0162*.serverMessageSystem.ChartSubSysComm"
+  "andsID\022\022\n\nsenderName\030\003 \001(\t\022\024\n\014chartMessa"
+  "ge\030\004 \001(\t\022\016\n\006roomID\030\005 \001(\r\"\203\001\n\016DefaultMess"
+  "age\0221\n\006header\030\001 \001(\0132!.serverMessageSyste"
+  "m.CommonHeader\022>\n\nchartCmdID\030\002 \001(\0162*.ser"
+  "verMessageSystem.ChartSubSysCommandsID\"\355"
+  "\001\n!ServerRoomChangesInSelectableList\0221\n\006"
+  "header\030\001 \001(\0132!.serverMessageSystem.Commo"
+  "nHeader\022\033\n\023deletedOrUpdateFlag\030\002 \001(\010\022H\n\017"
+  "connectionCmdID\030\003 \001(\0162/.serverMessageSys"
+  "tem.ConnectionSubSysCommandsID\022.\n\004room\030\004"
+  " \001(\0132 .serverMessageSystem.CreatedRoom\"\275"
+  "\001\n\032ClientWantedToEnterTheRoom\0221\n\006header\030"
   "\001 \001(\0132!.serverMessageSystem.CommonHeader"
-  "\022>\n\nchartCmdID\030\002 \001(\0162*.serverMessageSyst"
-  "em.ChartSubSysCommandsID\"\355\001\n!ServerRoomC"
-  "hangesInSelectableList\0221\n\006header\030\001 \001(\0132!"
-  ".serverMessageSystem.CommonHeader\022\033\n\023del"
-  "etedOrUpdateFlag\030\002 \001(\010\022H\n\017connectionCmdI"
-  "D\030\003 \001(\0162/.serverMessageSystem.Connection"
-  "SubSysCommandsID\022.\n\004room\030\004 \001(\0132 .serverM"
-  "essageSystem.CreatedRoom\"\275\001\n\032ClientWante"
-  "dToEnterTheRoom\0221\n\006header\030\001 \001(\0132!.server"
-  "MessageSystem.CommonHeader\022H\n\017connection"
-  "CmdID\030\002 \001(\0162/.serverMessageSystem.Connec"
-  "tionSubSysCommandsID\022\022\n\nclientName\030\003 \001(\t"
-  "\022\016\n\006roomID\030\004 \001(\r\"\275\001\n%ServerClientWantedT"
-  "oEnterTheRoomReply\0221\n\006header\030\001 \001(\0132!.ser"
-  "verMessageSystem.CommonHeader\022H\n\017connect"
-  "ionCmdID\030\002 \001(\0162/.serverMessageSystem.Con"
-  "nectionSubSysCommandsID\022\027\n\017entranceAllow"
-  "ed\030\003 \001(\010*&\n\tRulesType\022\r\n\tAutomatic\020\000\022\n\n\006"
-  "Manual\020\001*y\n\013SubSystemID\022\030\n\024CONNECTION_SU"
-  "BSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSYSTEM\020\001\022\037\n"
-  "\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022\023\n\017CHART_"
-  "SUBSYSTEM\020\003*\231\003\n\032ConnectionSubSysCommands"
-  "ID\022\036\n\032SERVER_INPUT_QUERY_REQUEST\020\000\022\034\n\030SE"
-  "RVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIENT_ROOM_"
-  "CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROOM_CREATI"
-  "ON_REPLY\020\003\022%\n!CLIENT_CONNECTION_TO_ROOM_"
-  "REQUEST\020\004\022#\n\037CLIENT_CONNECTION_TO_ROOM_R"
-  "EPLY\020\005\022,\n(SERVER_REPORTS_OPPONENT_IS_ENT"
-  "ERING_ROOM\020\006\022*\n&SERVER_ROOM_CHANGES_IN_S"
-  "ELECTABLE_LIST\020\007\022#\n\037CLIENT_WANTED_TO_ENT"
-  "ER_THE_ROOM\020\010\0220\n,SERVER_CLIENT_WANTED_TO"
-  "_ENTER_THE_ROOM_REPLY\020\t*B\n\025ChartSubSysCo"
-  "mmandsID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART_NOT"
-  "IFICATION\020\001*9\n\023GameCreationRequest\022\017\n\013Jo"
-  "inTheGame\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
+  "\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMessag"
+  "eSystem.ConnectionSubSysCommandsID\022\022\n\ncl"
+  "ientName\030\003 \001(\t\022\016\n\006roomID\030\004 \001(\r\"\266\002\n%Serve"
+  "rClientWantedToEnterTheRoomReply\0221\n\006head"
+  "er\030\001 \001(\0132!.serverMessageSystem.CommonHea"
+  "der\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMes"
+  "sageSystem.ConnectionSubSysCommandsID\022\027\n"
+  "\017entranceAllowed\030\003 \001(\010\022\022\n\nmasterName\030\004 \001"
+  "(\t\022.\n\004room\030\005 \001(\0132 .serverMessageSystem.C"
+  "reatedRoom\0223\n\010settings\030\006 \001(\0132!.serverMes"
+  "sageSystem.GameSettings*&\n\tRulesType\022\r\n\t"
+  "Automatic\020\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030"
+  "\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS"
+  "_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYS"
+  "TEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\231\003\n\032Connectio"
+  "nSubSysCommandsID\022\036\n\032SERVER_INPUT_QUERY_"
+  "REQUEST\020\000\022\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022"
+  " \n\034CLIENT_ROOM_CREATION_REQUEST\020\002\022\036\n\032CLI"
+  "ENT_ROOM_CREATION_REPLY\020\003\022%\n!CLIENT_CONN"
+  "ECTION_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNE"
+  "CTION_TO_ROOM_REPLY\020\005\022,\n(SERVER_REPORTS_"
+  "OPPONENT_IS_ENTERING_ROOM\020\006\022*\n&SERVER_RO"
+  "OM_CHANGES_IN_SELECTABLE_LIST\020\007\022#\n\037CLIEN"
+  "T_WANTED_TO_ENTER_THE_ROOM\020\010\0220\n,SERVER_C"
+  "LIENT_WANTED_TO_ENTER_THE_ROOM_REPLY\020\t*B"
+  "\n\025ChartSubSysCommandsID\022\021\n\rCHART_MESSAGE"
+  "\020\000\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameCreati"
+  "onRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateTheG"
+  "ame\020\001b\006proto3"
 ,
-  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 4278,
+  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 4493,
 };
 
 void AddDescriptors_serverMessageSystem_2eproto() {
@@ -2761,6 +2803,352 @@ void RoomCreationErrors::InternalSwap(RoomCreationErrors* other) {
 
 // ===================================================================
 
+void Player::InitAsDefaultInstance() {
+}
+class Player::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Player::kPlayerNameFieldNumber;
+const int Player::kPlayerIDFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Player::Player()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:serverMessageSystem.Player)
+}
+Player::Player(const Player& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  playername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.playername().size() > 0) {
+    playername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.playername_);
+  }
+  playerid_ = from.playerid_;
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.Player)
+}
+
+void Player::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Player_serverMessageSystem_2eproto.base);
+  playername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  playerid_ = 0u;
+}
+
+Player::~Player() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.Player)
+  SharedDtor();
+}
+
+void Player::SharedDtor() {
+  playername_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void Player::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Player& Player::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_Player_serverMessageSystem_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Player::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.Player)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  playername_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  playerid_ = 0u;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Player::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Player*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // string playerName = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("serverMessageSystem.Player.playerName");
+        parser_till_end = ::google::protobuf::internal::StringParserUTF8;
+        ::std::string* str = msg->mutable_playername();
+        str->clear();
+        object = str;
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+        break;
+      }
+      // uint32 playerID = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::google::protobuf::uint32 value = val;
+        msg->set_playerid(value);
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool Player::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.Player)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string playerName = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_playername()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->playername().data(), static_cast<int>(this->playername().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.Player.playerName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 playerID = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &playerid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.Player)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.Player)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void Player::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.Player)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string playerName = 1;
+  if (this->playername().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->playername().data(), static_cast<int>(this->playername().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.Player.playerName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->playername(), output);
+  }
+
+  // uint32 playerID = 2;
+  if (this->playerid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->playerid(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.Player)
+}
+
+::google::protobuf::uint8* Player::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.Player)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string playerName = 1;
+  if (this->playername().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->playername().data(), static_cast<int>(this->playername().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.Player.playerName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->playername(), target);
+  }
+
+  // uint32 playerID = 2;
+  if (this->playerid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->playerid(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.Player)
+  return target;
+}
+
+size_t Player::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.Player)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string playerName = 1;
+  if (this->playername().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->playername());
+  }
+
+  // uint32 playerID = 2;
+  if (this->playerid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->playerid());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Player::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.Player)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Player* source =
+      ::google::protobuf::DynamicCastToGenerated<Player>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.Player)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.Player)
+    MergeFrom(*source);
+  }
+}
+
+void Player::MergeFrom(const Player& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.Player)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.playername().size() > 0) {
+
+    playername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.playername_);
+  }
+  if (from.playerid() != 0) {
+    set_playerid(from.playerid());
+  }
+}
+
+void Player::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.Player)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Player::CopyFrom(const Player& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.Player)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Player::IsInitialized() const {
+  return true;
+}
+
+void Player::Swap(Player* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Player::InternalSwap(Player* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  playername_.Swap(&other->playername_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(playerid_, other->playerid_);
+}
+
+::google::protobuf::Metadata Player::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
+  return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 void CreatedRoom::InitAsDefaultInstance() {
 }
 class CreatedRoom::HasBitSetters {
@@ -2772,6 +3160,7 @@ const int CreatedRoom::kRoomIDFieldNumber;
 const int CreatedRoom::kRoomNameFieldNumber;
 const int CreatedRoom::kPlayersFieldNumber;
 const int CreatedRoom::kMaximumNumberOfPlayersFieldNumber;
+const int CreatedRoom::kPlayerFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 CreatedRoom::CreatedRoom()
@@ -2781,7 +3170,8 @@ CreatedRoom::CreatedRoom()
 }
 CreatedRoom::CreatedRoom(const CreatedRoom& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      player_(from.player_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   roomname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.roomname().size() > 0) {
@@ -2826,6 +3216,7 @@ void CreatedRoom::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  player_.Clear();
   roomname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&roomid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&maximumnumberofplayers_) -
@@ -2890,6 +3281,24 @@ const char* CreatedRoom::_InternalParse(const char* begin, const char* end, void
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ::google::protobuf::uint32 value = val;
         msg->set_maximumnumberofplayers(value);
+        break;
+      }
+      // repeated .serverMessageSystem.Player player = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        do {
+          ptr = Varint::Parse32Inline(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::serverMessageSystem::Player::_InternalParse;
+          object = msg->add_player();
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                         ptr, newend);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          ptr = newend;
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 42 && (ptr += 1));
         break;
       }
       default: {
@@ -2980,6 +3389,17 @@ bool CreatedRoom::MergePartialFromCodedStream(
         break;
       }
 
+      // repeated .serverMessageSystem.Player player = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_player()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -3032,6 +3452,15 @@ void CreatedRoom::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->maximumnumberofplayers(), output);
   }
 
+  // repeated .serverMessageSystem.Player player = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->player_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5,
+      this->player(static_cast<int>(i)),
+      output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -3072,6 +3501,14 @@ void CreatedRoom::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->maximumnumberofplayers(), target);
   }
 
+  // repeated .serverMessageSystem.Player player = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->player_size()); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        5, this->player(static_cast<int>(i)), deterministic, target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -3092,6 +3529,17 @@ size_t CreatedRoom::ByteSizeLong() const {
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .serverMessageSystem.Player player = 5;
+  {
+    unsigned int count = static_cast<unsigned int>(this->player_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->player(static_cast<int>(i)));
+    }
+  }
 
   // string roomName = 2;
   if (this->roomname().size() > 0) {
@@ -3148,6 +3596,7 @@ void CreatedRoom::MergeFrom(const CreatedRoom& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  player_.MergeFrom(from.player_);
   if (from.roomname().size() > 0) {
 
     roomname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomname_);
@@ -3188,6 +3637,7 @@ void CreatedRoom::Swap(CreatedRoom* other) {
 void CreatedRoom::InternalSwap(CreatedRoom* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  CastToBase(&player_)->InternalSwap(CastToBase(&other->player_));
   roomname_.Swap(&other->roomname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(roomid_, other->roomid_);
@@ -9084,20 +9534,37 @@ void ClientWantedToEnterTheRoom::InternalSwap(ClientWantedToEnterTheRoom* other)
 void ServerClientWantedToEnterTheRoomReply::InitAsDefaultInstance() {
   ::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
       ::serverMessageSystem::CommonHeader::internal_default_instance());
+  ::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_._instance.get_mutable()->room_ = const_cast< ::serverMessageSystem::CreatedRoom*>(
+      ::serverMessageSystem::CreatedRoom::internal_default_instance());
+  ::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_._instance.get_mutable()->settings_ = const_cast< ::serverMessageSystem::GameSettings*>(
+      ::serverMessageSystem::GameSettings::internal_default_instance());
 }
 class ServerClientWantedToEnterTheRoomReply::HasBitSetters {
  public:
   static const ::serverMessageSystem::CommonHeader& header(const ServerClientWantedToEnterTheRoomReply* msg);
+  static const ::serverMessageSystem::CreatedRoom& room(const ServerClientWantedToEnterTheRoomReply* msg);
+  static const ::serverMessageSystem::GameSettings& settings(const ServerClientWantedToEnterTheRoomReply* msg);
 };
 
 const ::serverMessageSystem::CommonHeader&
 ServerClientWantedToEnterTheRoomReply::HasBitSetters::header(const ServerClientWantedToEnterTheRoomReply* msg) {
   return *msg->header_;
 }
+const ::serverMessageSystem::CreatedRoom&
+ServerClientWantedToEnterTheRoomReply::HasBitSetters::room(const ServerClientWantedToEnterTheRoomReply* msg) {
+  return *msg->room_;
+}
+const ::serverMessageSystem::GameSettings&
+ServerClientWantedToEnterTheRoomReply::HasBitSetters::settings(const ServerClientWantedToEnterTheRoomReply* msg) {
+  return *msg->settings_;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ServerClientWantedToEnterTheRoomReply::kHeaderFieldNumber;
 const int ServerClientWantedToEnterTheRoomReply::kConnectionCmdIDFieldNumber;
 const int ServerClientWantedToEnterTheRoomReply::kEntranceAllowedFieldNumber;
+const int ServerClientWantedToEnterTheRoomReply::kMasterNameFieldNumber;
+const int ServerClientWantedToEnterTheRoomReply::kRoomFieldNumber;
+const int ServerClientWantedToEnterTheRoomReply::kSettingsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ServerClientWantedToEnterTheRoomReply::ServerClientWantedToEnterTheRoomReply()
@@ -9109,10 +9576,24 @@ ServerClientWantedToEnterTheRoomReply::ServerClientWantedToEnterTheRoomReply(con
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  mastername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.mastername().size() > 0) {
+    mastername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mastername_);
+  }
   if (from.has_header()) {
     header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
   } else {
     header_ = NULL;
+  }
+  if (from.has_room()) {
+    room_ = new ::serverMessageSystem::CreatedRoom(*from.room_);
+  } else {
+    room_ = NULL;
+  }
+  if (from.has_settings()) {
+    settings_ = new ::serverMessageSystem::GameSettings(*from.settings_);
+  } else {
+    settings_ = NULL;
   }
   ::memcpy(&connectioncmdid_, &from.connectioncmdid_,
     static_cast<size_t>(reinterpret_cast<char*>(&entranceallowed_) -
@@ -9123,6 +9604,7 @@ ServerClientWantedToEnterTheRoomReply::ServerClientWantedToEnterTheRoomReply(con
 void ServerClientWantedToEnterTheRoomReply::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_ServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto.base);
+  mastername_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&header_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&entranceallowed_) -
       reinterpret_cast<char*>(&header_)) + sizeof(entranceallowed_));
@@ -9134,7 +9616,10 @@ ServerClientWantedToEnterTheRoomReply::~ServerClientWantedToEnterTheRoomReply() 
 }
 
 void ServerClientWantedToEnterTheRoomReply::SharedDtor() {
+  mastername_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete header_;
+  if (this != internal_default_instance()) delete room_;
+  if (this != internal_default_instance()) delete settings_;
 }
 
 void ServerClientWantedToEnterTheRoomReply::SetCachedSize(int size) const {
@@ -9152,10 +9637,19 @@ void ServerClientWantedToEnterTheRoomReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  mastername_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
   header_ = NULL;
+  if (GetArenaNoVirtual() == NULL && room_ != NULL) {
+    delete room_;
+  }
+  room_ = NULL;
+  if (GetArenaNoVirtual() == NULL && settings_ != NULL) {
+    delete settings_;
+  }
+  settings_ = NULL;
   ::memset(&connectioncmdid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&entranceallowed_) -
       reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(entranceallowed_));
@@ -9208,6 +9702,52 @@ const char* ServerClientWantedToEnterTheRoomReply::_InternalParse(const char* be
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         bool value = val;
         msg->set_entranceallowed(value);
+        break;
+      }
+      // string masterName = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("serverMessageSystem.ServerClientWantedToEnterTheRoomReply.masterName");
+        parser_till_end = ::google::protobuf::internal::StringParserUTF8;
+        ::std::string* str = msg->mutable_mastername();
+        str->clear();
+        object = str;
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+        break;
+      }
+      // .serverMessageSystem.CreatedRoom room = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::serverMessageSystem::CreatedRoom::_InternalParse;
+        object = msg->mutable_room();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // .serverMessageSystem.GameSettings settings = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::serverMessageSystem::GameSettings::_InternalParse;
+        object = msg->mutable_settings();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
         break;
       }
       default: {
@@ -9282,6 +9822,43 @@ bool ServerClientWantedToEnterTheRoomReply::MergePartialFromCodedStream(
         break;
       }
 
+      // string masterName = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_mastername()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->mastername().data(), static_cast<int>(this->mastername().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.ServerClientWantedToEnterTheRoomReply.masterName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.CreatedRoom room = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_room()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.GameSettings settings = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_settings()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -9326,6 +9903,28 @@ void ServerClientWantedToEnterTheRoomReply::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->entranceallowed(), output);
   }
 
+  // string masterName = 4;
+  if (this->mastername().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->mastername().data(), static_cast<int>(this->mastername().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerClientWantedToEnterTheRoomReply.masterName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->mastername(), output);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 5;
+  if (this->has_room()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, HasBitSetters::room(this), output);
+  }
+
+  // .serverMessageSystem.GameSettings settings = 6;
+  if (this->has_settings()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, HasBitSetters::settings(this), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -9358,6 +9957,31 @@ void ServerClientWantedToEnterTheRoomReply::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->entranceallowed(), target);
   }
 
+  // string masterName = 4;
+  if (this->mastername().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->mastername().data(), static_cast<int>(this->mastername().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerClientWantedToEnterTheRoomReply.masterName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->mastername(), target);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 5;
+  if (this->has_room()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        5, HasBitSetters::room(this), deterministic, target);
+  }
+
+  // .serverMessageSystem.GameSettings settings = 6;
+  if (this->has_settings()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        6, HasBitSetters::settings(this), deterministic, target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -9379,11 +10003,32 @@ size_t ServerClientWantedToEnterTheRoomReply::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // string masterName = 4;
+  if (this->mastername().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->mastername());
+  }
+
   // .serverMessageSystem.CommonHeader header = 1;
   if (this->has_header()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
         *header_);
+  }
+
+  // .serverMessageSystem.CreatedRoom room = 5;
+  if (this->has_room()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *room_);
+  }
+
+  // .serverMessageSystem.GameSettings settings = 6;
+  if (this->has_settings()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *settings_);
   }
 
   // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
@@ -9424,8 +10069,18 @@ void ServerClientWantedToEnterTheRoomReply::MergeFrom(const ServerClientWantedTo
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.mastername().size() > 0) {
+
+    mastername_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mastername_);
+  }
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
+  }
+  if (from.has_room()) {
+    mutable_room()->::serverMessageSystem::CreatedRoom::MergeFrom(from.room());
+  }
+  if (from.has_settings()) {
+    mutable_settings()->::serverMessageSystem::GameSettings::MergeFrom(from.settings());
   }
   if (from.connectioncmdid() != 0) {
     set_connectioncmdid(from.connectioncmdid());
@@ -9460,7 +10115,11 @@ void ServerClientWantedToEnterTheRoomReply::Swap(ServerClientWantedToEnterTheRoo
 void ServerClientWantedToEnterTheRoomReply::InternalSwap(ServerClientWantedToEnterTheRoomReply* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  mastername_.Swap(&other->mastername_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(header_, other->header_);
+  swap(room_, other->room_);
+  swap(settings_, other->settings_);
   swap(connectioncmdid_, other->connectioncmdid_);
   swap(entranceallowed_, other->entranceallowed_);
 }
@@ -9489,6 +10148,9 @@ template<> PROTOBUF_NOINLINE ::serverMessageSystem::GameSettings* Arena::CreateM
 }
 template<> PROTOBUF_NOINLINE ::serverMessageSystem::RoomCreationErrors* Arena::CreateMaybeMessage< ::serverMessageSystem::RoomCreationErrors >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::RoomCreationErrors >(arena);
+}
+template<> PROTOBUF_NOINLINE ::serverMessageSystem::Player* Arena::CreateMaybeMessage< ::serverMessageSystem::Player >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::Player >(arena);
 }
 template<> PROTOBUF_NOINLINE ::serverMessageSystem::CreatedRoom* Arena::CreateMaybeMessage< ::serverMessageSystem::CreatedRoom >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::CreatedRoom >(arena);

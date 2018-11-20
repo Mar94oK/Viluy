@@ -74,6 +74,13 @@ void Room::setName(const QString &name)
     _name = name;
 }
 
+void Room::AddUserToTheRoom(Player player, Connection *connection)
+{
+    ++_numberOfPlayers;
+    _players.push_back(player);
+    _connections.push_back(connection);
+}
+
 
 QString Player::name() const
 {
