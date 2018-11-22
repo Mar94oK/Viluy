@@ -413,7 +413,6 @@ QByteArray Server::FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bo
     QByteArray block;
     block.resize(message.ByteSize());
     message.SerializeToArray(block.data(), block.size());
-    message.PrintDebugString();
     qDebug() << "NAY-001: Array size FormServerClientWantedToEnterTheRoomReply " << block.size();
     qDebug() << "NAY-001: Serialized FormServerClientWantedToEnterTheRoomReply is ready.";
     return block;
@@ -709,8 +708,21 @@ void Server::SlotConnectionSendOutgoingData(int socketDescriptor)
     if (connection->socket()->isOpen())
     {
         if (connection->socket()->ConnectedState == QTcpSocket::ConnectedState)
-        {
-             connection->socket()->write(connection->OutgoingDataBuffer());
+        {            
+            //separate sendings
+            //size first...
+            QByteArray lenght;
+//            uint32_t lenghtInt = connection->OutgoingDataBuffer().size();
+//            qDebug() << "Int length: " << lenghtInt;
+//            QString lenghtStr(connection->OutgoingDataBuffer().size());
+//            qDebug() << "QString: " << lenghtStr;
+//            lenght.append(lenghtStr);
+//            connection->socket()->write(lenght);
+//            connection->socket()->
+            //Buffer second...
+            connection->socket()->write(connection->OutgoingDataBuffer());
+            connection->socket()->waitForBytesWritten();
+            connection->socket()->flush();
              return;
         }
         else
@@ -1285,6 +1297,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         //NAY-001: MARK_EXPECTED_ERROR
         //SHOULD WORK WITH NULLPTR for Room
         currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),false));
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
         return; //no such room
     }
 
@@ -1295,6 +1308,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         emit SignalServerLogReport("NAY-001: Error while ProcessClientWantedToEnterTheRoom(). Room not found!");
         Connection* currentConnection = DefineConnection(socketDescriptor);
         currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),false));
+        emit SignalConnectionSendOutgoingData(socketDescriptor);
         return; //no such room
     }
 
@@ -1308,6 +1322,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     Connection* currentConnection = DefineConnection(socketDescriptor);
     currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),true));
     emit SignalConnectionSendOutgoingData(socketDescriptor);
+    emit SignalServerLogReport("NAY-001: ServerClientWantedToEnterTheRoomReply to socket #" + QString::number(currentConnection->socket()->socketDescriptor()));
     currentConnection->ClearOutgoingDataBuffer();
     //Send Broadcast Message ServerReportsOpponentIsEnteringRoom
 
