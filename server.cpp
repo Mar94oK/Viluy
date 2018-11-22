@@ -720,6 +720,11 @@ void Server::SlotConnectionSendOutgoingData(int socketDescriptor)
 //            connection->socket()->write(lenght);
 //            connection->socket()->
             //Buffer second...
+
+            //NAY-001: MARK_EXPECTED_ERROR
+            //Server now uses flush and wait for bytesWritten;
+            //To ensure everything has come;
+            //Not sure whether it will work stable all the times;
             connection->socket()->write(connection->OutgoingDataBuffer());
             connection->socket()->waitForBytesWritten();
             connection->socket()->flush();
