@@ -31,6 +31,7 @@ public:
     void setIncomingDataBuffer(const QByteArray &IncomingDataBuffer);
     QTcpSocket *socket() const;
     void setSocket(QTcpSocket *socket);
+    void ClearOutgoingDataBuffer() { _OutgoingDataBuffer.clear(); }
 
 };
 

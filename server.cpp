@@ -413,16 +413,18 @@ QByteArray Server::FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bo
     QByteArray block;
     block.resize(message.ByteSize());
     message.SerializeToArray(block.data(), block.size());
+    message.PrintDebugString();
+    qDebug() << "NAY-001: Array size FormServerClientWantedToEnterTheRoomReply " << block.size();
     qDebug() << "NAY-001: Serialized FormServerClientWantedToEnterTheRoomReply is ready.";
     return block;
 }
 
 Connection *Server::DefineConnection(int socketDescriptor)
 {
-    qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
+    //qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
     for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
     {
-        qDebug() << "NAY-001: _establishedConnections[var]->socket()->socketDescriptor(): " << _establishedConnections[var]->socket()->socketDescriptor();
+        //qDebug() << "NAY-001: _establishedConnections[var]->socket()->socketDescriptor(): " << _establishedConnections[var]->socket()->socketDescriptor();
         if (_establishedConnections[var]->socket()->socketDescriptor() == socketDescriptor )
         {
             //qDebug() << "NAY-001: Defining Connection";
@@ -1301,10 +1303,22 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     currentRoom->AddUserToTheRoom(Player(QString::fromStdString(message.clientname())),
                                   DefineConnection(socketDescriptor));
 
+
     //Send the Entrance allowance:
     Connection* currentConnection = DefineConnection(socketDescriptor);
     currentConnection->setOutgoingDataBuffer(FormServerClientWantedToEnterTheRoomReply(message.roomid(),true));
+    emit SignalConnectionSendOutgoingData(socketDescriptor);
+    currentConnection->ClearOutgoingDataBuffer();
     //Send Broadcast Message ServerReportsOpponentIsEnteringRoom
+
+    uint32_t ms = 1000;
+
+#ifdef Q_OS_WIN
+    Sleep(uint(ms));
+#else
+    struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+    nanosleep(&ts, NULL);
+#endif
 
     foreach (Connection* connection, currentRoom->connections())
     {
@@ -1319,7 +1333,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         connection->setOutgoingDataBuffer(FormChartMessage("Client #" + QString::number(currentRoom->players().size() - 1),
                                                            _settings.serverName(),
                                                            currentRoom->id()));
-        emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
+        emit SignalServerLogReport("NAY-001: ChartMessage to socket #" + QString::number(connection->socket()->socketDescriptor()));
         emit SignalConnectionSendOutgoingData(socketDescriptor);
     }
 
