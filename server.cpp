@@ -716,14 +716,14 @@ void Server::SlotConnectionSendOutgoingData(int socketDescriptor)
             //separate sendings
             //size first...
             QByteArray lenght;
-//            uint32_t lenghtInt = connection->OutgoingDataBuffer().size();
-//            qDebug() << "Int length: " << lenghtInt;
-//            QString lenghtStr(connection->OutgoingDataBuffer().size());
-//            qDebug() << "QString: " << lenghtStr;
-//            lenght.append(lenghtStr);
-//            connection->socket()->write(lenght);
-//            connection->socket()->
-            //Buffer second...
+            uint32_t lenghtValue = static_cast<uint32_t>(connection->OutgoingDataBuffer().size());
+            QDataStream stream(&lenght, QIODevice::WriteOnly);
+            stream << lenghtValue;
+
+            connection->socket()->write(lenght);
+            connection->socket()->waitForBytesWritten();
+            connection->socket()->flush();
+
 
             //NAY-001: MARK_EXPECTED_ERROR
             //Server now uses flush and wait for bytesWritten;
