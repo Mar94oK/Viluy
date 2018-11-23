@@ -1351,9 +1351,12 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
 
     foreach (Connection* connection, currentRoom->connections())
     {
-        connection->setOutgoingDataBuffer(FormServerReportsOpponentIsEnteringRoom(QString::fromStdString(message.clientname()),message.roomid()));
-        emit SignalServerLogReport("NAY-001: ServerReportsOpponentIsEnteringRoom to socket #" + QString::number(connection->socket()->socketDescriptor()));
-        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+        if (connection->socket()->socketDescriptor() != socketDescriptor)
+        {
+            connection->setOutgoingDataBuffer(FormServerReportsOpponentIsEnteringRoom(QString::fromStdString(message.clientname()),message.roomid()));
+            emit SignalServerLogReport("NAY-001: ServerReportsOpponentIsEnteringRoom to socket #" + QString::number(connection->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+        }
     }
 
     //MayBe also send Chart message:
