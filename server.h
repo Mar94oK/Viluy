@@ -54,6 +54,13 @@ signals:
     void SignalUpdateRoomsQuantity(unsigned int quantity);
     void SignalUpdateStatistics(const QStringList& statistic);
 
+signals:
+
+    void SignalAddNewRoomToBrowser(const Room& room);
+    void SignalUpdateExisitngRoomInBrowser(const Room& room);
+    void SignalDeleteRoomInBrowser(uint32_t id);
+
+
 private slots:
 
     int SlotSessionOpened();

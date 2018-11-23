@@ -81,6 +81,18 @@ void Room::AddUserToTheRoom(Player player, Connection *connection)
     _connections.push_back(connection);
 }
 
+void Room::ApplyFromAnother(const Room &another)
+{
+    _numberOfPlayers = another.numberOfPlayers();
+    _id = another.id();
+    _name = another.name();
+    _numberOfPlayers = another.numberOfPlayers();
+    _gameSettings = another.gameSettings();
+    _players = another.players();
+    _connections = another.connections();
+    _isPlaying = another.GetIsPlaying();
+}
+
 
 QString Player::name() const
 {

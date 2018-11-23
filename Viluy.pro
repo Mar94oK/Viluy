@@ -37,7 +37,9 @@ SOURCES += main.cpp\
         serversettings.cpp \
         utilites.cpp \
         serverMessageSystem.pb.cc \
-    connection.cpp
+    connection.cpp \
+    roombrowser.cpp \
+    roomparameters.cpp
 
 HEADERS  += mainwindow.h \
         gamesettings.h \
@@ -49,9 +51,13 @@ HEADERS  += mainwindow.h \
         utilites.h \
         serverMessageSystem.pb.h \
     connection.h \
-    messagesdefinitions.h
+    messagesdefinitions.h \
+    roombrowser.h \
+    roomparameters.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    roombrowser.ui \
+    roomparameters.ui
 
 #INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\include"
 #INCLUDEPATH += "D:\vpkg\vcpkg\installed\x64-windows\lib"

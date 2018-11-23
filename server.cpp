@@ -22,6 +22,9 @@ Server::Server(QObject *parent) : QObject(parent),
     QObject::connect(qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::DebugSignalOpponentEnteringRoomReport, this, &Server::DebugSlotSendReportsOpponentIsEnteringRoom);
     QObject::connect(this, &Server::SignalUpdateStatistics, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotUpdateStatistic);
 
+    QObject::connect(this, &Server::SignalAddNewRoomToBrowser, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotAddNewRoom);
+    QObject::connect(this, &Server::SignalUpdateExisitngRoomInBrowser, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotUpdateExisitngRoom);
+    QObject::connect(this, &Server::SignalDeleteRoomInBrowser, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotDeleteRoom);
 
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
@@ -515,6 +518,7 @@ bool Server::RoomDeleting(uint32_t roomId)
     {
         if (_rooms[var]->id() == roomId)
         {
+            emit SignalDeleteRoomInBrowser(_rooms[var]->id());
             //deleting instance
             delete _rooms[var];
             //erase nullpointer from the array.
@@ -936,6 +940,8 @@ void Server::ProcessClientRoomCreationRequest(const QByteArray &data, int socket
         UpdateStatistics();
         emit SignalUpdateRoomsQuantity(_rooms.size());
 
+        emit SignalAddNewRoomToBrowser(Room(newRoom));
+
         Connection* currentConnection = DefineConnection(socketDescriptor);
         currentConnection->setOutgoingDataBuffer(FormClientRoomCreationReply(true, _rooms.size(), _settings.maxNumberOfRooms() - _rooms.size(), RoomCreationErrors::NO_ERRORS));
         emit SignalServerLogReport("NAY-001: ClientRoomCreationReply to socket #" + QString::number(socketDescriptor));
@@ -1321,6 +1327,9 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     //Add the user to the room:
     currentRoom->AddUserToTheRoom(Player(QString::fromStdString(message.clientname())),
                                   DefineConnection(socketDescriptor));
+    emit SignalUpdateExisitngRoomInBrowser(currentRoom);
+    //UpTo make Widget showing the RoomState for each Room (to make th debug easier):
+
 
 
     //Send the Entrance allowance:
@@ -1364,6 +1373,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         //If it is, send start the Game Process (TheGameIsAboutToStartMessage);
         qDebug() << "NAY-001: The room is full! The Game is about ot start!";
         currentRoom->SetIsPlaying();
+        emit SignalUpdateExisitngRoomInBrowser(currentRoom);
         emit SignalServerLogReport("NAY-001: The room with ID:" + QString::number(currentRoom->id()) + " has been started playing!");
 
         //Send here TheGameIsAboutToStartMessage as a broadcast.

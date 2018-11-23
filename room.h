@@ -30,11 +30,24 @@ class Room
 
 public:
 
-    explicit Room(uint32_t id, QString name, uint32_t numberOfPLayers, GameSettings settings, Player firstPlayer, Connection* firstConnection) :
+    Room(uint32_t id, QString name, uint32_t numberOfPLayers, GameSettings settings, Player firstPlayer, Connection* firstConnection) :
     _id(id), _name(name), _numberOfPlayers(numberOfPLayers), _gameSettings(settings)
     {
         _players.push_back(firstPlayer);
         _connections.push_back(firstConnection);
+    }
+
+    Room() { }
+
+    Room(Room* given)
+    {
+        _id = given->id();
+        _name = given->name();
+        _numberOfPlayers = given->numberOfPlayers();
+        _gameSettings = given->gameSettings();
+        _players = given->players();
+        _connections = given->connections();
+        _isPlaying = given->GetIsPlaying();
     }
 
 public:
@@ -73,6 +86,11 @@ public:
     void setName(const QString &name);
 
     void AddUserToTheRoom(Player player, Connection* connection);
+
+public:
+
+    void ApplyFromAnother (const Room& another);
+
 
 private:
 

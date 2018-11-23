@@ -18,6 +18,8 @@
 #include <QStringList>
 
 #include <server.h>
+#include <roombrowser.h>
+#include <roomparameters.h>
 
 namespace Ui {
 class MainWindow;
@@ -34,6 +36,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
+
 private:
 
     void SetUpSignalSlotsConnections();
@@ -46,6 +49,10 @@ signals:
 
     void DebugSignalOpponentEnteringRoomReport(unsigned int roomId);
 
+    void SignalAddNewRoom(const Room& room);
+    void SignalUpdateExistingRoom(const Room& room);
+    void SignalDeleteRoom(uint32_t id);
+
 public slots:
 
     void slot_showServerLogMessage(QString message);
@@ -54,6 +61,13 @@ public slots:
     void SlotReportNewRoomsQuantity(unsigned int quantity);
     void DebugSlotSendOpponentEnteringRoomReport() { emit DebugSignalOpponentEnteringRoomReport(1); }
     void SlotUpdateStatistic(const QStringList& statistic);
+
+    void SlotAddNewRoom(const Room& room)
+    { emit SignalAddNewRoom(room); }
+    void SlotUpdateExisitngRoom(const Room& room)
+    { emit SignalUpdateExistingRoom(room); }
+    void SlotDeleteRoom(uint32_t id)
+    { emit SignalDeleteRoom(id); }
 
 private:        
 

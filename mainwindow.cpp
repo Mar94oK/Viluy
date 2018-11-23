@@ -66,4 +66,10 @@ ServerMainWindow::~ServerMainWindow()
 void ServerMainWindow::SetUpSignalSlotsConnections()
 {
     QObject::connect(ui->btnEnterOpponent, &QPushButton::clicked, this, &ServerMainWindow::DebugSlotSendOpponentEnteringRoomReport);
+
+    QObject::connect(this, &ServerMainWindow::SignalAddNewRoom, ui->wdgt_RoomBrowser, &RoomBrowser::SlotAddNewRoom);
+    QObject::connect(this, &ServerMainWindow::SignalUpdateExistingRoom, ui->wdgt_RoomBrowser, &RoomBrowser::SlotUpdateExisting);
+    QObject::connect(this, &ServerMainWindow::SignalDeleteRoom, ui->wdgt_RoomBrowser, &RoomBrowser::SlotDeleteRoom);
+
+
 }
