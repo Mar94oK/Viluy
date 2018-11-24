@@ -93,6 +93,24 @@ void Room::ApplyFromAnother(const Room &another)
     _isPlaying = another.GetIsPlaying();
 }
 
+QString Room::DefineClientNameOfUnconnectedSocket()
+{
+    if (_players.size() != _connections.size())
+    {
+        qDebug() << "NAY-001: Error in Room Holder! _players.size() != _connections.size()";
+        return "";
+    }
+    for (uint32_t var = 0; var < _players.size(); ++var)
+    {
+        if (_connections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
+        {
+            return _players[var].name();
+        }
+    }
+    qDebug() << "NAY-001: Not found ";
+    return "";
+}
+
 
 QString Player::name() const
 {

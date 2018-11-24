@@ -129,6 +129,11 @@ class ServerClientWantedToEnterTheRoomReplyDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<ServerClientWantedToEnterTheRoomReply>
       _instance;
 } _ServerClientWantedToEnterTheRoomReply_default_instance_;
+class ServerReportsClientIsLeavingDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<ServerReportsClientIsLeaving>
+      _instance;
+} _ServerReportsClientIsLeaving_default_instance_;
 }  // namespace serverMessageSystem
 namespace protobuf_serverMessageSystem_2eproto {
 static void InitDefaultsCommonHeader() {
@@ -433,6 +438,21 @@ static void InitDefaultsServerClientWantedToEnterTheRoomReply() {
       &protobuf_serverMessageSystem_2eproto::scc_info_CreatedRoom.base,
       &protobuf_serverMessageSystem_2eproto::scc_info_GameSettings.base,}};
 
+static void InitDefaultsServerReportsClientIsLeaving() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::serverMessageSystem::_ServerReportsClientIsLeaving_default_instance_;
+    new (ptr) ::serverMessageSystem::ServerReportsClientIsLeaving();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::serverMessageSystem::ServerReportsClientIsLeaving::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<1> scc_info_ServerReportsClientIsLeaving =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerReportsClientIsLeaving}, {
+      &protobuf_serverMessageSystem_2eproto::scc_info_CommonHeader.base,}};
+
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_CommonHeader.base);
   ::google::protobuf::internal::InitSCC(&scc_info_TimeSettings.base);
@@ -454,9 +474,10 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_ServerRoomChangesInSelectableList.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ClientWantedToEnterTheRoom.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerClientWantedToEnterTheRoomReply.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsClientIsLeaving.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[20];
+::google::protobuf::Metadata file_level_metadata[21];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[5];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -643,6 +664,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, mastername_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, room_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply, settings_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerReportsClientIsLeaving, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerReportsClientIsLeaving, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerReportsClientIsLeaving, connectioncmdid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerReportsClientIsLeaving, socketdescriptor_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::serverMessageSystem::ServerReportsClientIsLeaving, clientname_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -665,6 +695,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 154, -1, sizeof(::serverMessageSystem::ServerRoomChangesInSelectableList)},
   { 163, -1, sizeof(::serverMessageSystem::ClientWantedToEnterTheRoom)},
   { 172, -1, sizeof(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply)},
+  { 183, -1, sizeof(::serverMessageSystem::ServerReportsClientIsLeaving)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -688,6 +719,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerRoomChangesInSelectableList_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ClientWantedToEnterTheRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsClientIsLeaving_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -705,7 +737,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 20);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 21);
 }
 
 void AddDescriptorsImpl() {
@@ -805,28 +837,34 @@ void AddDescriptorsImpl() {
       "\017entranceAllowed\030\003 \001(\010\022\022\n\nmasterName\030\004 \001"
       "(\t\022.\n\004room\030\005 \001(\0132 .serverMessageSystem.C"
       "reatedRoom\0223\n\010settings\030\006 \001(\0132!.serverMes"
-      "sageSystem.GameSettings*&\n\tRulesType\022\r\n\t"
-      "Automatic\020\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030"
-      "\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS"
-      "_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYS"
-      "TEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\231\003\n\032Connectio"
-      "nSubSysCommandsID\022\036\n\032SERVER_INPUT_QUERY_"
-      "REQUEST\020\000\022\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022"
-      " \n\034CLIENT_ROOM_CREATION_REQUEST\020\002\022\036\n\032CLI"
-      "ENT_ROOM_CREATION_REPLY\020\003\022%\n!CLIENT_CONN"
-      "ECTION_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNE"
-      "CTION_TO_ROOM_REPLY\020\005\022,\n(SERVER_REPORTS_"
-      "OPPONENT_IS_ENTERING_ROOM\020\006\022*\n&SERVER_RO"
-      "OM_CHANGES_IN_SELECTABLE_LIST\020\007\022#\n\037CLIEN"
-      "T_WANTED_TO_ENTER_THE_ROOM\020\010\0220\n,SERVER_C"
-      "LIENT_WANTED_TO_ENTER_THE_ROOM_REPLY\020\t*B"
-      "\n\025ChartSubSysCommandsID\022\021\n\rCHART_MESSAGE"
-      "\020\000\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameCreati"
-      "onRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateTheG"
-      "ame\020\001b\006proto3"
+      "sageSystem.GameSettings\"\311\001\n\034ServerReport"
+      "sClientIsLeaving\0221\n\006header\030\001 \001(\0132!.serve"
+      "rMessageSystem.CommonHeader\022H\n\017connectio"
+      "nCmdID\030\002 \001(\0162/.serverMessageSystem.Conne"
+      "ctionSubSysCommandsID\022\030\n\020socketDescripto"
+      "r\030\003 \001(\r\022\022\n\nclientName\030\004 \001(\t*&\n\tRulesType"
+      "\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*y\n\013SubSystem"
+      "ID\022\030\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026GAME_ACT"
+      "IONS_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFICATION_SU"
+      "BSYSTEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\277\003\n\032Conne"
+      "ctionSubSysCommandsID\022\036\n\032SERVER_INPUT_QU"
+      "ERY_REQUEST\020\000\022\034\n\030SERVER_INPUT_QUERY_REPL"
+      "Y\020\001\022 \n\034CLIENT_ROOM_CREATION_REQUEST\020\002\022\036\n"
+      "\032CLIENT_ROOM_CREATION_REPLY\020\003\022%\n!CLIENT_"
+      "CONNECTION_TO_ROOM_REQUEST\020\004\022#\n\037CLIENT_C"
+      "ONNECTION_TO_ROOM_REPLY\020\005\022,\n(SERVER_REPO"
+      "RTS_OPPONENT_IS_ENTERING_ROOM\020\006\022*\n&SERVE"
+      "R_ROOM_CHANGES_IN_SELECTABLE_LIST\020\007\022#\n\037C"
+      "LIENT_WANTED_TO_ENTER_THE_ROOM\020\010\0220\n,SERV"
+      "ER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY"
+      "\020\t\022$\n SERVER_REPORTS_CLIENT_IS_LEAVING\020\n"
+      "*B\n\025ChartSubSysCommandsID\022\021\n\rCHART_MESSA"
+      "GE\020\000\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameCrea"
+      "tionRequest\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateTh"
+      "eGame\020\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 4493);
+      descriptor, 4735);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "serverMessageSystem.proto", &protobuf_RegisterTypes);
 }
@@ -889,6 +927,7 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
     case 7:
     case 8:
     case 9:
+    case 10:
       return true;
     default:
       return false;
@@ -8320,6 +8359,380 @@ void ServerClientWantedToEnterTheRoomReply::InternalSwap(ServerClientWantedToEnt
 }
 
 
+// ===================================================================
+
+void ServerReportsClientIsLeaving::InitAsDefaultInstance() {
+  ::serverMessageSystem::_ServerReportsClientIsLeaving_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+      ::serverMessageSystem::CommonHeader::internal_default_instance());
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ServerReportsClientIsLeaving::kHeaderFieldNumber;
+const int ServerReportsClientIsLeaving::kConnectionCmdIDFieldNumber;
+const int ServerReportsClientIsLeaving::kSocketDescriptorFieldNumber;
+const int ServerReportsClientIsLeaving::kClientNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ServerReportsClientIsLeaving::ServerReportsClientIsLeaving()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_serverMessageSystem_2eproto::scc_info_ServerReportsClientIsLeaving.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerReportsClientIsLeaving)
+}
+ServerReportsClientIsLeaving::ServerReportsClientIsLeaving(const ServerReportsClientIsLeaving& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.clientname().size() > 0) {
+    clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
+  }
+  if (from.has_header()) {
+    header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  ::memcpy(&connectioncmdid_, &from.connectioncmdid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&socketdescriptor_) -
+    reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(socketdescriptor_));
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerReportsClientIsLeaving)
+}
+
+void ServerReportsClientIsLeaving::SharedCtor() {
+  clientname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&socketdescriptor_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(socketdescriptor_));
+}
+
+ServerReportsClientIsLeaving::~ServerReportsClientIsLeaving() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerReportsClientIsLeaving)
+  SharedDtor();
+}
+
+void ServerReportsClientIsLeaving::SharedDtor() {
+  clientname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete header_;
+}
+
+void ServerReportsClientIsLeaving::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* ServerReportsClientIsLeaving::descriptor() {
+  ::protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const ServerReportsClientIsLeaving& ServerReportsClientIsLeaving::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_serverMessageSystem_2eproto::scc_info_ServerReportsClientIsLeaving.base);
+  return *internal_default_instance();
+}
+
+
+void ServerReportsClientIsLeaving::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clientname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+  ::memset(&connectioncmdid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&socketdescriptor_) -
+      reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(socketdescriptor_));
+  _internal_metadata_.Clear();
+}
+
+bool ServerReportsClientIsLeaving::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .serverMessageSystem.CommonHeader header = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_header()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_connectioncmdid(static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 socketDescriptor = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &socketdescriptor_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string clientName = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_clientname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->clientname().data(), static_cast<int>(this->clientname().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.ServerReportsClientIsLeaving.clientName"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerReportsClientIsLeaving)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerReportsClientIsLeaving)
+  return false;
+#undef DO_
+}
+
+void ServerReportsClientIsLeaving::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->_internal_header(), output);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->connectioncmdid(), output);
+  }
+
+  // uint32 socketDescriptor = 3;
+  if (this->socketdescriptor() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->socketdescriptor(), output);
+  }
+
+  // string clientName = 4;
+  if (this->clientname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->clientname().data(), static_cast<int>(this->clientname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerReportsClientIsLeaving.clientName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->clientname(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerReportsClientIsLeaving)
+}
+
+::google::protobuf::uint8* ServerReportsClientIsLeaving::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, this->_internal_header(), deterministic, target);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->connectioncmdid(), target);
+  }
+
+  // uint32 socketDescriptor = 3;
+  if (this->socketdescriptor() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->socketdescriptor(), target);
+  }
+
+  // string clientName = 4;
+  if (this->clientname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->clientname().data(), static_cast<int>(this->clientname().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerReportsClientIsLeaving.clientName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->clientname(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerReportsClientIsLeaving)
+  return target;
+}
+
+size_t ServerReportsClientIsLeaving::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string clientName = 4;
+  if (this->clientname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->clientname());
+  }
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *header_);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->connectioncmdid());
+  }
+
+  // uint32 socketDescriptor = 3;
+  if (this->socketdescriptor() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->socketdescriptor());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ServerReportsClientIsLeaving::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ServerReportsClientIsLeaving* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ServerReportsClientIsLeaving>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerReportsClientIsLeaving)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerReportsClientIsLeaving)
+    MergeFrom(*source);
+  }
+}
+
+void ServerReportsClientIsLeaving::MergeFrom(const ServerReportsClientIsLeaving& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.clientname().size() > 0) {
+
+    clientname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientname_);
+  }
+  if (from.has_header()) {
+    mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
+  }
+  if (from.connectioncmdid() != 0) {
+    set_connectioncmdid(from.connectioncmdid());
+  }
+  if (from.socketdescriptor() != 0) {
+    set_socketdescriptor(from.socketdescriptor());
+  }
+}
+
+void ServerReportsClientIsLeaving::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerReportsClientIsLeaving::CopyFrom(const ServerReportsClientIsLeaving& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerReportsClientIsLeaving)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerReportsClientIsLeaving::IsInitialized() const {
+  return true;
+}
+
+void ServerReportsClientIsLeaving::Swap(ServerReportsClientIsLeaving* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ServerReportsClientIsLeaving::InternalSwap(ServerReportsClientIsLeaving* other) {
+  using std::swap;
+  clientname_.Swap(&other->clientname_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(header_, other->header_);
+  swap(connectioncmdid_, other->connectioncmdid_);
+  swap(socketdescriptor_, other->socketdescriptor_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata ServerReportsClientIsLeaving::GetMetadata() const {
+  protobuf_serverMessageSystem_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_serverMessageSystem_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace serverMessageSystem
 namespace google {
@@ -8383,6 +8796,9 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ClientWante
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerClientWantedToEnterTheRoomReply* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerClientWantedToEnterTheRoomReply >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ServerClientWantedToEnterTheRoomReply >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::serverMessageSystem::ServerReportsClientIsLeaving* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerReportsClientIsLeaving >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::ServerReportsClientIsLeaving >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

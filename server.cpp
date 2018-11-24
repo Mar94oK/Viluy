@@ -395,7 +395,6 @@ QByteArray Server::FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bo
             serverMessageSystem::Player *newPlayer(createdRoom->mutable_player(var));
             newPlayer->set_playerid(var);
             newPlayer->set_playername(currentRoom->players()[var].name().toUtf8().constData());
-
         }
 
         serverMessageSystem::GameSettings *settings(message.mutable_settings());
@@ -421,6 +420,26 @@ QByteArray Server::FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bo
     return block;
 }
 
+QByteArray Server::FormServerReportsClientIsLeaving(uint32_t socketDescriptor, const QString &name)
+{
+    serverMessageSystem::ServerReportsClientIsLeaving message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_CLIENT_IS_LEAVING));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_CLIENT_IS_LEAVING);
+
+    message.set_socketdescriptor(socketDescriptor);
+    message.set_clientname(name.toUtf8().constData());
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: FormServerReportsClientIsLeaving " << block.size();
+    qDebug() << "NAY-001: FormServerReportsClientIsLeaving is ready.";
+    return block;
+
+}
+
 Connection *Server::DefineConnection(int socketDescriptor)
 {
     //qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
@@ -435,6 +454,45 @@ Connection *Server::DefineConnection(int socketDescriptor)
     }
     qDebug() << "NAY-001: Error while connection searching!";
     return nullptr;
+}
+
+int32_t Server::DefineDisconnectedSocketDescriptor()
+{
+    if (_establishedConnections.size() != _establishedConnectionsDescriptors.size())
+    {
+        qDebug() << "Error while defining unconnected socket! Vector of connections has been shortened before. "
+                    "Check Logic!";
+        return -1;
+    }
+
+    for (uint32_t var = 0; var < _establishedConnections.size(); ++var)
+    {
+        if (_establishedConnections[var]->socket()->socketDescriptor() != _establishedConnectionsDescriptors[var])
+        {
+            int32_t descriptor = _establishedConnectionsDescriptors[var];
+            _establishedConnectionsDescriptors.erase(_establishedConnectionsDescriptors.begin() + var);
+            return descriptor;
+        }
+    }
+    qDebug() << "Error while defining unconnected socket! Not found!"
+                "Check Logic!";
+    return -1;
+}
+
+CredentialsOfUnconnectedSocketData Server::DefineCredentialsOfUnconnectedSocket()
+{
+    QString clientName = "";
+    Room* roomPtr = nullptr;
+    foreach (Room* room, _rooms)
+    {
+        clientName = room->DefineClientNameOfUnconnectedSocket();
+        if (!clientName.isEmpty())
+        {
+            return CredentialsOfUnconnectedSocketData(room, clientName);
+        }
+    }
+    qDebug() << "Error! during DefineClientNameOfUnconnectedSocket()";
+    return CredentialsOfUnconnectedSocketData(roomPtr, clientName);
 }
 
 bool Server::RemoveConnectionFromRoom(int socketDescriptor)
@@ -647,13 +705,13 @@ void Server::SlotSetUpNewConnection()
     if (clientConnection != nullptr)
     {
         _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
+        _establishedConnectionsDescriptors.push_back(clientConnection->socketDescriptor()); //they are unique.
         ++_connectionsDuringSession;
         ++_activeConnections;
         if (_maximumSimultaneousConnections < _activeConnections)
             ++_maximumSimultaneousConnections;
         UpdateStatistics();
         emit SignalServerLogReport("Connection #" + QString::number(_establishedConnections.size())  + " established!");
-
     }
     else
     {
@@ -800,6 +858,26 @@ void Server::SlotClientConnectionIsClosing(long long ID)
             emit SignalServerLogReport("NAY-001: Error while Removing Connection: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
                                        + "  from Query.");
         }
+
+        //Send reports!
+        uint32_t disconnectedSocketDescriptor = static_cast<uint32_t>(DefineDisconnectedSocketDescriptor());
+        QString clientName = DefineCredentialsOfUnconnectedSocket().name;
+        Room* curRoom = DefineCredentialsOfUnconnectedSocket().unconnectedSocketRoom;
+
+        if (curRoom != nullptr)
+        {
+            foreach(Connection* connection, curRoom->connections())
+            {
+                if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                {
+                    connection->setOutgoingDataBuffer(FormServerReportsClientIsLeaving(disconnectedSocketDescriptor, clientName));
+                    emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                }
+            }
+        }
+
+        //Send it here to all the connections.
+
         //Delete from Rooms:
         if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))
         {
@@ -811,6 +889,13 @@ void Server::SlotClientConnectionIsClosing(long long ID)
             emit SignalServerLogReport("NAY-001: Error while Removing Connection with scoketId: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
                                        + " from Room.");
         }
+
+
+        if (DefineDisconnectedSocketDescriptor() == -1)
+            qDebug() << "Error while sending disconnected socket message to the clients. Critical. Should be closed here.";
+
+
+        //FormServerReportsClientIsLeaving();
 
         //Delete from Established Connections (Only here is actual deleting process!):
         for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
@@ -1362,13 +1447,15 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     //MayBe also send Chart message:
     foreach (Connection* connection, currentRoom->connections())
     {
-        connection->setOutgoingDataBuffer(FormChartMessage("Client #" + QString::number(currentRoom->players().size() - 1),
-                                                           _settings.serverName(),
-                                                           currentRoom->id()));
-        emit SignalServerLogReport("NAY-001: ChartMessage to socket #" + QString::number(connection->socket()->socketDescriptor()));
-        emit SignalConnectionSendOutgoingData(socketDescriptor);
+        if (connection->socket()->socketDescriptor() != socketDescriptor)
+        {
+            connection->setOutgoingDataBuffer(FormChartMessage("Opponent #" + QString::number(currentRoom->players().size() - 1) + " is entering.",
+                                                               _settings.serverName(),
+                                                               currentRoom->id()));
+            emit SignalServerLogReport("NAY-001: ChartMessage to socket #" + QString::number(connection->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+        }
     }
-
 
     //then check if the room is full:
     if (!currentRoom->PlayersLeft())

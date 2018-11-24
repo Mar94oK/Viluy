@@ -27,6 +27,17 @@ typedef QPair<QString, QString> serverSettings;
 //_settings.maximumNumberOfRooms * maximum number of opponents (more than this should never appear)
 
 
+struct CredentialsOfUnconnectedSocketData
+{
+    Room* unconnectedSocketRoom;
+    QString name;
+
+    explicit CredentialsOfUnconnectedSocketData(Room* room, const QString& str) :
+        unconnectedSocketRoom(room), name(str)
+    { }
+};
+
+
 class Server : public QObject
 {
     Q_OBJECT
@@ -41,6 +52,7 @@ private:
 
     std::vector<Room* > _rooms;
     std::vector<Connection*> _establishedConnections;
+    std::vector<uint32_t> _establishedConnectionsDescriptors;
     ServerSettings _settings;
 
     std::vector <Connection*> _query;
@@ -97,7 +109,12 @@ private:
 
     QByteArray FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bool entranceAllowed);
 
+    QByteArray FormServerReportsClientIsLeaving(uint32_t socketDescriptor, const QString& name);
+
     Connection* DefineConnection(int socketDescriptor);
+
+    int32_t DefineDisconnectedSocketDescriptor();
+    CredentialsOfUnconnectedSocketData DefineCredentialsOfUnconnectedSocket();
 
     bool RemoveConnectionFromRoom(int socketDescriptor);
     bool RemoveConnectionFromQuery(int socketDescriptor);

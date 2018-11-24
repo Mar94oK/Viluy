@@ -91,6 +91,12 @@ public:
 
     void ApplyFromAnother (const Room& another);
 
+public:
+
+    //NAY-001:MARK_EXPECTED_IMPROVEMENT
+    //To place names in the bundle with connections holder of the room;
+    QString DefineClientNameOfUnconnectedSocket();
+
 
 private:
 

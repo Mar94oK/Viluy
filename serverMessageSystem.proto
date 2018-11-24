@@ -35,6 +35,7 @@ enum ConnectionSubSysCommandsID
     SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST = 7;
     CLIENT_WANTED_TO_ENTER_THE_ROOM = 8;
     SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9;
+    SERVER_REPORTS_CLIENT_IS_LEAVING = 10;
 }
 
 enum ChartSubSysCommandsID
@@ -240,5 +241,13 @@ message ServerClientWantedToEnterTheRoomReply
     string masterName = 4;
     CreatedRoom room = 5;                           //Room to be joined - for the GUI to draw it.
     GameSettings settings = 6;                      //Settings selected by user, created the room
+}
+
+message ServerReportsClientIsLeaving
+{
+    CommonHeader header = 1;
+    ConnectionSubSysCommandsID connectionCmdID = 2;
+    uint32 socketDescriptor = 3;                       //May be unnecessary
+    string clientName = 4;                            //Client name to define whom to delete
 }
 

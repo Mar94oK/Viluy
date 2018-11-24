@@ -39,7 +39,7 @@ namespace protobuf_serverMessageSystem_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[20];
+  static const ::google::protobuf::internal::ParseTable schema[21];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -98,6 +98,9 @@ extern ServerQueryOrderNotificationDefaultTypeInternal _ServerQueryOrderNotifica
 class ServerQueryReply;
 class ServerQueryReplyDefaultTypeInternal;
 extern ServerQueryReplyDefaultTypeInternal _ServerQueryReply_default_instance_;
+class ServerReportsClientIsLeaving;
+class ServerReportsClientIsLeavingDefaultTypeInternal;
+extern ServerReportsClientIsLeavingDefaultTypeInternal _ServerReportsClientIsLeaving_default_instance_;
 class ServerReportsOpponentIsEnteringRoom;
 class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal;
 extern ServerReportsOpponentIsEnteringRoomDefaultTypeInternal _ServerReportsOpponentIsEnteringRoom_default_instance_;
@@ -127,6 +130,7 @@ template<> ::serverMessageSystem::ServerClientWantedToEnterTheRoomReply* Arena::
 template<> ::serverMessageSystem::ServerInputQuery* Arena::CreateMaybeMessage<::serverMessageSystem::ServerInputQuery>(Arena*);
 template<> ::serverMessageSystem::ServerQueryOrderNotification* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryOrderNotification>(Arena*);
 template<> ::serverMessageSystem::ServerQueryReply* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryReply>(Arena*);
+template<> ::serverMessageSystem::ServerReportsClientIsLeaving* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsClientIsLeaving>(Arena*);
 template<> ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsOpponentIsEnteringRoom>(Arena*);
 template<> ::serverMessageSystem::ServerRoomChangesInSelectableList* Arena::CreateMaybeMessage<::serverMessageSystem::ServerRoomChangesInSelectableList>(Arena*);
 template<> ::serverMessageSystem::TimeSettings* Arena::CreateMaybeMessage<::serverMessageSystem::TimeSettings>(Arena*);
@@ -189,12 +193,13 @@ enum ConnectionSubSysCommandsID {
   SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST = 7,
   CLIENT_WANTED_TO_ENTER_THE_ROOM = 8,
   SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9,
+  SERVER_REPORTS_CLIENT_IS_LEAVING = 10,
   ConnectionSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ConnectionSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ConnectionSubSysCommandsID_IsValid(int value);
 const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MIN = SERVER_INPUT_QUERY_REQUEST;
-const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY;
+const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_REPORTS_CLIENT_IS_LEAVING;
 const int ConnectionSubSysCommandsID_ARRAYSIZE = ConnectionSubSysCommandsID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ConnectionSubSysCommandsID_descriptor();
@@ -2986,6 +2991,144 @@ class ServerClientWantedToEnterTheRoomReply : public ::google::protobuf::Message
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class ServerReportsClientIsLeaving : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerReportsClientIsLeaving) */ {
+ public:
+  ServerReportsClientIsLeaving();
+  virtual ~ServerReportsClientIsLeaving();
+
+  ServerReportsClientIsLeaving(const ServerReportsClientIsLeaving& from);
+
+  inline ServerReportsClientIsLeaving& operator=(const ServerReportsClientIsLeaving& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ServerReportsClientIsLeaving(ServerReportsClientIsLeaving&& from) noexcept
+    : ServerReportsClientIsLeaving() {
+    *this = ::std::move(from);
+  }
+
+  inline ServerReportsClientIsLeaving& operator=(ServerReportsClientIsLeaving&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServerReportsClientIsLeaving& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ServerReportsClientIsLeaving* internal_default_instance() {
+    return reinterpret_cast<const ServerReportsClientIsLeaving*>(
+               &_ServerReportsClientIsLeaving_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    20;
+
+  void Swap(ServerReportsClientIsLeaving* other);
+  friend void swap(ServerReportsClientIsLeaving& a, ServerReportsClientIsLeaving& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServerReportsClientIsLeaving* New() const final {
+    return CreateMaybeMessage<ServerReportsClientIsLeaving>(NULL);
+  }
+
+  ServerReportsClientIsLeaving* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServerReportsClientIsLeaving>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ServerReportsClientIsLeaving& from);
+  void MergeFrom(const ServerReportsClientIsLeaving& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServerReportsClientIsLeaving* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string clientName = 4;
+  void clear_clientname();
+  static const int kClientNameFieldNumber = 4;
+  const ::std::string& clientname() const;
+  void set_clientname(const ::std::string& value);
+  #if LANG_CXX11
+  void set_clientname(::std::string&& value);
+  #endif
+  void set_clientname(const char* value);
+  void set_clientname(const char* value, size_t size);
+  ::std::string* mutable_clientname();
+  ::std::string* release_clientname();
+  void set_allocated_clientname(::std::string* clientname);
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  bool has_header() const;
+  void clear_header();
+  static const int kHeaderFieldNumber = 1;
+  private:
+  const ::serverMessageSystem::CommonHeader& _internal_header() const;
+  public:
+  const ::serverMessageSystem::CommonHeader& header() const;
+  ::serverMessageSystem::CommonHeader* release_header();
+  ::serverMessageSystem::CommonHeader* mutable_header();
+  void set_allocated_header(::serverMessageSystem::CommonHeader* header);
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  void clear_connectioncmdid();
+  static const int kConnectionCmdIDFieldNumber = 2;
+  ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
+  void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
+
+  // uint32 socketDescriptor = 3;
+  void clear_socketdescriptor();
+  static const int kSocketDescriptorFieldNumber = 3;
+  ::google::protobuf::uint32 socketdescriptor() const;
+  void set_socketdescriptor(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerReportsClientIsLeaving)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr clientname_;
+  ::serverMessageSystem::CommonHeader* header_;
+  int connectioncmdid_;
+  ::google::protobuf::uint32 socketdescriptor_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -5574,9 +5717,150 @@ inline void ServerClientWantedToEnterTheRoomReply::set_allocated_settings(::serv
   // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerClientWantedToEnterTheRoomReply.settings)
 }
 
+// -------------------------------------------------------------------
+
+// ServerReportsClientIsLeaving
+
+// .serverMessageSystem.CommonHeader header = 1;
+inline bool ServerReportsClientIsLeaving::has_header() const {
+  return this != internal_default_instance() && header_ != NULL;
+}
+inline void ServerReportsClientIsLeaving::clear_header() {
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerReportsClientIsLeaving::_internal_header() const {
+  return *header_;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerReportsClientIsLeaving::header() const {
+  const ::serverMessageSystem::CommonHeader* p = header_;
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsClientIsLeaving.header)
+  return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
+      &::serverMessageSystem::_CommonHeader_default_instance_);
+}
+inline ::serverMessageSystem::CommonHeader* ServerReportsClientIsLeaving::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerReportsClientIsLeaving.header)
+  
+  ::serverMessageSystem::CommonHeader* temp = header_;
+  header_ = NULL;
+  return temp;
+}
+inline ::serverMessageSystem::CommonHeader* ServerReportsClientIsLeaving::mutable_header() {
+  
+  if (header_ == NULL) {
+    auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
+    header_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsClientIsLeaving.header)
+  return header_;
+}
+inline void ServerReportsClientIsLeaving::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete header_;
+  }
+  if (header) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      header = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, header, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  header_ = header;
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsClientIsLeaving.header)
+}
+
+// .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+inline void ServerReportsClientIsLeaving::clear_connectioncmdid() {
+  connectioncmdid_ = 0;
+}
+inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerReportsClientIsLeaving::connectioncmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsClientIsLeaving.connectionCmdID)
+  return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
+}
+inline void ServerReportsClientIsLeaving::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+  
+  connectioncmdid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsClientIsLeaving.connectionCmdID)
+}
+
+// uint32 socketDescriptor = 3;
+inline void ServerReportsClientIsLeaving::clear_socketdescriptor() {
+  socketdescriptor_ = 0u;
+}
+inline ::google::protobuf::uint32 ServerReportsClientIsLeaving::socketdescriptor() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsClientIsLeaving.socketDescriptor)
+  return socketdescriptor_;
+}
+inline void ServerReportsClientIsLeaving::set_socketdescriptor(::google::protobuf::uint32 value) {
+  
+  socketdescriptor_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsClientIsLeaving.socketDescriptor)
+}
+
+// string clientName = 4;
+inline void ServerReportsClientIsLeaving::clear_clientname() {
+  clientname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServerReportsClientIsLeaving::clientname() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+  return clientname_.GetNoArena();
+}
+inline void ServerReportsClientIsLeaving::set_clientname(const ::std::string& value) {
+  
+  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+}
+#if LANG_CXX11
+inline void ServerReportsClientIsLeaving::set_clientname(::std::string&& value) {
+  
+  clientname_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+}
+#endif
+inline void ServerReportsClientIsLeaving::set_clientname(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+}
+inline void ServerReportsClientIsLeaving::set_clientname(const char* value, size_t size) {
+  
+  clientname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+}
+inline ::std::string* ServerReportsClientIsLeaving::mutable_clientname() {
+  
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+  return clientname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServerReportsClientIsLeaving::release_clientname() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+  
+  return clientname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServerReportsClientIsLeaving::set_allocated_clientname(::std::string* clientname) {
+  if (clientname != NULL) {
+    
+  } else {
+    
+  }
+  clientname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientname);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
