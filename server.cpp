@@ -993,8 +993,8 @@ void Server::ProcessChartMessage(const QByteArray &data, int socketDescriptor)
                                                                QString::fromStdString(message.sendername()),
                                                                roomID)
                                               );
-            emit SignalServerLogReport("NAY-001: ServerInputQueryReply to socket #" + QString::number(connection->socket()->socketDescriptor()));
-            emit SignalConnectionSendOutgoingData(socketDescriptor);
+            emit SignalServerLogReport("NAY-001: ChartMessage to socket #" + QString::number(connection->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
         }
     }
 

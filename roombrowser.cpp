@@ -48,6 +48,7 @@ void RoomBrowser::SlotDeleteRoom(uint32_t roomID)
 
 RoomParameters *RoomBrowser::DefineRoomById(uint32_t id)
 {
+    qDebug() << "NAY-001: Enetering room deleting in browser! ";
     for (int var = 0; var < _roomParameters.size(); ++var)
     {
         if (_roomParameters[var]->RoomId() == id)
