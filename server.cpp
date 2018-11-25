@@ -889,7 +889,6 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         //3. If so, send reassign master instead of ClientIsLeaving;
         //4. Delete the connection in usial consequnece.
 
-        emit SignalServerLogReport("NAY-001: Sending reports client is leaving... ");
         //Send reports!
         uint32_t disconnectedSocketDescriptor = static_cast<uint32_t>(DefineDisconnectedSocketDescriptor());
         QString leavingClientName = DefineCredentialsOfUnconnectedSocket().name;
@@ -900,6 +899,7 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         {
             if (curRoom != nullptr)
             {
+                emit SignalServerLogReport("NAY-001: Sending reports client is leaving... ");
                 foreach(Connection* connection, curRoom->connections())
                 {
                     if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
@@ -912,20 +912,29 @@ void Server::SlotClientConnectionIsClosing(long long ID)
                 }
             }
         }
+
         if (isMaster)
         {
             if (curRoom != nullptr)
             {
                 emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(curRoom->id())
                                            + " to Socket with id: " + QString::number(curRoom->ReassignedRoomMaster()));
-                foreach(Connection* connection, curRoom->connections())
+                //prediction of futurr room deleting:
+                if (curRoom->players().size() > 1)
                 {
-                    if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                    foreach(Connection* connection, curRoom->connections())
                     {
-                        connection->setOutgoingDataBuffer(FormServerReportsRoomHasChangedOwner(leavingClientName, curRoom->players()[MASTER_CONNECTION_ID].name()));
-                        emit SignalServerReportsClientIsLeaving(leavingClientName);
-                        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                        if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                        {
+                            connection->setOutgoingDataBuffer(FormServerReportsRoomHasChangedOwner(leavingClientName, curRoom->players()[MASTER_CONNECTION_ID + 1].name()));
+                            emit SignalServerReportsClientIsLeaving(leavingClientName);
+                            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                        }
                     }
+                }
+                else
+                {
+                    emit SignalServerLogReport("Master won't to be reassigned. Room up to be deleted.");
                 }
             }
         }

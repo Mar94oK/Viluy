@@ -32,7 +32,7 @@ struct UnconnectedSocketInfo
     QString name;
 
     explicit UnconnectedSocketInfo(uint32_t pos, const QString& str) :
-        position(position), name(str)
+        position(pos), name(str)
     {}
 };
 
