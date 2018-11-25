@@ -28,6 +28,15 @@ public:
 
     uint32_t RoomId() { return roomProperty.id(); }
 
+    Room getRoomProperty() const;
+    void setRoomProperty(const Room &value);
+
+    void DeleteRoomCredentialsByUsername(const QString& clientName);
+
+private:
+
+    void UpdateRoom();
+
 public slots:
 
     void SlotUpdateRoomNumber(uint32_t roomNumber);

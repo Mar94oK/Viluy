@@ -86,6 +86,7 @@ public:
     void setName(const QString &name);
 
     void AddUserToTheRoom(Player player, Connection* connection);
+    void DeleteUserByName(const QString& name);
 
 public:
 

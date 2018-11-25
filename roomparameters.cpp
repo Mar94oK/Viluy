@@ -13,10 +13,51 @@ RoomParameters::~RoomParameters()
     delete ui;
 }
 
+Room RoomParameters::getRoomProperty() const
+{
+    return roomProperty;
+}
+
+void RoomParameters::setRoomProperty(const Room &value)
+{
+    roomProperty = value;
+}
+
+void RoomParameters::DeleteRoomCredentialsByUsername(const QString &clientName)
+{
+    roomProperty.DeleteUserByName(clientName);
+    UpdateRoom();
+}
+
+void RoomParameters::UpdateRoom()
+{
+    SlotUpdateRoomNumber(roomProperty.id());
+    std::vector<uint32_t> connectionsIds;
+
+    for (uint32_t var = 0; var < roomProperty.connections().size(); ++var)
+    {
+        connectionsIds.push_back(roomProperty.connections()[var]->socket()->socketDescriptor());
+    }
+
+    SlotUpdateSockets(connectionsIds);
+
+    SlotUpdateMaxNumberOfPlayers(roomProperty.gameSettings().maximumNumberOfPlayers());
+
+    SlotUpdateActualNumberOfPLayers(roomProperty.numberOfPlayers());
+
+    QStringList names;
+    for (int var = 0; var < roomProperty.players().size(); ++var)
+    {
+        names.append(roomProperty.players()[var].name());
+    }
+
+    SlotUpdatePlayersNames(names);
+}
+
 void RoomParameters::AssignNewRoom(const Room &givenRoom)
 {
     roomProperty.ApplyFromAnother(givenRoom);
-
+    
     SlotUpdateRoomNumber(roomProperty.id());
     std::vector<uint32_t> connectionsIds;
 
@@ -47,7 +88,8 @@ void RoomParameters::UpdateRoom(const Room &givenRoom)
     SlotUpdateRoomNumber(roomProperty.id());
     std::vector<uint32_t> connectionsIds;
 
-    for (uint32_t var = 0; var < roomProperty.connections().size(); ++var) {
+    for (uint32_t var = 0; var < roomProperty.connections().size(); ++var)
+    {
         connectionsIds.push_back(roomProperty.connections()[var]->socket()->socketDescriptor());
     }
 

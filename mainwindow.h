@@ -62,6 +62,8 @@ public slots:
     void DebugSlotSendOpponentEnteringRoomReport() { emit DebugSignalOpponentEnteringRoomReport(1); }
     void SlotUpdateStatistic(const QStringList& statistic);
 
+    void SlotRemoveClientFromRoomsBrowser(const QString& clientName);
+
     void SlotAddNewRoom(const Room& room)
     { emit SignalAddNewRoom(room); }
     void SlotUpdateExisitngRoom(const Room& room)

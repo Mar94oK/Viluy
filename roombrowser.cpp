@@ -46,6 +46,15 @@ void RoomBrowser::SlotDeleteRoom(uint32_t roomID)
     }
 }
 
+void RoomBrowser::SlotDeleteClientFromRoom(const QString &name)
+{
+    RoomParameters* current = DefineRoomByUser(name);
+    if (current != nullptr)
+    {
+        current->DeleteRoomCredentialsByUsername(name);
+    }
+}
+
 RoomParameters *RoomBrowser::DefineRoomById(uint32_t id)
 {
     qDebug() << "NAY-001: Enetering room deleting in browser! ";
@@ -55,6 +64,20 @@ RoomParameters *RoomBrowser::DefineRoomById(uint32_t id)
             return _roomParameters[var];
     }
     qDebug() << "Error while DefineRoomById() in RoomBrowser(): ";
+    return nullptr;
+}
+
+RoomParameters *RoomBrowser::DefineRoomByUser(const QString &clientName)
+{
+    for (int var = 0; var < _roomParameters.size(); ++var)
+    {
+        for (uint32_t y = 0; y < _roomParameters[var]->getRoomProperty().players().size(); ++y)
+        {
+            if (_roomParameters[var]->getRoomProperty().players()[y].name() == clientName)
+                return _roomParameters[var];
+        }
+    }
+    qDebug() << "NAY-001 : Error while RoomParameters *RoomBrowser::DefineRoomByUser(). Not found!";
     return nullptr;
 }
 

@@ -57,6 +57,11 @@ void ServerMainWindow::SlotUpdateStatistic(const QStringList &statistic)
     ui->lblStatistics->setText(newStatistic);
 }
 
+void ServerMainWindow::SlotRemoveClientFromRoomsBrowser(const QString &clientName)
+{
+    ui->wdgt_RoomBrowser->SlotDeleteClientFromRoom(clientName);
+}
+
 
 ServerMainWindow::~ServerMainWindow()
 {

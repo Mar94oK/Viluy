@@ -67,9 +67,12 @@ public slots:
     void SlotUpdateExisting(const Room& givenRoom);
     void SlotDeleteRoom(uint32_t roomID);
 
+    void SlotDeleteClientFromRoom(const QString& name);
+
 private:
 
     RoomParameters* DefineRoomById(uint32_t id);
+    RoomParameters* DefineRoomByUser(const QString& clientName);
     RoomsPosition FindPositionForNewRoom();
 
 

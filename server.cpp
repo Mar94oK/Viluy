@@ -26,6 +26,8 @@ Server::Server(QObject *parent) : QObject(parent),
     QObject::connect(this, &Server::SignalUpdateExisitngRoomInBrowser, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotUpdateExisitngRoom);
     QObject::connect(this, &Server::SignalDeleteRoomInBrowser, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotDeleteRoom);
 
+    QObject::connect(this, &Server::SignalServerReportsClientIsLeaving, qobject_cast<ServerMainWindow*>(parent), &ServerMainWindow::SlotRemoveClientFromRoomsBrowser);
+
     emit sig_serverInfoReport("Starting to initialize the MunchkinServer");
 
     SlotServerInitializaion();
@@ -859,6 +861,8 @@ void Server::SlotClientConnectionIsClosing(long long ID)
                                        + "  from Query.");
         }
 
+
+        emit SignalServerLogReport("NAY-001: Sending reports client is leaving... ");
         //Send reports!
         uint32_t disconnectedSocketDescriptor = static_cast<uint32_t>(DefineDisconnectedSocketDescriptor());
         QString clientName = DefineCredentialsOfUnconnectedSocket().name;
@@ -870,7 +874,9 @@ void Server::SlotClientConnectionIsClosing(long long ID)
             {
                 if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
                 {
+                    emit SignalServerLogReport("NAY-001: Sending for socket descriptor: " + QString::number(connection->socket()->socketDescriptor()));
                     connection->setOutgoingDataBuffer(FormServerReportsClientIsLeaving(disconnectedSocketDescriptor, clientName));
+                    emit SignalServerReportsClientIsLeaving(clientName);
                     emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
                 }
             }

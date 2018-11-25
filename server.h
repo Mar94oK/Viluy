@@ -71,6 +71,7 @@ signals:
     void SignalAddNewRoomToBrowser(const Room& room);
     void SignalUpdateExisitngRoomInBrowser(const Room& room);
     void SignalDeleteRoomInBrowser(uint32_t id);
+    void SignalServerReportsClientIsLeaving(const QString& name);
 
 
 private slots:

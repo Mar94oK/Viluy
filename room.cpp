@@ -81,6 +81,19 @@ void Room::AddUserToTheRoom(Player player, Connection *connection)
     _connections.push_back(connection);
 }
 
+void Room::DeleteUserByName(const QString &name)
+{
+    for (uint32_t var = 0; var < _players.size(); ++var)
+    {
+        if (_players[var].name() == name)
+        {
+            _connections.erase(_connections.begin() + var);
+            _players.erase(_players.begin() + var);
+            --_numberOfPlayers;
+        }
+    }
+}
+
 void Room::ApplyFromAnother(const Room &another)
 {
     _numberOfPlayers = another.numberOfPlayers();
