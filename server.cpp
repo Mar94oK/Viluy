@@ -479,6 +479,9 @@ Connection *Server::DefineConnection(int socketDescriptor)
 
 int32_t Server::DefineDisconnectedSocketDescriptor()
 {
+    qDebug() << "NAY-001: size of _establishedConnections: " << _establishedConnections.size();
+    qDebug() << "NAY-001: size of _establishedConnectionsDescriptors: " << _establishedConnectionsDescriptors.size();
+
     if (_establishedConnections.size() != _establishedConnectionsDescriptors.size())
     {
         qDebug() << "Error while defining unconnected socket! Vector of connections has been shortened before. "
@@ -491,7 +494,6 @@ int32_t Server::DefineDisconnectedSocketDescriptor()
         if (_establishedConnections[var]->socket()->socketDescriptor() != _establishedConnectionsDescriptors[var])
         {
             int32_t descriptor = _establishedConnectionsDescriptors[var];
-            _establishedConnectionsDescriptors.erase(_establishedConnectionsDescriptors.begin() + var);
             return descriptor;
         }
     }
@@ -728,6 +730,7 @@ void Server::SlotSetUpNewConnection()
     if (clientConnection != nullptr)
     {
         _establishedConnections.push_back(new Connection(clientConnection, QString::number(clientConnection->socketDescriptor())));
+        qDebug() << "NAY-001: Adding new SocketDescriptorName: " << clientConnection->socketDescriptor();
         _establishedConnectionsDescriptors.push_back(clientConnection->socketDescriptor()); //they are unique.
         ++_connectionsDuringSession;
         ++_activeConnections;
@@ -868,7 +871,7 @@ void Server::SlotClientConnectionIsClosing(long long ID)
 
 
         //Delete from Query:
-        qDebug() << "NAY-001: Satring remove from query..";
+        qDebug() << "NAY-001: Starting remove from query..";
         if (RemoveConnectionFromQuery(CLOSED_SOCKET_DESCRIPTOR))
         {
             --_querySize;
@@ -890,6 +893,7 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         //4. Delete the connection in usial consequnece.
 
         //Send reports!
+        qDebug() << "Defining disconnected socket descriptor: ";
         uint32_t disconnectedSocketDescriptor = static_cast<uint32_t>(DefineDisconnectedSocketDescriptor());
         QString leavingClientName = DefineCredentialsOfUnconnectedSocket().name;
         Room* curRoom = DefineCredentialsOfUnconnectedSocket().unconnectedSocketRoom;
@@ -913,50 +917,36 @@ void Server::SlotClientConnectionIsClosing(long long ID)
             }
         }
 
-        if (isMaster)
-        {
-            if (curRoom != nullptr)
-            {
-                emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(curRoom->id())
-                                           + " to Socket with id: " + QString::number(curRoom->ReassignedRoomMaster()));
-                //prediction of futurr room deleting:
-                if (curRoom->players().size() > 1)
-                {
-                    foreach(Connection* connection, curRoom->connections())
-                    {
-                        if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
-                        {
-                            connection->setOutgoingDataBuffer(FormServerReportsRoomHasChangedOwner(leavingClientName, curRoom->players()[MASTER_CONNECTION_ID + 1].name()));
-                            emit SignalServerReportsClientIsLeaving(leavingClientName);
-                            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
-                        }
-                    }
-                }
-                else
-                {
-                    emit SignalServerLogReport("Master won't to be reassigned. Room up to be deleted.");
-                }
-            }
-        }
-
         //Delete from Rooms:
         if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))
         {
             emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in room) " + QString::number(connection->socket()->socketDescriptor())
                                        + " has been successfully deleted! ");
+
+            if (isMaster)
+            {
+                if (curRoom != nullptr)
+                {
+                    if (curRoom->connections().size())
+                        emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(curRoom->id())
+                                                    + " to Socket with id: " + QString::number(curRoom->ReassignedRoomMaster()));
+                    foreach(Connection* connection, curRoom->connections())
+                    {
+                        if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                        {
+                            connection->setOutgoingDataBuffer(FormServerReportsRoomHasChangedOwner(leavingClientName, curRoom->players()[MASTER_CONNECTION_ID].name()));
+                            emit SignalServerReportsClientIsLeaving(leavingClientName);
+                            emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                        }
+                    }
+                }
+            }
         }
         else
         {
             emit SignalServerLogReport("NAY-001: Error while Removing Connection with scoketId: " + QString::number(CLOSED_SOCKET_DESCRIPTOR)
                                        + " from Room.");
         }
-
-
-        if (DefineDisconnectedSocketDescriptor() == -1)
-            qDebug() << "Error while sending disconnected socket message to the clients. Critical. Should be closed here.";
-
-
-        //FormServerReportsClientIsLeaving();
 
         //Delete from Established Connections (Only here is actual deleting process!):
         for (unsigned int var = 0; var < _establishedConnections.size(); ++var)
@@ -966,6 +956,7 @@ void Server::SlotClientConnectionIsClosing(long long ID)
                 delete _establishedConnections[var];
                 //should also delete here from queue
                 _establishedConnections.erase(_establishedConnections.begin() + var);
+                _establishedConnectionsDescriptors.erase(_establishedConnectionsDescriptors.begin() + var);
                 --_activeConnections;
                 UpdateStatistics();
                 emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in pull) " + QString::number(var)

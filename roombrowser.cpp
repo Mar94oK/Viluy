@@ -36,12 +36,21 @@ void RoomBrowser::SlotDeleteRoom(uint32_t roomID)
     RoomParameters* currentRoom = DefineRoomById(roomID);
     if (currentRoom != nullptr)
     {
+        qDebug() << "NAY-001: void RoomBrowser::SlotDeleteRoom(uint32_t roomID) Deleting room..";
         currentRoom->hide();
         currentRoom->deleteLater();
+        qDebug() << "NAY-001: void RoomBrowser::SlotDeleteRoom(uint32_t roomID) After deleing...";
         for (uint32_t var = 0; var < _roomParameters.size(); ++var)
         {
+            qDebug() << "NAY-001: void RoomBrowser::Searching for room ...";
+             qDebug() << "NAY-001: void RoomBrowser::_roomParameters.size(): " << _roomParameters.size();
             if (_roomParameters[var] == nullptr)
+            {
+                qDebug() << "NAY-001: void RoomBrowser::Deleting!";
                 _roomParameters.erase(_roomParameters.begin() + var);
+                qDebug() << "NAY-001: void RoomBrowser::After Deleting!";
+            }
+
         }
     }
 }
@@ -60,8 +69,13 @@ RoomParameters *RoomBrowser::DefineRoomById(uint32_t id)
     qDebug() << "NAY-001: Enetering room deleting in browser! ";
     for (int var = 0; var < _roomParameters.size(); ++var)
     {
+        qDebug() << "NAY-001: Attempt 1: " << var;
         if (_roomParameters[var]->RoomId() == id)
+        {
+            qDebug() << "NAY-001: returning...: " << var;
             return _roomParameters[var];
+        }
+
     }
     qDebug() << "Error while DefineRoomById() in RoomBrowser(): ";
     return nullptr;
