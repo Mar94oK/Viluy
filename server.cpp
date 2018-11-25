@@ -509,7 +509,7 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
             {
                  emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(room->id())
                                             + " to Socket with id: " + QString::number(room->ReassignedRoomMaster()));
-                 emit SignalServerLogReport("There are : " + QString::number(room->PlayersLeft())
+                 emit SignalServerLogReport("There are : " + QString::number(room->numberOfPlayers())
                                             + " players left in room with id:  " + QString::number(room->id()));
                  return true;
             }
@@ -1404,7 +1404,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     }
 
     //Check if there is an empty slot for entering:
-    if (!currentRoom->PlayersLeft()) //no free space
+    if (!currentRoom->PlayersLeftToStartTheGame()) //no free space
     {
         qDebug() << "NAY-001: Room with ID: " << QString::number(message.roomid()) << " not Found!";
         emit SignalServerLogReport("NAY-001: Error while ProcessClientWantedToEnterTheRoom(). Room not found!");
@@ -1464,7 +1464,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
     }
 
     //then check if the room is full:
-    if (!currentRoom->PlayersLeft())
+    if (!currentRoom->PlayersLeftToStartTheGame())
     {
         //If it is, send start the Game Process (TheGameIsAboutToStartMessage);
         qDebug() << "NAY-001: The room is full! The Game is about ot start!";

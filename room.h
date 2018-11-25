@@ -73,7 +73,7 @@ public:
     //NAY-001: MARK_EXPECTED_ERROR
     //So many ideas how to define these values.
     //So I should be very accurate while forming an maintaning all of them!
-    uint32_t PlayersLeft()
+    uint32_t PlayersLeftToStartTheGame()
     { return _gameSettings.maximumNumberOfPlayers() - _numberOfPlayers; }
 
     void SetIsPlaying() { _isPlaying = true; }

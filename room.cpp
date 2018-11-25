@@ -32,8 +32,19 @@ bool Room::RemoveConnection(int socketDescriptor)
         if (_connections[var]->socket()->socketDescriptor() == socketDescriptor)
         {
              _connections.erase(_connections.begin() + var);
-             qDebug() << "NAY-001: socketDescriptor was removed from Room with ID: " << _id;
-               return true;
+             qDebug() << "NAY-001: socketDescriptor was removed from Room with ID: " << _id;             
+             try
+             {
+                 _players.erase(_players.begin() + var);
+                 //update numbers...
+                 --_numberOfPlayers;
+                 //delete respective players,
+             }
+             catch (...)
+             {
+                 qDebug() << "Error while erasing vector of players.";
+             }
+             return true;
         }
     }
     return false;
