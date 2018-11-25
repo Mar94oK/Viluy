@@ -36,6 +36,7 @@ enum ConnectionSubSysCommandsID
     CLIENT_WANTED_TO_ENTER_THE_ROOM = 8;
     SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9;
     SERVER_REPORTS_CLIENT_IS_LEAVING = 10;
+    SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER = 11;
 }
 
 enum ChartSubSysCommandsID
@@ -249,5 +250,13 @@ message ServerReportsClientIsLeaving
     ConnectionSubSysCommandsID connectionCmdID = 2;
     uint32 socketDescriptor = 3;                       //May be unnecessary
     string clientName = 4;                            //Client name to define whom to delete
+}
+
+message ServerReportsRoomHasChangedOwner
+{
+    CommonHeader header = 1;
+    ConnectionSubSysCommandsID connectionCmdID = 2;
+    string previousOwner = 3;                         //May be unnecessary
+    string currentOwner = 4;                          //Client name to define whom to delete
 }
 

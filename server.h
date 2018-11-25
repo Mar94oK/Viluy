@@ -31,11 +31,14 @@ struct CredentialsOfUnconnectedSocketData
 {
     Room* unconnectedSocketRoom;
     QString name;
+    bool isMasterConnection;
 
-    explicit CredentialsOfUnconnectedSocketData(Room* room, const QString& str) :
-        unconnectedSocketRoom(room), name(str)
+    explicit CredentialsOfUnconnectedSocketData(Room* room, const QString& str, bool mstr) :
+        unconnectedSocketRoom(room), name(str), isMasterConnection(mstr)
     { }
 };
+
+
 
 
 class Server : public QObject
@@ -111,6 +114,8 @@ private:
     QByteArray FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bool entranceAllowed);
 
     QByteArray FormServerReportsClientIsLeaving(uint32_t socketDescriptor, const QString& name);
+
+    QByteArray FormServerReportsRoomHasChangedOwner(const QString& previousOwner, const QString& currentOwner);
 
     Connection* DefineConnection(int socketDescriptor);
 

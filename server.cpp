@@ -442,6 +442,25 @@ QByteArray Server::FormServerReportsClientIsLeaving(uint32_t socketDescriptor, c
 
 }
 
+QByteArray Server::FormServerReportsRoomHasChangedOwner(const QString &previousOwner, const QString &currentOwner)
+{
+    serverMessageSystem::ServerReportsRoomHasChangedOwner message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER);
+
+    message.set_previousowner(previousOwner.toUtf8().constData());
+    message.set_currentowner(currentOwner.toUtf8().constData());
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner " << block.size();
+    qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner is ready.";
+    return block;
+}
+
 Connection *Server::DefineConnection(int socketDescriptor)
 {
     //qDebug() << "NAY-001: Established Conenctions Size: " <<  _establishedConnections.size();
@@ -487,14 +506,18 @@ CredentialsOfUnconnectedSocketData Server::DefineCredentialsOfUnconnectedSocket(
     Room* roomPtr = nullptr;
     foreach (Room* room, _rooms)
     {
-        clientName = room->DefineClientNameOfUnconnectedSocket();
+        clientName = room->DefineInfoOfUnconnectedSocket().name;
+        uint32_t position = room->DefineInfoOfUnconnectedSocket().position;
+        bool isMaster = false;
+        if (!position)
+            isMaster = true;
         if (!clientName.isEmpty())
         {
-            return CredentialsOfUnconnectedSocketData(room, clientName);
+            return CredentialsOfUnconnectedSocketData(room, clientName, isMaster);
         }
     }
     qDebug() << "Error! during DefineClientNameOfUnconnectedSocket()";
-    return CredentialsOfUnconnectedSocketData(roomPtr, clientName);
+    return CredentialsOfUnconnectedSocketData(roomPtr, clientName, false);
 }
 
 bool Server::RemoveConnectionFromRoom(int socketDescriptor)
@@ -507,8 +530,6 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
                                        + " has been successfully deleted from room with id: " + QString::number(room->id()));
             if (room->RoomIsNotEmpty())
             {
-                 emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(room->id())
-                                            + " to Socket with id: " + QString::number(room->ReassignedRoomMaster()));
                  emit SignalServerLogReport("There are : " + QString::number(room->numberOfPlayers())
                                             + " players left in room with id:  " + QString::number(room->id()));
                  return true;
@@ -862,27 +883,52 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         }
 
 
+        //Algorythm:
+        //1. Define room from where to delete: (Ok)
+        //2. Define whether it is master connection to be deleted.
+        //3. If so, send reassign master instead of ClientIsLeaving;
+        //4. Delete the connection in usial consequnece.
+
         emit SignalServerLogReport("NAY-001: Sending reports client is leaving... ");
         //Send reports!
         uint32_t disconnectedSocketDescriptor = static_cast<uint32_t>(DefineDisconnectedSocketDescriptor());
-        QString clientName = DefineCredentialsOfUnconnectedSocket().name;
+        QString leavingClientName = DefineCredentialsOfUnconnectedSocket().name;
         Room* curRoom = DefineCredentialsOfUnconnectedSocket().unconnectedSocketRoom;
+        bool isMaster = DefineCredentialsOfUnconnectedSocket().isMasterConnection;
 
-        if (curRoom != nullptr)
+        if (!isMaster)
         {
-            foreach(Connection* connection, curRoom->connections())
+            if (curRoom != nullptr)
             {
-                if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                foreach(Connection* connection, curRoom->connections())
                 {
-                    emit SignalServerLogReport("NAY-001: Sending for socket descriptor: " + QString::number(connection->socket()->socketDescriptor()));
-                    connection->setOutgoingDataBuffer(FormServerReportsClientIsLeaving(disconnectedSocketDescriptor, clientName));
-                    emit SignalServerReportsClientIsLeaving(clientName);
-                    emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                    if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                    {
+                        emit SignalServerLogReport("NAY-001: Sending for socket descriptor: " + QString::number(connection->socket()->socketDescriptor()));
+                        connection->setOutgoingDataBuffer(FormServerReportsClientIsLeaving(disconnectedSocketDescriptor, leavingClientName));
+                        emit SignalServerReportsClientIsLeaving(leavingClientName);
+                        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                    }
                 }
             }
         }
-
-        //Send it here to all the connections.
+        if (isMaster)
+        {
+            if (curRoom != nullptr)
+            {
+                emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(curRoom->id())
+                                           + " to Socket with id: " + QString::number(curRoom->ReassignedRoomMaster()));
+                foreach(Connection* connection, curRoom->connections())
+                {
+                    if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
+                    {
+                        connection->setOutgoingDataBuffer(FormServerReportsRoomHasChangedOwner(leavingClientName, curRoom->players()[MASTER_CONNECTION_ID].name()));
+                        emit SignalServerReportsClientIsLeaving(leavingClientName);
+                        emit SignalConnectionSendOutgoingData(connection->socket()->socketDescriptor());
+                    }
+                }
+            }
+        }
 
         //Delete from Rooms:
         if (RemoveConnectionFromRoom(CLOSED_SOCKET_DESCRIPTOR))

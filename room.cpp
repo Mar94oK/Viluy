@@ -32,6 +32,7 @@ bool Room::RemoveConnection(int socketDescriptor)
         if (_connections[var]->socket()->socketDescriptor() == socketDescriptor)
         {
              _connections.erase(_connections.begin() + var);
+             _connections.shrink_to_fit();
              qDebug() << "NAY-001: socketDescriptor was removed from Room with ID: " << _id;             
              try
              {
@@ -117,22 +118,22 @@ void Room::ApplyFromAnother(const Room &another)
     _isPlaying = another.GetIsPlaying();
 }
 
-QString Room::DefineClientNameOfUnconnectedSocket()
+UnconnectedSocketInfo Room::DefineInfoOfUnconnectedSocket()
 {
     if (_players.size() != _connections.size())
     {
         qDebug() << "NAY-001: Error in Room Holder! _players.size() != _connections.size()";
-        return "";
+        return UnconnectedSocketInfo(0,"");
     }
     for (uint32_t var = 0; var < _players.size(); ++var)
     {
         if (_connections[var]->socket()->socketDescriptor() == CLOSED_SOCKET_DESCRIPTOR)
         {
-            return _players[var].name();
+            return UnconnectedSocketInfo(var,_players[var].name());
         }
     }
     qDebug() << "NAY-001: Not found ";
-    return "";
+    return UnconnectedSocketInfo(0,"");
 }
 
 

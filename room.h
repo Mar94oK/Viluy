@@ -25,6 +25,17 @@ public:
 
 };
 
+
+struct UnconnectedSocketInfo
+{
+    uint32_t position;
+    QString name;
+
+    explicit UnconnectedSocketInfo(uint32_t pos, const QString& str) :
+        position(position), name(str)
+    {}
+};
+
 class Room
 {
 
@@ -96,7 +107,7 @@ public:
 
     //NAY-001:MARK_EXPECTED_IMPROVEMENT
     //To place names in the bundle with connections holder of the room;
-    QString DefineClientNameOfUnconnectedSocket();
+    UnconnectedSocketInfo DefineInfoOfUnconnectedSocket();
 
 
 private:

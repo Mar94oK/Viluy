@@ -39,7 +39,7 @@ namespace protobuf_serverMessageSystem_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[21];
+  static const ::google::protobuf::internal::ParseTable schema[22];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -104,6 +104,9 @@ extern ServerReportsClientIsLeavingDefaultTypeInternal _ServerReportsClientIsLea
 class ServerReportsOpponentIsEnteringRoom;
 class ServerReportsOpponentIsEnteringRoomDefaultTypeInternal;
 extern ServerReportsOpponentIsEnteringRoomDefaultTypeInternal _ServerReportsOpponentIsEnteringRoom_default_instance_;
+class ServerReportsRoomHasChangedOwner;
+class ServerReportsRoomHasChangedOwnerDefaultTypeInternal;
+extern ServerReportsRoomHasChangedOwnerDefaultTypeInternal _ServerReportsRoomHasChangedOwner_default_instance_;
 class ServerRoomChangesInSelectableList;
 class ServerRoomChangesInSelectableListDefaultTypeInternal;
 extern ServerRoomChangesInSelectableListDefaultTypeInternal _ServerRoomChangesInSelectableList_default_instance_;
@@ -132,6 +135,7 @@ template<> ::serverMessageSystem::ServerQueryOrderNotification* Arena::CreateMay
 template<> ::serverMessageSystem::ServerQueryReply* Arena::CreateMaybeMessage<::serverMessageSystem::ServerQueryReply>(Arena*);
 template<> ::serverMessageSystem::ServerReportsClientIsLeaving* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsClientIsLeaving>(Arena*);
 template<> ::serverMessageSystem::ServerReportsOpponentIsEnteringRoom* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsOpponentIsEnteringRoom>(Arena*);
+template<> ::serverMessageSystem::ServerReportsRoomHasChangedOwner* Arena::CreateMaybeMessage<::serverMessageSystem::ServerReportsRoomHasChangedOwner>(Arena*);
 template<> ::serverMessageSystem::ServerRoomChangesInSelectableList* Arena::CreateMaybeMessage<::serverMessageSystem::ServerRoomChangesInSelectableList>(Arena*);
 template<> ::serverMessageSystem::TimeSettings* Arena::CreateMaybeMessage<::serverMessageSystem::TimeSettings>(Arena*);
 }  // namespace protobuf
@@ -194,12 +198,13 @@ enum ConnectionSubSysCommandsID {
   CLIENT_WANTED_TO_ENTER_THE_ROOM = 8,
   SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9,
   SERVER_REPORTS_CLIENT_IS_LEAVING = 10,
+  SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER = 11,
   ConnectionSubSysCommandsID_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   ConnectionSubSysCommandsID_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool ConnectionSubSysCommandsID_IsValid(int value);
 const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MIN = SERVER_INPUT_QUERY_REQUEST;
-const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_REPORTS_CLIENT_IS_LEAVING;
+const ConnectionSubSysCommandsID ConnectionSubSysCommandsID_MAX = SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER;
 const int ConnectionSubSysCommandsID_ARRAYSIZE = ConnectionSubSysCommandsID_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ConnectionSubSysCommandsID_descriptor();
@@ -3129,6 +3134,152 @@ class ServerReportsClientIsLeaving : public ::google::protobuf::Message /* @@pro
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class ServerReportsRoomHasChangedOwner : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:serverMessageSystem.ServerReportsRoomHasChangedOwner) */ {
+ public:
+  ServerReportsRoomHasChangedOwner();
+  virtual ~ServerReportsRoomHasChangedOwner();
+
+  ServerReportsRoomHasChangedOwner(const ServerReportsRoomHasChangedOwner& from);
+
+  inline ServerReportsRoomHasChangedOwner& operator=(const ServerReportsRoomHasChangedOwner& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ServerReportsRoomHasChangedOwner(ServerReportsRoomHasChangedOwner&& from) noexcept
+    : ServerReportsRoomHasChangedOwner() {
+    *this = ::std::move(from);
+  }
+
+  inline ServerReportsRoomHasChangedOwner& operator=(ServerReportsRoomHasChangedOwner&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServerReportsRoomHasChangedOwner& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ServerReportsRoomHasChangedOwner* internal_default_instance() {
+    return reinterpret_cast<const ServerReportsRoomHasChangedOwner*>(
+               &_ServerReportsRoomHasChangedOwner_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    21;
+
+  void Swap(ServerReportsRoomHasChangedOwner* other);
+  friend void swap(ServerReportsRoomHasChangedOwner& a, ServerReportsRoomHasChangedOwner& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServerReportsRoomHasChangedOwner* New() const final {
+    return CreateMaybeMessage<ServerReportsRoomHasChangedOwner>(NULL);
+  }
+
+  ServerReportsRoomHasChangedOwner* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServerReportsRoomHasChangedOwner>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ServerReportsRoomHasChangedOwner& from);
+  void MergeFrom(const ServerReportsRoomHasChangedOwner& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServerReportsRoomHasChangedOwner* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string previousOwner = 3;
+  void clear_previousowner();
+  static const int kPreviousOwnerFieldNumber = 3;
+  const ::std::string& previousowner() const;
+  void set_previousowner(const ::std::string& value);
+  #if LANG_CXX11
+  void set_previousowner(::std::string&& value);
+  #endif
+  void set_previousowner(const char* value);
+  void set_previousowner(const char* value, size_t size);
+  ::std::string* mutable_previousowner();
+  ::std::string* release_previousowner();
+  void set_allocated_previousowner(::std::string* previousowner);
+
+  // string currentOwner = 4;
+  void clear_currentowner();
+  static const int kCurrentOwnerFieldNumber = 4;
+  const ::std::string& currentowner() const;
+  void set_currentowner(const ::std::string& value);
+  #if LANG_CXX11
+  void set_currentowner(::std::string&& value);
+  #endif
+  void set_currentowner(const char* value);
+  void set_currentowner(const char* value, size_t size);
+  ::std::string* mutable_currentowner();
+  ::std::string* release_currentowner();
+  void set_allocated_currentowner(::std::string* currentowner);
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  bool has_header() const;
+  void clear_header();
+  static const int kHeaderFieldNumber = 1;
+  private:
+  const ::serverMessageSystem::CommonHeader& _internal_header() const;
+  public:
+  const ::serverMessageSystem::CommonHeader& header() const;
+  ::serverMessageSystem::CommonHeader* release_header();
+  ::serverMessageSystem::CommonHeader* mutable_header();
+  void set_allocated_header(::serverMessageSystem::CommonHeader* header);
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  void clear_connectioncmdid();
+  static const int kConnectionCmdIDFieldNumber = 2;
+  ::serverMessageSystem::ConnectionSubSysCommandsID connectioncmdid() const;
+  void set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value);
+
+  // @@protoc_insertion_point(class_scope:serverMessageSystem.ServerReportsRoomHasChangedOwner)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr previousowner_;
+  ::google::protobuf::internal::ArenaStringPtr currentowner_;
+  ::serverMessageSystem::CommonHeader* header_;
+  int connectioncmdid_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_serverMessageSystem_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -5856,9 +6007,189 @@ inline void ServerReportsClientIsLeaving::set_allocated_clientname(::std::string
   // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsClientIsLeaving.clientName)
 }
 
+// -------------------------------------------------------------------
+
+// ServerReportsRoomHasChangedOwner
+
+// .serverMessageSystem.CommonHeader header = 1;
+inline bool ServerReportsRoomHasChangedOwner::has_header() const {
+  return this != internal_default_instance() && header_ != NULL;
+}
+inline void ServerReportsRoomHasChangedOwner::clear_header() {
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerReportsRoomHasChangedOwner::_internal_header() const {
+  return *header_;
+}
+inline const ::serverMessageSystem::CommonHeader& ServerReportsRoomHasChangedOwner::header() const {
+  const ::serverMessageSystem::CommonHeader* p = header_;
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsRoomHasChangedOwner.header)
+  return p != NULL ? *p : *reinterpret_cast<const ::serverMessageSystem::CommonHeader*>(
+      &::serverMessageSystem::_CommonHeader_default_instance_);
+}
+inline ::serverMessageSystem::CommonHeader* ServerReportsRoomHasChangedOwner::release_header() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerReportsRoomHasChangedOwner.header)
+  
+  ::serverMessageSystem::CommonHeader* temp = header_;
+  header_ = NULL;
+  return temp;
+}
+inline ::serverMessageSystem::CommonHeader* ServerReportsRoomHasChangedOwner::mutable_header() {
+  
+  if (header_ == NULL) {
+    auto* p = CreateMaybeMessage<::serverMessageSystem::CommonHeader>(GetArenaNoVirtual());
+    header_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsRoomHasChangedOwner.header)
+  return header_;
+}
+inline void ServerReportsRoomHasChangedOwner::set_allocated_header(::serverMessageSystem::CommonHeader* header) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete header_;
+  }
+  if (header) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      header = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, header, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  header_ = header;
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsRoomHasChangedOwner.header)
+}
+
+// .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+inline void ServerReportsRoomHasChangedOwner::clear_connectioncmdid() {
+  connectioncmdid_ = 0;
+}
+inline ::serverMessageSystem::ConnectionSubSysCommandsID ServerReportsRoomHasChangedOwner::connectioncmdid() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsRoomHasChangedOwner.connectionCmdID)
+  return static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(connectioncmdid_);
+}
+inline void ServerReportsRoomHasChangedOwner::set_connectioncmdid(::serverMessageSystem::ConnectionSubSysCommandsID value) {
+  
+  connectioncmdid_ = value;
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsRoomHasChangedOwner.connectionCmdID)
+}
+
+// string previousOwner = 3;
+inline void ServerReportsRoomHasChangedOwner::clear_previousowner() {
+  previousowner_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServerReportsRoomHasChangedOwner::previousowner() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+  return previousowner_.GetNoArena();
+}
+inline void ServerReportsRoomHasChangedOwner::set_previousowner(const ::std::string& value) {
+  
+  previousowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+}
+#if LANG_CXX11
+inline void ServerReportsRoomHasChangedOwner::set_previousowner(::std::string&& value) {
+  
+  previousowner_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+}
+#endif
+inline void ServerReportsRoomHasChangedOwner::set_previousowner(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  previousowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+}
+inline void ServerReportsRoomHasChangedOwner::set_previousowner(const char* value, size_t size) {
+  
+  previousowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+}
+inline ::std::string* ServerReportsRoomHasChangedOwner::mutable_previousowner() {
+  
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+  return previousowner_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServerReportsRoomHasChangedOwner::release_previousowner() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+  
+  return previousowner_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServerReportsRoomHasChangedOwner::set_allocated_previousowner(::std::string* previousowner) {
+  if (previousowner != NULL) {
+    
+  } else {
+    
+  }
+  previousowner_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), previousowner);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsRoomHasChangedOwner.previousOwner)
+}
+
+// string currentOwner = 4;
+inline void ServerReportsRoomHasChangedOwner::clear_currentowner() {
+  currentowner_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServerReportsRoomHasChangedOwner::currentowner() const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+  return currentowner_.GetNoArena();
+}
+inline void ServerReportsRoomHasChangedOwner::set_currentowner(const ::std::string& value) {
+  
+  currentowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+}
+#if LANG_CXX11
+inline void ServerReportsRoomHasChangedOwner::set_currentowner(::std::string&& value) {
+  
+  currentowner_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+}
+#endif
+inline void ServerReportsRoomHasChangedOwner::set_currentowner(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  currentowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+}
+inline void ServerReportsRoomHasChangedOwner::set_currentowner(const char* value, size_t size) {
+  
+  currentowner_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+}
+inline ::std::string* ServerReportsRoomHasChangedOwner::mutable_currentowner() {
+  
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+  return currentowner_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServerReportsRoomHasChangedOwner::release_currentowner() {
+  // @@protoc_insertion_point(field_release:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+  
+  return currentowner_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServerReportsRoomHasChangedOwner::set_allocated_currentowner(::std::string* currentowner) {
+  if (currentowner != NULL) {
+    
+  } else {
+    
+  }
+  currentowner_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), currentowner);
+  // @@protoc_insertion_point(field_set_allocated:serverMessageSystem.ServerReportsRoomHasChangedOwner.currentOwner)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
