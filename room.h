@@ -109,7 +109,6 @@ public:
     //To place names in the bundle with connections holder of the room;
     UnconnectedSocketInfo DefineInfoOfUnconnectedSocket();
 
-
 private:
 
     uint32_t _id;
@@ -120,6 +119,15 @@ private:
     std::vector<Connection* > _connections;
 
     bool _isPlaying = false;
+
+// Later to save these values here (each room may start with different settings)
+// But not now
+
+//    uint32_t totalTreasures = 163;
+//    uint32_t totalDoors = 225;
+
+//    std::vector<uint32_t> valuesTreasures;
+//    std::vector<uint32_t> valuesDoors;
 
 };
 

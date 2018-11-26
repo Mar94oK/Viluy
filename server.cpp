@@ -35,6 +35,10 @@ Server::Server(QObject *parent) : QObject(parent),
 
     _settings.setServerName("TheBestMunchkinServerEver");
 
+    //set Random-Values for cards before...
+//    SetRandomDoorsOrder();
+//    SetRandomTreasuresOrder();
+
     UpdateStatistics();
 }
 
@@ -458,6 +462,35 @@ QByteArray Server::FormServerReportsRoomHasChangedOwner(const QString &previousO
     message.SerializeToArray(block.data(), block.size());
     qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner " << block.size();
     qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner is ready.";
+    return block;
+}
+
+QByteArray Server::FormServerReportsTheGameIsAboutToStart(bool start)
+{
+    serverMessageSystem::ServerReportsTheGameIsAboutToStart message;
+    serverMessageSystem::CommonHeader *header(message.mutable_header());
+    header->set_subsystem(serverMessageSystem::SubSystemID::CONNECTION_SUBSYSTEM);
+    header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_THE_GAME_IS_ABOUT_TO_START));
+    message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_THE_GAME_IS_ABOUT_TO_START);
+
+    message.set_start(start);
+
+    //filling Doors
+    for (uint32 var = 0; var < _positionsDoors.size(); ++var)
+    {
+        message.add_posdoors(_positionsDoors[var]);
+    }
+    //filling Treasures
+    for (uint32 var = 0; var < _positionsTreasures.size(); ++var)
+    {
+        message.add_postreasures(_positionsTreasures[var]);
+    }
+
+    QByteArray block;
+    block.resize(message.ByteSize());
+    message.SerializeToArray(block.data(), block.size());
+    qDebug() << "NAY-001: FormServerReportsTheGameIsAboutToStart " << block.size();
+    qDebug() << "NAY-001: FormServerReportsTheGameIsAboutToStart is ready.";
     return block;
 }
 
@@ -1522,6 +1555,30 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         //If it is, send start the Game Process (TheGameIsAboutToStartMessage);
         qDebug() << "NAY-001: The room is full! The Game is about ot start!";
         currentRoom->SetIsPlaying();
+
+        try
+        {
+            //set Random-Values for cards before...
+            SetRandomDoorsOrder();
+            SetRandomTreasuresOrder();
+            emit SignalServerLogReport(QString("NAY-001: Randomizer ---> OK!"));
+
+
+            foreach (Connection* currCon, currentRoom->connections())
+            {
+                currCon->setOutgoingDataBuffer(FormServerReportsTheGameIsAboutToStart(true));
+                emit SignalServerLogReport(QString("NAY-001: TheGameIsAboutToStart to socket #") + QString::number(currCon->socket()->socketDescriptor()));
+                emit SignalConnectionSendOutgoingData(currCon->socket()->socketDescriptor());
+
+                //Here also to send remove room from query!
+                SendRoomDeletedMessageToQuery(currentRoom->id());
+            }
+
+        }
+        catch (...)
+        {
+            emit SignalServerLogReport("Error while sending TheGameIsAboutToStart!");
+        }
         emit SignalUpdateExisitngRoomInBrowser(currentRoom);
         emit SignalServerLogReport("NAY-001: The room with ID:" + QString::number(currentRoom->id()) + " has been started playing!");
 

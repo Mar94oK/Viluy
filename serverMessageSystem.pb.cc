@@ -112,6 +112,10 @@ class ServerReportsRoomHasChangedOwnerDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ServerReportsRoomHasChangedOwner> _instance;
 } _ServerReportsRoomHasChangedOwner_default_instance_;
+class ServerReportsTheGameIsAboutToStartDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<ServerReportsTheGameIsAboutToStart> _instance;
+} _ServerReportsTheGameIsAboutToStart_default_instance_;
 }  // namespace serverMessageSystem
 static void InitDefaultsCommonHeader_serverMessageSystem_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -445,6 +449,21 @@ static void InitDefaultsServerReportsRoomHasChangedOwner_serverMessageSystem_2ep
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerReportsRoomHasChangedOwner_serverMessageSystem_2eproto}, {
       &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
 
+static void InitDefaultsServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::serverMessageSystem::_ServerReportsTheGameIsAboutToStart_default_instance_;
+    new (ptr) ::serverMessageSystem::ServerReportsTheGameIsAboutToStart();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::serverMessageSystem::ServerReportsTheGameIsAboutToStart::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<1> scc_info_ServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto}, {
+      &scc_info_CommonHeader_serverMessageSystem_2eproto.base,}};
+
 void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_CommonHeader_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_TimeSettings_serverMessageSystem_2eproto.base);
@@ -468,9 +487,10 @@ void InitDefaults_serverMessageSystem_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_ServerClientWantedToEnterTheRoomReply_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsClientIsLeaving_serverMessageSystem_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsRoomHasChangedOwner_serverMessageSystem_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[22];
+::google::protobuf::Metadata file_level_metadata_serverMessageSystem_2eproto[23];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors_serverMessageSystem_2eproto[5];
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_serverMessageSystem_2eproto = nullptr;
 
@@ -676,6 +696,16 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsRoomHasChangedOwner, connectioncmdid_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsRoomHasChangedOwner, previousowner_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsRoomHasChangedOwner, currentowner_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, header_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, connectioncmdid_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, start_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, postreasures_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, posdoors_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -700,6 +730,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SE
   { 172, -1, sizeof(::serverMessageSystem::ServerClientWantedToEnterTheRoomReply)},
   { 183, -1, sizeof(::serverMessageSystem::ServerReportsClientIsLeaving)},
   { 192, -1, sizeof(::serverMessageSystem::ServerReportsRoomHasChangedOwner)},
+  { 201, -1, sizeof(::serverMessageSystem::ServerReportsTheGameIsAboutToStart)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -725,12 +756,13 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerClientWantedToEnterTheRoomReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsClientIsLeaving_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsRoomHasChangedOwner_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::serverMessageSystem::_ServerReportsTheGameIsAboutToStart_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_serverMessageSystem_2eproto = {
   {}, AddDescriptors_serverMessageSystem_2eproto, "serverMessageSystem.proto", schemas,
   file_default_instances, TableStruct_serverMessageSystem_2eproto::offsets,
-  file_level_metadata_serverMessageSystem_2eproto, 22, file_level_enum_descriptors_serverMessageSystem_2eproto, file_level_service_descriptors_serverMessageSystem_2eproto,
+  file_level_metadata_serverMessageSystem_2eproto, 23, file_level_enum_descriptors_serverMessageSystem_2eproto, file_level_service_descriptors_serverMessageSystem_2eproto,
 };
 
 ::google::protobuf::internal::DescriptorTable descriptor_table_serverMessageSystem_2eproto = {
@@ -839,29 +871,36 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   "2!.serverMessageSystem.CommonHeader\022H\n\017c"
   "onnectionCmdID\030\002 \001(\0162/.serverMessageSyst"
   "em.ConnectionSubSysCommandsID\022\025\n\rpreviou"
-  "sOwner\030\003 \001(\t\022\024\n\014currentOwner\030\004 \001(\t*&\n\tRu"
-  "lesType\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*y\n\013Su"
-  "bSystemID\022\030\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026G"
-  "AME_ACTIONS_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFICA"
-  "TION_SUBSYSTEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\352\003"
-  "\n\032ConnectionSubSysCommandsID\022\036\n\032SERVER_I"
-  "NPUT_QUERY_REQUEST\020\000\022\034\n\030SERVER_INPUT_QUE"
-  "RY_REPLY\020\001\022 \n\034CLIENT_ROOM_CREATION_REQUE"
-  "ST\020\002\022\036\n\032CLIENT_ROOM_CREATION_REPLY\020\003\022%\n!"
-  "CLIENT_CONNECTION_TO_ROOM_REQUEST\020\004\022#\n\037C"
-  "LIENT_CONNECTION_TO_ROOM_REPLY\020\005\022,\n(SERV"
-  "ER_REPORTS_OPPONENT_IS_ENTERING_ROOM\020\006\022*"
-  "\n&SERVER_ROOM_CHANGES_IN_SELECTABLE_LIST"
-  "\020\007\022#\n\037CLIENT_WANTED_TO_ENTER_THE_ROOM\020\010\022"
-  "0\n,SERVER_CLIENT_WANTED_TO_ENTER_THE_ROO"
-  "M_REPLY\020\t\022$\n SERVER_REPORTS_CLIENT_IS_LE"
-  "AVING\020\n\022)\n%SERVER_REPORTS_ROOM_HAS_CHANG"
-  "ED_OWNER\020\013*B\n\025ChartSubSysCommandsID\022\021\n\rC"
-  "HART_MESSAGE\020\000\022\026\n\022CHART_NOTIFICATION\020\001*9"
-  "\n\023GameCreationRequest\022\017\n\013JoinTheGame\020\000\022\021"
-  "\n\rCreateTheGame\020\001b\006proto3"
+  "sOwner\030\003 \001(\t\022\024\n\014currentOwner\030\004 \001(\t\"\330\001\n\"S"
+  "erverReportsTheGameIsAboutToStart\0221\n\006hea"
+  "der\030\001 \001(\0132!.serverMessageSystem.CommonHe"
+  "ader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMe"
+  "ssageSystem.ConnectionSubSysCommandsID\022\r"
+  "\n\005start\030\003 \001(\010\022\024\n\014posTreasures\030\004 \003(\r\022\020\n\010p"
+  "osDoors\030\005 \003(\r*&\n\tRulesType\022\r\n\tAutomatic\020"
+  "\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030\n\024CONNECTI"
+  "ON_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSYSTEM"
+  "\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022\023\n\017C"
+  "HART_SUBSYSTEM\020\003*\231\004\n\032ConnectionSubSysCom"
+  "mandsID\022\036\n\032SERVER_INPUT_QUERY_REQUEST\020\000\022"
+  "\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIENT_"
+  "ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROOM_C"
+  "REATION_REPLY\020\003\022%\n!CLIENT_CONNECTION_TO_"
+  "ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_TO_R"
+  "OOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONENT_I"
+  "S_ENTERING_ROOM\020\006\022*\n&SERVER_ROOM_CHANGES"
+  "_IN_SELECTABLE_LIST\020\007\022#\n\037CLIENT_WANTED_T"
+  "O_ENTER_THE_ROOM\020\010\0220\n,SERVER_CLIENT_WANT"
+  "ED_TO_ENTER_THE_ROOM_REPLY\020\t\022$\n SERVER_R"
+  "EPORTS_CLIENT_IS_LEAVING\020\n\022)\n%SERVER_REP"
+  "ORTS_ROOM_HAS_CHANGED_OWNER\020\013\022-\n)SERVER_"
+  "REPORTS_THE_GAME_IS_ABOUT_TO_START\020\014*B\n\025"
+  "ChartSubSysCommandsID\022\021\n\rCHART_MESSAGE\020\000"
+  "\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameCreation"
+  "Request\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateTheGam"
+  "e\020\001b\006proto3"
 ,
-  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 4985,
+  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 5251,
 };
 
 void AddDescriptors_serverMessageSystem_2eproto() {
@@ -922,6 +961,7 @@ bool ConnectionSubSysCommandsID_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;
@@ -11164,6 +11204,564 @@ void ServerReportsRoomHasChangedOwner::InternalSwap(ServerReportsRoomHasChangedO
 }
 
 
+// ===================================================================
+
+void ServerReportsTheGameIsAboutToStart::InitAsDefaultInstance() {
+  ::serverMessageSystem::_ServerReportsTheGameIsAboutToStart_default_instance_._instance.get_mutable()->header_ = const_cast< ::serverMessageSystem::CommonHeader*>(
+      ::serverMessageSystem::CommonHeader::internal_default_instance());
+}
+class ServerReportsTheGameIsAboutToStart::HasBitSetters {
+ public:
+  static const ::serverMessageSystem::CommonHeader& header(const ServerReportsTheGameIsAboutToStart* msg);
+};
+
+const ::serverMessageSystem::CommonHeader&
+ServerReportsTheGameIsAboutToStart::HasBitSetters::header(const ServerReportsTheGameIsAboutToStart* msg) {
+  return *msg->header_;
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ServerReportsTheGameIsAboutToStart::kHeaderFieldNumber;
+const int ServerReportsTheGameIsAboutToStart::kConnectionCmdIDFieldNumber;
+const int ServerReportsTheGameIsAboutToStart::kStartFieldNumber;
+const int ServerReportsTheGameIsAboutToStart::kPosTreasuresFieldNumber;
+const int ServerReportsTheGameIsAboutToStart::kPosDoorsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ServerReportsTheGameIsAboutToStart::ServerReportsTheGameIsAboutToStart()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+}
+ServerReportsTheGameIsAboutToStart::ServerReportsTheGameIsAboutToStart(const ServerReportsTheGameIsAboutToStart& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      postreasures_(from.postreasures_),
+      posdoors_(from.posdoors_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_header()) {
+    header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  ::memcpy(&connectioncmdid_, &from.connectioncmdid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&start_) -
+    reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(start_));
+  // @@protoc_insertion_point(copy_constructor:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+}
+
+void ServerReportsTheGameIsAboutToStart::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_ServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto.base);
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&start_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(start_));
+}
+
+ServerReportsTheGameIsAboutToStart::~ServerReportsTheGameIsAboutToStart() {
+  // @@protoc_insertion_point(destructor:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  SharedDtor();
+}
+
+void ServerReportsTheGameIsAboutToStart::SharedDtor() {
+  if (this != internal_default_instance()) delete header_;
+}
+
+void ServerReportsTheGameIsAboutToStart::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ServerReportsTheGameIsAboutToStart& ServerReportsTheGameIsAboutToStart::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_ServerReportsTheGameIsAboutToStart_serverMessageSystem_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ServerReportsTheGameIsAboutToStart::Clear() {
+// @@protoc_insertion_point(message_clear_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  postreasures_.Clear();
+  posdoors_.Clear();
+  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
+    delete header_;
+  }
+  header_ = NULL;
+  ::memset(&connectioncmdid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&start_) -
+      reinterpret_cast<char*>(&connectioncmdid_)) + sizeof(start_));
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* ServerReportsTheGameIsAboutToStart::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<ServerReportsTheGameIsAboutToStart*>(object);
+  ::google::protobuf::uint32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ::google::protobuf::uint32 tag;
+    ptr = Varint::Parse32Inline(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // .serverMessageSystem.CommonHeader header = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 10) goto handle_unusual;
+        ptr = Varint::Parse32Inline(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        parser_till_end = ::serverMessageSystem::CommonHeader::_InternalParse;
+        object = msg->mutable_header();
+        if (size > end - ptr) goto len_delim_till_end;
+        auto newend = ptr + size;
+        bool ok = ctx->ParseExactRange({parser_till_end, object},
+                                       ptr, newend);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+        ptr = newend;
+        break;
+      }
+      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ::serverMessageSystem::ConnectionSubSysCommandsID value = static_cast<::serverMessageSystem::ConnectionSubSysCommandsID>(val);
+        msg->set_connectioncmdid(value);
+        break;
+      }
+      // bool start = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 24) goto handle_unusual;
+        ::google::protobuf::uint64 val;
+        ptr = Varint::Parse64(ptr, &val);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        bool value = val;
+        msg->set_start(value);
+        break;
+      }
+      // repeated uint32 posTreasures = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) == 34) {
+          ptr = Varint::Parse32Inline(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::google::protobuf::internal::PackedUInt32Parser;
+          object = msg->mutable_postreasures();
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 32) goto handle_unusual;
+        do {
+          ::google::protobuf::uint64 val;
+          ptr = Varint::Parse64(ptr, &val);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          ::google::protobuf::uint32 value = val;
+          msg->add_postreasures(value);
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 32 && (ptr += 1));
+        break;
+      }
+      // repeated uint32 posDoors = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) == 42) {
+          ptr = Varint::Parse32Inline(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::google::protobuf::internal::PackedUInt32Parser;
+          object = msg->mutable_posdoors();
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 40) goto handle_unusual;
+        do {
+          ::google::protobuf::uint64 val;
+          ptr = Varint::Parse64(ptr, &val);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          ::google::protobuf::uint32 value = val;
+          msg->add_posdoors(value);
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 40 && (ptr += 1));
+        break;
+      }
+      default: {
+      handle_unusual: (void)&&handle_unusual;
+        if ((tag & 7) == 4 || tag == 0) {
+          bool ok = ctx->ValidEndGroup(tag);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ok);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+len_delim_till_end: (void)&&len_delim_till_end;
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                                 {parser_till_end, object}, size);
+group_continues: (void)&&group_continues;
+  GOOGLE_DCHECK(ptr >= end);
+  ctx->StoreGroup({_InternalParse, msg}, {parser_till_end, object}, depth);
+  return ptr;
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool ServerReportsTheGameIsAboutToStart::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .serverMessageSystem.CommonHeader header = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_header()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+          int value = 0;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_connectioncmdid(static_cast< ::serverMessageSystem::ConnectionSubSysCommandsID >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bool start = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (24 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &start_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated uint32 posTreasures = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_postreasures())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (32 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 34u, input, this->mutable_postreasures())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated uint32 posDoors = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_posdoors())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (40 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 42u, input, this->mutable_posdoors())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void ServerReportsTheGameIsAboutToStart::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, HasBitSetters::header(this), output);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->connectioncmdid(), output);
+  }
+
+  // bool start = 3;
+  if (this->start() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->start(), output);
+  }
+
+  // repeated uint32 posTreasures = 4;
+  if (this->postreasures_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(4, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_postreasures_cached_byte_size_.load(
+        std::memory_order_relaxed));
+  }
+  for (int i = 0, n = this->postreasures_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->postreasures(i), output);
+  }
+
+  // repeated uint32 posDoors = 5;
+  if (this->posdoors_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(5, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_posdoors_cached_byte_size_.load(
+        std::memory_order_relaxed));
+  }
+  for (int i = 0, n = this->posdoors_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+      this->posdoors(i), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+}
+
+::google::protobuf::uint8* ServerReportsTheGameIsAboutToStart::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, HasBitSetters::header(this), deterministic, target);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->connectioncmdid(), target);
+  }
+
+  // bool start = 3;
+  if (this->start() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->start(), target);
+  }
+
+  // repeated uint32 posTreasures = 4;
+  if (this->postreasures_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      4,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+        _postreasures_cached_byte_size_.load(std::memory_order_relaxed),
+         target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->postreasures_, target);
+  }
+
+  // repeated uint32 posDoors = 5;
+  if (this->posdoors_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      5,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+        _posdoors_cached_byte_size_.load(std::memory_order_relaxed),
+         target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32NoTagToArray(this->posdoors_, target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  return target;
+}
+
+size_t ServerReportsTheGameIsAboutToStart::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint32 posTreasures = 4;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      UInt32Size(this->postreasures_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+            static_cast<::google::protobuf::int32>(data_size));
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    _postreasures_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // repeated uint32 posDoors = 5;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      UInt32Size(this->posdoors_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+            static_cast<::google::protobuf::int32>(data_size));
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    _posdoors_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // .serverMessageSystem.CommonHeader header = 1;
+  if (this->has_header()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *header_);
+  }
+
+  // .serverMessageSystem.ConnectionSubSysCommandsID connectionCmdID = 2;
+  if (this->connectioncmdid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->connectioncmdid());
+  }
+
+  // bool start = 3;
+  if (this->start() != 0) {
+    total_size += 1 + 1;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ServerReportsTheGameIsAboutToStart::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ServerReportsTheGameIsAboutToStart* source =
+      ::google::protobuf::DynamicCastToGenerated<ServerReportsTheGameIsAboutToStart>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+    MergeFrom(*source);
+  }
+}
+
+void ServerReportsTheGameIsAboutToStart::MergeFrom(const ServerReportsTheGameIsAboutToStart& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  postreasures_.MergeFrom(from.postreasures_);
+  posdoors_.MergeFrom(from.posdoors_);
+  if (from.has_header()) {
+    mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
+  }
+  if (from.connectioncmdid() != 0) {
+    set_connectioncmdid(from.connectioncmdid());
+  }
+  if (from.start() != 0) {
+    set_start(from.start());
+  }
+}
+
+void ServerReportsTheGameIsAboutToStart::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerReportsTheGameIsAboutToStart::CopyFrom(const ServerReportsTheGameIsAboutToStart& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:serverMessageSystem.ServerReportsTheGameIsAboutToStart)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerReportsTheGameIsAboutToStart::IsInitialized() const {
+  return true;
+}
+
+void ServerReportsTheGameIsAboutToStart::Swap(ServerReportsTheGameIsAboutToStart* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ServerReportsTheGameIsAboutToStart::InternalSwap(ServerReportsTheGameIsAboutToStart* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  postreasures_.InternalSwap(&other->postreasures_);
+  posdoors_.InternalSwap(&other->posdoors_);
+  swap(header_, other->header_);
+  swap(connectioncmdid_, other->connectioncmdid_);
+  swap(start_, other->start_);
+}
+
+::google::protobuf::Metadata ServerReportsTheGameIsAboutToStart::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_serverMessageSystem_2eproto);
+  return ::file_level_metadata_serverMessageSystem_2eproto[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace serverMessageSystem
 namespace google {
@@ -11233,6 +11831,9 @@ template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerReportsClientIsLeaving
 }
 template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerReportsRoomHasChangedOwner* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerReportsRoomHasChangedOwner >(Arena* arena) {
   return Arena::CreateInternal< ::serverMessageSystem::ServerReportsRoomHasChangedOwner >(arena);
+}
+template<> PROTOBUF_NOINLINE ::serverMessageSystem::ServerReportsTheGameIsAboutToStart* Arena::CreateMaybeMessage< ::serverMessageSystem::ServerReportsTheGameIsAboutToStart >(Arena* arena) {
+  return Arena::CreateInternal< ::serverMessageSystem::ServerReportsTheGameIsAboutToStart >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

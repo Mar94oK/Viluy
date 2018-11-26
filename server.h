@@ -102,20 +102,17 @@ private:
     void ProcessClientConnectionToRoomRequest(const QByteArray &data, int socketDescriptor);
     void ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socketDescriptor);
 
-
     QByteArray FormServerInputQueryReply();
     QByteArray FormClientRoomCreationReply(bool created, unsigned int slotId, unsigned int freeSlotsLeft, RoomCreationErrors ErrorNumber);
     QByteArray FormServerReportsOpponentIsEnteringRoom(const QString& opponentName, uint32_t roomId);
     QByteArray FormChartMessage(const QString& message, const QString& sender, uint32_t roomID);
     QByteArray FormServerRoomChangesInSelectableList(uint32_t roomId, bool deleteUpdateFlag);
-
     QByteArray FormClientConnectionToRoomReply(bool noRoomsAvailable, uint32_t freeSlotLeft, const std::vector<uint32_t> &roomIDs, uint32_t queryOrder);
-
     QByteArray FormServerClientWantedToEnterTheRoomReply(uint32_t roomId, bool entranceAllowed);
-
     QByteArray FormServerReportsClientIsLeaving(uint32_t socketDescriptor, const QString& name);
-
     QByteArray FormServerReportsRoomHasChangedOwner(const QString& previousOwner, const QString& currentOwner);
+
+    QByteArray FormServerReportsTheGameIsAboutToStart(bool start);
 
     Connection* DefineConnection(int socketDescriptor);
 
@@ -177,6 +174,60 @@ private:
     QString _activeConnectionsBaseText = "Активных соединений: ";
     QString _maximumSimultaneousConnectionsdBaseText = "Максимальное количество соединений: ";
     QString _querySizeBaseText = "Игроков в очереди: ";
+
+private:
+
+    //Later to be reimplemented in room
+    uint32_t totalTreasures = 163;
+    uint32_t totalDoors = 225;
+
+    std::vector<uint32_t> valuesTreasures;
+    std::vector<uint32_t> valuesDoors;
+
+    std::vector<uint32_t> _positionsTreasures;
+    std::vector<uint32_t> _positionsDoors;
+
+    uint32_t randUnsignedInt(uint32_t low, uint32_t high)
+    {
+        // Random number between low and high
+        return static_cast<unsigned int>(qrand() % ((high + 1) - low) + low);
+    }
+
+    void SetRandomDoorsOrder()
+    {
+        _positionsDoors.clear();
+
+        for (unsigned int var = 1; var < totalDoors+1; ++var) {
+            valuesDoors.push_back(var);
+        }
+        for (uint32_t var = 0; var < totalDoors; ++var)
+        {
+            uint32_t valuesLeft = valuesDoors.size();
+            uint32_t currentPosition = randUnsignedInt(0, valuesLeft-1);
+            qDebug() << "NAY-001: Position: " << valuesDoors[currentPosition];
+            _positionsDoors.push_back(valuesDoors[currentPosition]);
+            valuesDoors.erase(valuesDoors.begin() + static_cast<int>(currentPosition)); //remove additional
+            valuesDoors.shrink_to_fit();
+        }
+
+    }
+    void SetRandomTreasuresOrder()
+    {
+        _positionsTreasures.clear();
+
+        for (uint32_t var = 1; var < totalTreasures+1; ++var) {
+            valuesTreasures.push_back(var);
+        }
+        for (uint32_t var = 0; var < totalTreasures; ++var) {
+
+            uint32_t valuesLeft = valuesTreasures.size();
+            uint32_t currentPosition = randUnsignedInt(0, valuesLeft-1);
+            qDebug() << "NAY-001: Position: " << valuesTreasures[currentPosition];
+            _positionsTreasures.push_back(valuesTreasures[currentPosition]);
+            valuesTreasures.erase(valuesTreasures.begin() + static_cast<int>(currentPosition)); //remove additional
+            valuesTreasures.shrink_to_fit();
+        }
+    }
 
 };
 

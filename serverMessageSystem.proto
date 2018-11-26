@@ -37,6 +37,7 @@ enum ConnectionSubSysCommandsID
     SERVER_CLIENT_WANTED_TO_ENTER_THE_ROOM_REPLY = 9;
     SERVER_REPORTS_CLIENT_IS_LEAVING = 10;
     SERVER_REPORTS_ROOM_HAS_CHANGED_OWNER = 11;
+    SERVER_REPORTS_THE_GAME_IS_ABOUT_TO_START = 12;
 }
 
 enum ChartSubSysCommandsID
@@ -260,3 +261,12 @@ message ServerReportsRoomHasChangedOwner
     string currentOwner = 4;                          //Client name to define whom to delete
 }
 
+
+message ServerReportsTheGameIsAboutToStart
+{
+    CommonHeader header = 1;
+    ConnectionSubSysCommandsID connectionCmdID = 2;
+    bool start = 3;                                  //In fact - allways true;
+    repeated uint32 posTreasures = 4;
+    repeated uint32 posDoors = 5;
+}
