@@ -1,6 +1,6 @@
 #include "room.h"
 
-int Room::numberOfPlayers() const
+uint32_t Room::numberOfPlayers() const
 {
     return _numberOfPlayers;
 }

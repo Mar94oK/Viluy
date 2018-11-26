@@ -63,7 +63,7 @@ public:
 
 public:
 
-    int numberOfPlayers() const;
+    uint32_t numberOfPlayers() const;
     void setNumberOfPlayers(int numberOfPlayers);
 
     RulesType rulesType() const;

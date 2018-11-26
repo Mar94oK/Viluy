@@ -899,6 +899,9 @@ void Server::SlotClientConnectionIsClosing(long long ID)
         Room* curRoom = DefineCredentialsOfUnconnectedSocket().unconnectedSocketRoom;
         bool isMaster = DefineCredentialsOfUnconnectedSocket().isMasterConnection;
 
+        //Супер-костыль
+        uint32_t roomsSize = _rooms.size();
+
         if (!isMaster)
         {
             if (curRoom != nullptr)
@@ -923,13 +926,17 @@ void Server::SlotClientConnectionIsClosing(long long ID)
             emit SignalServerLogReport("NAY-001: Disconnected socket with ID (in room) " + QString::number(connection->socket()->socketDescriptor())
                                        + " has been successfully deleted! ");
 
+
             if (isMaster)
             {
-                if (curRoom != nullptr)
+                //Комната была удалена. Нельзя получить к ней доступ, если уменьшился вектор!!!
+                if (curRoom != nullptr && (roomsSize == _rooms.size()))
                 {
                     if (curRoom->connections().size())
                         emit SignalServerLogReport("Reassigning master for room with id: " + QString::number(curRoom->id())
                                                     + " to Socket with id: " + QString::number(curRoom->ReassignedRoomMaster()));
+
+                    qDebug() << "Number of players: " << curRoom->numberOfPlayers();
                     foreach(Connection* connection, curRoom->connections())
                     {
                         if (connection->socket()->socketDescriptor() != CLOSED_SOCKET_DESCRIPTOR)
