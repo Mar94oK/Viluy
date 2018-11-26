@@ -476,12 +476,12 @@ QByteArray Server::FormServerReportsTheGameIsAboutToStart(bool start)
     message.set_start(start);
 
     //filling Doors
-    for (uint32 var = 0; var < _positionsDoors.size(); ++var)
+    for (uint32_t var = 0; var < _positionsDoors.size(); ++var)
     {
         message.add_posdoors(_positionsDoors[var]);
     }
     //filling Treasures
-    for (uint32 var = 0; var < _positionsTreasures.size(); ++var)
+    for (uint32_t var = 0; var < _positionsTreasures.size(); ++var)
     {
         message.add_postreasures(_positionsTreasures[var]);
     }
