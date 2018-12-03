@@ -3518,6 +3518,28 @@ class ServerReportsTheGameIsAboutToStart : public ::google::protobuf::Message /*
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
       mutable_posdoors();
 
+  // repeated string playersOrder = 6;
+  int playersorder_size() const;
+  void clear_playersorder();
+  static const int kPlayersOrderFieldNumber = 6;
+  const ::std::string& playersorder(int index) const;
+  ::std::string* mutable_playersorder(int index);
+  void set_playersorder(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_playersorder(int index, ::std::string&& value);
+  #endif
+  void set_playersorder(int index, const char* value);
+  void set_playersorder(int index, const char* value, size_t size);
+  ::std::string* add_playersorder();
+  void add_playersorder(const ::std::string& value);
+  #if LANG_CXX11
+  void add_playersorder(::std::string&& value);
+  #endif
+  void add_playersorder(const char* value);
+  void add_playersorder(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField<::std::string>& playersorder() const;
+  ::google::protobuf::RepeatedPtrField<::std::string>* mutable_playersorder();
+
   // .serverMessageSystem.CommonHeader header = 1;
   bool has_header() const;
   void clear_header();
@@ -3548,6 +3570,7 @@ class ServerReportsTheGameIsAboutToStart : public ::google::protobuf::Message /*
   mutable std::atomic<int> _postreasures_cached_byte_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > posdoors_;
   mutable std::atomic<int> _posdoors_cached_byte_size_;
+  ::google::protobuf::RepeatedPtrField<::std::string> playersorder_;
   ::serverMessageSystem::CommonHeader* header_;
   int connectioncmdid_;
   bool start_;
@@ -6534,6 +6557,75 @@ inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
 ServerReportsTheGameIsAboutToStart::mutable_posdoors() {
   // @@protoc_insertion_point(field_mutable_list:serverMessageSystem.ServerReportsTheGameIsAboutToStart.posDoors)
   return &posdoors_;
+}
+
+// repeated string playersOrder = 6;
+inline int ServerReportsTheGameIsAboutToStart::playersorder_size() const {
+  return playersorder_.size();
+}
+inline void ServerReportsTheGameIsAboutToStart::clear_playersorder() {
+  playersorder_.Clear();
+}
+inline const ::std::string& ServerReportsTheGameIsAboutToStart::playersorder(int index) const {
+  // @@protoc_insertion_point(field_get:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  return playersorder_.Get(index);
+}
+inline ::std::string* ServerReportsTheGameIsAboutToStart::mutable_playersorder(int index) {
+  // @@protoc_insertion_point(field_mutable:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  return playersorder_.Mutable(index);
+}
+inline void ServerReportsTheGameIsAboutToStart::set_playersorder(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  playersorder_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void ServerReportsTheGameIsAboutToStart::set_playersorder(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  playersorder_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void ServerReportsTheGameIsAboutToStart::set_playersorder(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  playersorder_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+inline void ServerReportsTheGameIsAboutToStart::set_playersorder(int index, const char* value, size_t size) {
+  playersorder_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+inline ::std::string* ServerReportsTheGameIsAboutToStart::add_playersorder() {
+  // @@protoc_insertion_point(field_add_mutable:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  return playersorder_.Add();
+}
+inline void ServerReportsTheGameIsAboutToStart::add_playersorder(const ::std::string& value) {
+  playersorder_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+#if LANG_CXX11
+inline void ServerReportsTheGameIsAboutToStart::add_playersorder(::std::string&& value) {
+  playersorder_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+#endif
+inline void ServerReportsTheGameIsAboutToStart::add_playersorder(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  playersorder_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+inline void ServerReportsTheGameIsAboutToStart::add_playersorder(const char* value, size_t size) {
+  playersorder_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+}
+inline const ::google::protobuf::RepeatedPtrField<::std::string>&
+ServerReportsTheGameIsAboutToStart::playersorder() const {
+  // @@protoc_insertion_point(field_list:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  return playersorder_;
+}
+inline ::google::protobuf::RepeatedPtrField<::std::string>*
+ServerReportsTheGameIsAboutToStart::mutable_playersorder() {
+  // @@protoc_insertion_point(field_mutable_list:serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder)
+  return &playersorder_;
 }
 
 #ifdef __GNUC__

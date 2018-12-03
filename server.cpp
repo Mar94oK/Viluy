@@ -465,7 +465,7 @@ QByteArray Server::FormServerReportsRoomHasChangedOwner(const QString &previousO
     return block;
 }
 
-QByteArray Server::FormServerReportsTheGameIsAboutToStart(bool start)
+QByteArray Server::FormServerReportsTheGameIsAboutToStart(Room* room)
 {
     serverMessageSystem::ServerReportsTheGameIsAboutToStart message;
     serverMessageSystem::CommonHeader *header(message.mutable_header());
@@ -473,7 +473,7 @@ QByteArray Server::FormServerReportsTheGameIsAboutToStart(bool start)
     header->set_commandid(static_cast<uint32_t>(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_THE_GAME_IS_ABOUT_TO_START));
     message.set_connectioncmdid(serverMessageSystem::ConnectionSubSysCommandsID::SERVER_REPORTS_THE_GAME_IS_ABOUT_TO_START);
 
-    message.set_start(start);
+    message.set_start(true);
 
     //filling Doors
     for (uint32_t var = 0; var < _positionsDoors.size(); ++var)
@@ -484,6 +484,11 @@ QByteArray Server::FormServerReportsTheGameIsAboutToStart(bool start)
     for (uint32_t var = 0; var < _positionsTreasures.size(); ++var)
     {
         message.add_postreasures(_positionsTreasures[var]);
+    }
+
+    for (uint32_t var = 0; var < room->players().size(); ++var)
+    {
+        message.add_playersorder(room->players()[var]);
     }
 
     QByteArray block;
@@ -1566,7 +1571,7 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
 
             foreach (Connection* currCon, currentRoom->connections())
             {
-                currCon->setOutgoingDataBuffer(FormServerReportsTheGameIsAboutToStart(true));
+                currCon->setOutgoingDataBuffer(FormServerReportsTheGameIsAboutToStart(currentRoom));
                 emit SignalServerLogReport(QString("NAY-001: TheGameIsAboutToStart to socket #") + QString::number(currCon->socket()->socketDescriptor()));
                 emit SignalConnectionSendOutgoingData(currCon->socket()->socketDescriptor());
 

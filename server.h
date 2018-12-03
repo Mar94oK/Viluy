@@ -112,7 +112,7 @@ private:
     QByteArray FormServerReportsClientIsLeaving(uint32_t socketDescriptor, const QString& name);
     QByteArray FormServerReportsRoomHasChangedOwner(const QString& previousOwner, const QString& currentOwner);
 
-    QByteArray FormServerReportsTheGameIsAboutToStart(bool start);
+    QByteArray FormServerReportsTheGameIsAboutToStart(Room *room);
 
     Connection* DefineConnection(int socketDescriptor);
 

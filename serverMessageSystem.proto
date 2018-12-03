@@ -269,4 +269,5 @@ message ServerReportsTheGameIsAboutToStart
     bool start = 3;                                  //In fact - allways true;
     repeated uint32 posTreasures = 4;
     repeated uint32 posDoors = 5;
+    repeated string playersOrder = 6;
 }

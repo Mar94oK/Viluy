@@ -706,6 +706,7 @@ const ::google::protobuf::uint32 TableStruct_serverMessageSystem_2eproto::offset
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, start_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, postreasures_),
   PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, posdoors_),
+  PROTOBUF_FIELD_OFFSET(::serverMessageSystem::ServerReportsTheGameIsAboutToStart, playersorder_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::serverMessageSystem::CommonHeader)},
@@ -871,36 +872,36 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   "2!.serverMessageSystem.CommonHeader\022H\n\017c"
   "onnectionCmdID\030\002 \001(\0162/.serverMessageSyst"
   "em.ConnectionSubSysCommandsID\022\025\n\rpreviou"
-  "sOwner\030\003 \001(\t\022\024\n\014currentOwner\030\004 \001(\t\"\330\001\n\"S"
+  "sOwner\030\003 \001(\t\022\024\n\014currentOwner\030\004 \001(\t\"\356\001\n\"S"
   "erverReportsTheGameIsAboutToStart\0221\n\006hea"
   "der\030\001 \001(\0132!.serverMessageSystem.CommonHe"
   "ader\022H\n\017connectionCmdID\030\002 \001(\0162/.serverMe"
   "ssageSystem.ConnectionSubSysCommandsID\022\r"
   "\n\005start\030\003 \001(\010\022\024\n\014posTreasures\030\004 \003(\r\022\020\n\010p"
-  "osDoors\030\005 \003(\r*&\n\tRulesType\022\r\n\tAutomatic\020"
-  "\000\022\n\n\006Manual\020\001*y\n\013SubSystemID\022\030\n\024CONNECTI"
-  "ON_SUBSYSTEM\020\000\022\032\n\026GAME_ACTIONS_SUBSYSTEM"
-  "\020\001\022\037\n\033GAME_NOTIFICATION_SUBSYSTEM\020\002\022\023\n\017C"
-  "HART_SUBSYSTEM\020\003*\231\004\n\032ConnectionSubSysCom"
-  "mandsID\022\036\n\032SERVER_INPUT_QUERY_REQUEST\020\000\022"
-  "\034\n\030SERVER_INPUT_QUERY_REPLY\020\001\022 \n\034CLIENT_"
-  "ROOM_CREATION_REQUEST\020\002\022\036\n\032CLIENT_ROOM_C"
-  "REATION_REPLY\020\003\022%\n!CLIENT_CONNECTION_TO_"
-  "ROOM_REQUEST\020\004\022#\n\037CLIENT_CONNECTION_TO_R"
-  "OOM_REPLY\020\005\022,\n(SERVER_REPORTS_OPPONENT_I"
-  "S_ENTERING_ROOM\020\006\022*\n&SERVER_ROOM_CHANGES"
-  "_IN_SELECTABLE_LIST\020\007\022#\n\037CLIENT_WANTED_T"
-  "O_ENTER_THE_ROOM\020\010\0220\n,SERVER_CLIENT_WANT"
-  "ED_TO_ENTER_THE_ROOM_REPLY\020\t\022$\n SERVER_R"
-  "EPORTS_CLIENT_IS_LEAVING\020\n\022)\n%SERVER_REP"
-  "ORTS_ROOM_HAS_CHANGED_OWNER\020\013\022-\n)SERVER_"
-  "REPORTS_THE_GAME_IS_ABOUT_TO_START\020\014*B\n\025"
-  "ChartSubSysCommandsID\022\021\n\rCHART_MESSAGE\020\000"
-  "\022\026\n\022CHART_NOTIFICATION\020\001*9\n\023GameCreation"
-  "Request\022\017\n\013JoinTheGame\020\000\022\021\n\rCreateTheGam"
-  "e\020\001b\006proto3"
+  "osDoors\030\005 \003(\r\022\024\n\014playersOrder\030\006 \003(\t*&\n\tR"
+  "ulesType\022\r\n\tAutomatic\020\000\022\n\n\006Manual\020\001*y\n\013S"
+  "ubSystemID\022\030\n\024CONNECTION_SUBSYSTEM\020\000\022\032\n\026"
+  "GAME_ACTIONS_SUBSYSTEM\020\001\022\037\n\033GAME_NOTIFIC"
+  "ATION_SUBSYSTEM\020\002\022\023\n\017CHART_SUBSYSTEM\020\003*\231"
+  "\004\n\032ConnectionSubSysCommandsID\022\036\n\032SERVER_"
+  "INPUT_QUERY_REQUEST\020\000\022\034\n\030SERVER_INPUT_QU"
+  "ERY_REPLY\020\001\022 \n\034CLIENT_ROOM_CREATION_REQU"
+  "EST\020\002\022\036\n\032CLIENT_ROOM_CREATION_REPLY\020\003\022%\n"
+  "!CLIENT_CONNECTION_TO_ROOM_REQUEST\020\004\022#\n\037"
+  "CLIENT_CONNECTION_TO_ROOM_REPLY\020\005\022,\n(SER"
+  "VER_REPORTS_OPPONENT_IS_ENTERING_ROOM\020\006\022"
+  "*\n&SERVER_ROOM_CHANGES_IN_SELECTABLE_LIS"
+  "T\020\007\022#\n\037CLIENT_WANTED_TO_ENTER_THE_ROOM\020\010"
+  "\0220\n,SERVER_CLIENT_WANTED_TO_ENTER_THE_RO"
+  "OM_REPLY\020\t\022$\n SERVER_REPORTS_CLIENT_IS_L"
+  "EAVING\020\n\022)\n%SERVER_REPORTS_ROOM_HAS_CHAN"
+  "GED_OWNER\020\013\022-\n)SERVER_REPORTS_THE_GAME_I"
+  "S_ABOUT_TO_START\020\014*B\n\025ChartSubSysCommand"
+  "sID\022\021\n\rCHART_MESSAGE\020\000\022\026\n\022CHART_NOTIFICA"
+  "TION\020\001*9\n\023GameCreationRequest\022\017\n\013JoinThe"
+  "Game\020\000\022\021\n\rCreateTheGame\020\001b\006proto3"
 ,
-  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 5251,
+  "serverMessageSystem.proto", &assign_descriptors_table_serverMessageSystem_2eproto, 5273,
 };
 
 void AddDescriptors_serverMessageSystem_2eproto() {
@@ -11225,6 +11226,7 @@ const int ServerReportsTheGameIsAboutToStart::kConnectionCmdIDFieldNumber;
 const int ServerReportsTheGameIsAboutToStart::kStartFieldNumber;
 const int ServerReportsTheGameIsAboutToStart::kPosTreasuresFieldNumber;
 const int ServerReportsTheGameIsAboutToStart::kPosDoorsFieldNumber;
+const int ServerReportsTheGameIsAboutToStart::kPlayersOrderFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ServerReportsTheGameIsAboutToStart::ServerReportsTheGameIsAboutToStart()
@@ -11236,7 +11238,8 @@ ServerReportsTheGameIsAboutToStart::ServerReportsTheGameIsAboutToStart(const Ser
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       postreasures_(from.postreasures_),
-      posdoors_(from.posdoors_) {
+      posdoors_(from.posdoors_),
+      playersorder_(from.playersorder_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_header()) {
     header_ = new ::serverMessageSystem::CommonHeader(*from.header_);
@@ -11283,6 +11286,7 @@ void ServerReportsTheGameIsAboutToStart::Clear() {
 
   postreasures_.Clear();
   posdoors_.Clear();
+  playersorder_.Clear();
   if (GetArenaNoVirtual() == NULL && header_ != NULL) {
     delete header_;
   }
@@ -11385,6 +11389,25 @@ const char* ServerReportsTheGameIsAboutToStart::_InternalParse(const char* begin
           msg->add_posdoors(value);
           if (ptr >= end) break;
         } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 40 && (ptr += 1));
+        break;
+      }
+      // repeated string playersOrder = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 50) goto handle_unusual;
+        do {
+          ptr = Varint::Parse32Inline(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          ctx->extra_parse_data().SetFieldName("serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder");
+          parser_till_end = ::google::protobuf::internal::StringParserUTF8;
+          ::std::string* str = msg->add_playersorder();
+          str->clear();
+          object = str;
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 50 && (ptr += 1));
         break;
       }
       default: {
@@ -11491,6 +11514,22 @@ bool ServerReportsTheGameIsAboutToStart::MergePartialFromCodedStream(
         break;
       }
 
+      // repeated string playersOrder = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (50 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_playersorder()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->playersorder(this->playersorder_size() - 1).data(),
+            static_cast<int>(this->playersorder(this->playersorder_size() - 1).length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -11557,6 +11596,16 @@ void ServerReportsTheGameIsAboutToStart::SerializeWithCachedSizes(
       this->posdoors(i), output);
   }
 
+  // repeated string playersOrder = 6;
+  for (int i = 0, n = this->playersorder_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->playersorder(i).data(), static_cast<int>(this->playersorder(i).length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      6, this->playersorder(i), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -11615,6 +11664,16 @@ void ServerReportsTheGameIsAboutToStart::SerializeWithCachedSizes(
       WriteUInt32NoTagToArray(this->posdoors_, target);
   }
 
+  // repeated string playersOrder = 6;
+  for (int i = 0, n = this->playersorder_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->playersorder(i).data(), static_cast<int>(this->playersorder(i).length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "serverMessageSystem.ServerReportsTheGameIsAboutToStart.playersOrder");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(6, this->playersorder(i), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -11666,6 +11725,14 @@ size_t ServerReportsTheGameIsAboutToStart::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated string playersOrder = 6;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->playersorder_size());
+  for (int i = 0, n = this->playersorder_size(); i < n; i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->playersorder(i));
+  }
+
   // .serverMessageSystem.CommonHeader header = 1;
   if (this->has_header()) {
     total_size += 1 +
@@ -11713,6 +11780,7 @@ void ServerReportsTheGameIsAboutToStart::MergeFrom(const ServerReportsTheGameIsA
 
   postreasures_.MergeFrom(from.postreasures_);
   posdoors_.MergeFrom(from.posdoors_);
+  playersorder_.MergeFrom(from.playersorder_);
   if (from.has_header()) {
     mutable_header()->::serverMessageSystem::CommonHeader::MergeFrom(from.header());
   }
@@ -11751,6 +11819,7 @@ void ServerReportsTheGameIsAboutToStart::InternalSwap(ServerReportsTheGameIsAbou
   _internal_metadata_.Swap(&other->_internal_metadata_);
   postreasures_.InternalSwap(&other->postreasures_);
   posdoors_.InternalSwap(&other->posdoors_);
+  playersorder_.InternalSwap(CastToBase(&other->playersorder_));
   swap(header_, other->header_);
   swap(connectioncmdid_, other->connectioncmdid_);
   swap(start_, other->start_);
