@@ -488,7 +488,7 @@ QByteArray Server::FormServerReportsTheGameIsAboutToStart(Room* room)
 
     for (uint32_t var = 0; var < room->players().size(); ++var)
     {
-        message.add_playersorder(room->players()[var]);
+        message.add_playersorder(room->players()[var].name().toUtf8().constData());
     }
 
     QByteArray block;
