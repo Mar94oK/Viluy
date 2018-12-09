@@ -615,8 +615,14 @@ bool Server::RemoveConnectionFromRoom(int socketDescriptor)
 
                 //    NAY-001: MARK_EXPECTED_ERROR
                 //Here should be sure that id is still valid.
-                 SendRoomDeletedMessageToQuery(room->id());
-                 uint32_t id = room->id();
+                SendRoomDeletedMessageToQuery(room->id());
+                uint32_t id = room->id();
+                if (room->GetIsPlaying())
+                {
+                    --_roomArePLaying;
+                    UpdateStatistics();
+                }
+
                 if (RoomDeleting(room->id()))
                 {
                     ++_closedRooms;
@@ -1594,6 +1600,8 @@ void Server::ProcessClientWantedToEnterTheRoom(const QByteArray &data, int socke
         //If it is, send start the Game Process (TheGameIsAboutToStartMessage);
         qDebug() << "NAY-001: The room is full! The Game is about ot start!";
         currentRoom->SetIsPlaying();
+        ++_gamesStartedDuringSession;
+        UpdateStatistics();
 
         try
         {
