@@ -48,6 +48,13 @@ enum ChartSubSysCommandsID
                              //For Future use only.
 }
 
+enum GameActionsSubSysCommandsID
+{
+    CLIENT_HAS_SOLD_CARDS = 0;
+}
+
+
+
 //Message to be included to each and every message for it to be detected trhu
 //all the others.
 //Contains SubSystem ID which is unique through all the SubSystems
@@ -270,4 +277,22 @@ message ServerReportsTheGameIsAboutToStart
     repeated uint32 posTreasures = 4;
     repeated uint32 posDoors = 5;
     repeated string playersOrder = 6;
+}
+
+message SimpleCard
+{
+    bool doorTreasure = 1;
+    uint32 cardID = 2;
+}
+
+
+message ClientHasSoldCards
+{
+    CommonHeader header = 1;
+    GameActionsSubSysCommandsID connectionCmdID = 2;
+    uint32 gamerID = 3;
+    repeated SimpleCard soldCards = 4;
+    uint32 levelDelta = 5;
+    bool isCardProcessing = 6;      //Now Looks as to be allways true...
+    uint32 roomID = 7;
 }

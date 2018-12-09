@@ -130,10 +130,18 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
            }
         }
            break;
-       case serverMessageSystem::SubSystemID::GAME_ACTIONS_SUBSYSTEM:
-           emit SignalServerLogReport("NAY-0001: Message SubSystem"
-                                      " GAME_ACTIONS_SUBSYSTEM "
-                                      " Not supported yet.");
+           case serverMessageSystem::SubSystemID::GAME_ACTIONS_SUBSYSTEM:
+           {
+               switch (defaultMessage.header().commandid())
+               {
+                   case serverMessageSystem::GameActionsSubSysCommandsID::CLIENT_HAS_SOLD_CARDS:
+                   {
+                       ProcessClientHasSoldCards(data, socketDescriptor);
+                   }
+                   break;
+               }
+               qDebug() << ("NAY-002: Unsupported Command in CHART_SUBSYSTEM with CmdID: ") << QString::number(defaultMessage.header().commandid());
+           }
            break;
 
        case serverMessageSystem::SubSystemID::GAME_NOTIFICATION_SUBSYSTEM:
@@ -463,6 +471,32 @@ QByteArray Server::FormServerReportsRoomHasChangedOwner(const QString &previousO
     qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner " << block.size();
     qDebug() << "NAY-001: FormServerReportsRoomHasChangedOwner is ready.";
     return block;
+}
+
+void Server::ProcessClientHasSoldCards(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ClientHasSoldCards message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-002: Error while ProcessClientHasSoldCards() ");
+        return;
+    }
+
+    uint32_t clientId = message.gamerid();
+    Room* room = DefineRoom(message.roomid());
+
+    for (uint32_t var = 0; var < room->players().size(); ++var)
+    {
+        if (room->connections()[var]->socket()->socketDescriptor() != socketDescriptor)
+        {
+            room->connections()[var]->setOutgoingDataBuffer(data);
+            emit SignalServerLogReport("NAY-002: Report ProcessClientHasSoldCards to Query. Socket:" + QString::number(room->connections()[var]->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(room->connections()[var]->socket()->socketDescriptor());
+        }
+
+    }
+
 }
 
 QByteArray Server::FormServerReportsTheGameIsAboutToStart(Room* room)
