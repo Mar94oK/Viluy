@@ -117,6 +117,7 @@ private:
 private:
 
     void ProcessClientHasSoldCards(const QByteArray &data, int socketDescriptor);
+    void ProcessClientHasImplementedCard(const QByteArray &data, int socketDescriptor);
 
 //THE_GAME===
 

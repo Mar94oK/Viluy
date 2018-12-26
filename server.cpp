@@ -139,6 +139,11 @@ void Server::MessagesParser(const QByteArray &data, int socketDescriptor)
                        ProcessClientHasSoldCards(data, socketDescriptor);
                    }
                    break;
+                   case serverMessageSystem::GameActionsSubSysCommandsID::CLIENT_HAS_IMPLEMENTED_CARD:
+                   {
+                       ProcessClientHasImplementedCard(data, socketDescriptor);
+                   }
+                   break;
                }
                qDebug() << ("NAY-002: Unsupported Command in CHART_SUBSYSTEM with CmdID: ") << QString::number(defaultMessage.header().commandid());
            }
@@ -495,8 +500,32 @@ void Server::ProcessClientHasSoldCards(const QByteArray &data, int socketDescrip
             emit SignalConnectionSendOutgoingData(room->connections()[var]->socket()->socketDescriptor());
         }
 
+    }  
+}
+
+void Server::ProcessClientHasImplementedCard(const QByteArray &data, int socketDescriptor)
+{
+    serverMessageSystem::ClientHasImplementedCard message;
+
+    if (!message.ParseFromArray(data.data(), data.size()))
+    {
+        emit SignalServerLogReport("NAY-002: Error while ProcessClientHasImplementedCard() ");
+        return;
     }
 
+    uint32_t clientId = message.gamerid();
+    Room* room = DefineRoom(message.roomid());
+
+    for (uint32_t var = 0; var < room->players().size(); ++var)
+    {
+        if (room->connections()[var]->socket()->socketDescriptor() != socketDescriptor)
+        {
+            room->connections()[var]->setOutgoingDataBuffer(data);
+            emit SignalServerLogReport("NAY-002: Report ProcessClientHasImplementedCard to Query. Socket:" + QString::number(room->connections()[var]->socket()->socketDescriptor()));
+            emit SignalConnectionSendOutgoingData(room->connections()[var]->socket()->socketDescriptor());
+        }
+
+    }
 }
 
 QByteArray Server::FormServerReportsTheGameIsAboutToStart(Room* room)

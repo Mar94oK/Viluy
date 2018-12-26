@@ -51,8 +51,16 @@ enum ChartSubSysCommandsID
 enum GameActionsSubSysCommandsID
 {
     CLIENT_HAS_SOLD_CARDS = 0;
+    CLIENT_HAS_IMPLEMENTED_CARD = 1;
 }
 
+
+enum CardPlayDirection
+{
+    HAND_TO_CARDS_IN_GAME = 0;
+    HAND_TO_BATTLE_FIELD = 1;
+    CARDS_IN_GAME_TO_BATTLE_FIELD = 2;
+}
 
 
 //Message to be included to each and every message for it to be detected trhu
@@ -295,4 +303,20 @@ message ClientHasSoldCards
     uint32 levelDelta = 5;
     bool isCardProcessing = 6;      //Now Looks as to be allways true...
     uint32 roomID = 7;
+}
+
+//Лучше я напишу несколько почти одинаковых сообщений,
+//Чем буду заставлять либо клиента, либо сервер, выяснять,
+//Где лежит так карта, которую применил тот или иной игрок
+//Пусть сообщение также передаёт статус начала боя.
+//Впрочем, если был передан монстр в определённой фазе, это и так понятно.
+message ClientHasImplementedCard
+{
+    CommonHeader header = 1;
+    GameActionsSubSysCommandsID connectionCmdID = 2;
+    uint32 gamerID = 3;
+    SimpleCard card = 4;
+    uint32 roomID = 5;
+    CardPlayDirection direction = 6;
+    bool battleStarts = 7;
 }
